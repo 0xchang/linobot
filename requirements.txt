@@ -1,0 +1,2 @@
+nb-cli
+bilibili-api-python
