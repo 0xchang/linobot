@@ -10,6 +10,7 @@ go-cqhttp默认安装即可
 git clone
 cd linobot
 pip install -r requirements.txt
+nb plugin install nonebot_plugin_apscheduler
 #修改.env.dev文件内容
 nb run
 #注意.env.dev中的端口需和go-cqhttp当中的端口一致
