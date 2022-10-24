@@ -49,6 +49,8 @@ async def while_dyn():
         now = time.time()
         #print('我访问了动态',uid)
         dynres=await updynamic.dyn(uid[0])
+
+
         if now-dynres[1]>15:
             continue
         elif dynres[0]==1:

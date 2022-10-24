@@ -7,3 +7,8 @@
 @file: __init__.py
 @Github: https://github.com/0xchang
 """
+import os
+if not os.path.exists('data'):
+    os.mkdir('data')
+if not os.path.exists('img'):
+    os.mkdir('img')

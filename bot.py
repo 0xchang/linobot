@@ -15,7 +15,6 @@ from nonebot.adapters.onebot.v11 import Adapter as ONEBOT_V11Adapter
 
 # You can pass some keyword args config to init function
 from bot2.plugins.sql.create_sql import create_table
-create_table()
 nonebot.init()
 app = nonebot.get_asgi()
 
@@ -42,3 +41,4 @@ nonebot.load_plugins('bot2/plugins/forup')
 if __name__ == "__main__":
     nonebot.logger.warning("Always use `nb run` to start the bot instead of manually running!")
     nonebot.run(app="__mp_main__:app")
+    create_table()

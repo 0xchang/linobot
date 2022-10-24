@@ -29,7 +29,7 @@ async def dyn(uid:int)->(int,int,str):
         mess+=res['cards'][0]['card']['item']['content']
     elif contype==8:
         mess+=res['cards'][0]['card']['title']
-        mess+='[CQ:image,file:%s]'%res['cards'][0]['card']['pic']
+        mess+='[CQ:image,file=%s]'%res['cards'][0]['card']['pic']
         mess+='这是一条视频哦!快去看喵!%s'%res['cards'][0]['card']['short_link']
         return (contype,res['cards'][0]['desc']['timestamp'],mess)
     mess+='\nhttps://t.bilibili.com/'+str(res['cards'][0]['desc']['dynamic_id'])
