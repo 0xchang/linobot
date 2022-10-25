@@ -39,6 +39,6 @@ nonebot.load_plugins('bot2/plugins/forup')
 
 
 if __name__ == "__main__":
+    create_table()
     nonebot.logger.warning("Always use `nb run` to start the bot instead of manually running!")
     nonebot.run(app="__mp_main__:app")
-    create_table()
