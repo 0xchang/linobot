@@ -24,4 +24,4 @@ async def uplive(roomid:int,name:str):
     status=1
     if stime==0:
         status=0
-    return (stime,res,(uid,name,status,pnum))
+    return (stime,res,(uid,name,status,pnum,stime))

@@ -46,14 +46,18 @@ async def while_live():
             )
 
 async def liveBye(bot,data:tuple,ginfos:tuple):
-    uid,name,liveStatus,pnum=data
+    uid,name,liveStatus,pnum,stime=data
     value=select_live(uid)[0]
     if value[1]==0:
         return
     if liveStatus!=0:
         return
     update_data(update_live(uid,0))
-    mess='【下拨提醒】\n'+name+'下播了喵,谢谢观看\n'+'本次直播人气峰值: %d\n'%pnum+'希望大家多来看我哦!'
+    spendtime=int(time.time()-stime)
+    second=spendtime%60
+    minute=int(spendtime/60)%60
+    hour=int(spendtime/3600)
+    mess='【下拨提醒】\n'+name+'下播了喵,谢谢观看\n'+'本次直播人气峰值: %d\n'%pnum+'本次直播时长为%s小时%s分钟%s秒\n'%(hour,minute,second)+'希望大家多来看我哦!'
     for ginfo in ginfos:
         await bot.send_msg(
             message_type=ginfo[2],
