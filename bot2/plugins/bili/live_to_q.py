@@ -28,10 +28,10 @@ async def while_live():
         mess=liveres[1]
         if liveres[0]==0:
             await liveBye(bot, liveres[2],ginfos)
-        if time.time()-liveres[0]>10:
-            continue
         #在播状态,更新live数据库
         update_data(update_live(uid[0], 1))
+        if time.time()-liveres[0]>10:
+            continue
         for ginfo in ginfos:
             if ginfo[4]!=1:
                 continue
