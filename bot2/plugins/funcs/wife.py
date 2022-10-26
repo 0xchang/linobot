@@ -19,6 +19,6 @@ async def wife_handle(bot:Bot,event:GroupMessageEvent):
     gid=event.group_id
     data=await bot.call_api('get_group_member_list',**{'group_id':gid})
     mywife=data[random.randint(0,len(data)-1)]
-    mess=f'[CQ:at,qq={qqid}],您亲爱的老婆是[CQ:image,file=http://q.qlogo.cn/headimg_dl?dst_uin={mywife["user_id"]}&spec=140&img_type=jpg]【{mywife["nickname"]}】 ({mywife["user_id"]})呐!'
+    mess=f'[CQ:at,qq={qqid}],您亲爱的老婆是[CQ:image,file=http://q.qlogo.cn/headimg_dl?dst_uin={mywife["user_id"]}&spec=5&img_type=jpg]【{mywife["nickname"]}】 ({mywife["user_id"]})呐!'
     await wife.finish(Message(mess))
 
