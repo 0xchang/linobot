@@ -8,6 +8,7 @@
 @Github: https://github.com/0xchang
 """
 from bilibili_api import live
+from bot2.plugins.sql.update_sql import update_data,update_live_sta
 
 async def uplive(roomid:int,name:str):
     r=live.LiveRoom(roomid)
@@ -24,4 +25,6 @@ async def uplive(roomid:int,name:str):
     status=1
     if stime==0:
         status=0
+    else:
+        update_data(update_live_sta(uid,status,stime))
     return (stime,res,(uid,name,status,pnum,stime))

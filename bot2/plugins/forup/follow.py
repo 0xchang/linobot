@@ -49,7 +49,7 @@ async def follow_handle(event:Event,comargs:Message=CommandArg()):
         if len(res_user)==0:
             insert_sql.insert_user(mid,name,roomid)
         if len(res_live) == 0:
-            insert_sql.insert_live(mid)
+            insert_sql.insert_live(mid,0)
         #group表中数据,没有则添加
         if len(res_group)!=0:
             await follow.finish(Message(f'[CQ:at,qq={event.get_user_id()}]您已经关注了%s哦'%res_user[0][1]))

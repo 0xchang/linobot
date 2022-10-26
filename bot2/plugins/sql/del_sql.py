@@ -32,3 +32,12 @@ def del_user(uid:int):
         con.commit()
     cur.close()
     con.close()
+
+def del_wife():
+    del_sql = 'delete from wifes'
+    con = sqlite3.connect('data/info.data')
+    cur = con.cursor()
+    cur.execute(del_sql)
+    con.commit()
+    cur.close()
+    con.close()

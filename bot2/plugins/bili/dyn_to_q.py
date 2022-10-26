@@ -8,7 +8,6 @@
 @Github: https://github.com/0xchang
 """
 import time
-
 from nonebot.adapters.onebot.v11.message import Message
 from nonebot import require
 require("nonebot_plugin_apscheduler")

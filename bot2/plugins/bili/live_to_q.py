@@ -14,7 +14,7 @@ from nonebot_plugin_apscheduler import scheduler
 from nonebot import get_bots
 from bot2.plugins.bili.uplive import uplive
 from bot2.plugins.sql.select_sql import select_uid_from_user,select_info_from_group,select_user,select_live
-from bot2.plugins.sql.update_sql import update_live,update_data
+from bot2.plugins.sql.update_sql import update_live_sta,update_data
 
 @scheduler.scheduled_job("cron", second='*/10')
 async def while_live():
@@ -28,8 +28,6 @@ async def while_live():
         mess=liveres[1]
         if liveres[0]==0:
             await liveBye(bot, liveres[2],ginfos)
-        #在播状态,更新live数据库
-        update_data(update_live(uid[0], 1))
         if time.time()-liveres[0]>10:
             continue
         for ginfo in ginfos:
@@ -52,8 +50,8 @@ async def liveBye(bot,data:tuple,ginfos:tuple):
         return
     if liveStatus!=0:
         return
-    update_data(update_live(uid,0))
-    spendtime=int(time.time()-stime)
+    update_data(update_live_sta(uid,0,0))
+    spendtime=int(time.time()-value[2])
     second=spendtime%60
     minute=int(spendtime/60)%60
     hour=int(spendtime/3600)

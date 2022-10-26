@@ -27,11 +27,21 @@ def insert_group(uid:int,roomid:int,gtype:str,qqid:int):
     cur.close()
     con.close()
 
-def insert_live(uid:int):
-    insert_sql='insert into live(uid,status) values(?,0)'
+def insert_live(uid:int,stime:int):
+    insert_sql='insert into live(uid,status,stime) values(?,0,?)'
     con = sqlite3.connect('data/info.data')
     cur = con.cursor()
-    cur.execute(insert_sql,(uid,))
+    cur.execute(insert_sql,(uid,stime))
+    con.commit()
+    cur.close()
+    con.close()
+
+
+def insert_wife(uid:int,gid:int,wid:int,name:str):
+    insert_sql='insert into wifes(uid,gid,wid,name) values(?,?,?,?)'
+    con = sqlite3.connect('data/info.data')
+    cur = con.cursor()
+    cur.execute(insert_sql,(uid,gid,wid,name))
     con.commit()
     cur.close()
     con.close()

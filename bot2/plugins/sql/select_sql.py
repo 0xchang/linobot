@@ -136,3 +136,14 @@ def select_live(uid:int):
     cur.close()
     con.close()
     return value
+
+def select_wife(uid:int,gid:int):
+    select_sql='select * from wifes where uid=? and gid=?'
+    con=sqlite3.connect('data/info.data')
+    cur=con.cursor()
+    cur.execute(select_sql,(uid,gid))
+    con.commit()
+    value=cur.fetchall()
+    cur.close()
+    con.close()
+    return value
