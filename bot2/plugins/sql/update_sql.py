@@ -41,6 +41,10 @@ def update_wife(uid:int,gid:int,wid:int,name:str):
     update_sql = 'update wifes set wid=?,name=? where uid=? and gid=?'
     return (update_sql,(wid,name,uid,gid))
 
+def update_wifesta(gid:int,status:int):
+    update_sql = 'update wifesta set status=? where gid=?'
+    return (update_sql,(status,gid))
+
 def update_data(data):
     con=sqlite3.connect('data/info.data')
     cur=con.cursor()

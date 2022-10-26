@@ -45,3 +45,12 @@ def insert_wife(uid:int,gid:int,wid:int,name:str):
     con.commit()
     cur.close()
     con.close()
+
+def insert_wifesta(gid:int,status:int):
+    insert_sql='insert into wifesta(gid,status) values(?,?)'
+    con = sqlite3.connect('data/info.data')
+    cur = con.cursor()
+    cur.execute(insert_sql,(gid,status))
+    con.commit()
+    cur.close()
+    con.close()

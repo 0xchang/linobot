@@ -147,3 +147,14 @@ def select_wife(uid:int,gid:int):
     cur.close()
     con.close()
     return value
+
+def select_wifesta(gid:int):
+    select_sql = 'select * from wifesta where gid=?'
+    con = sqlite3.connect('data/info.data')
+    cur = con.cursor()
+    cur.execute(select_sql, (gid,))
+    con.commit()
+    value = cur.fetchall()
+    cur.close()
+    con.close()
+    return value

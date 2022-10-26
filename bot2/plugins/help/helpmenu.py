@@ -39,6 +39,10 @@ async def helpmenu_handle(event:Event):
 /随机语录    获取一跳随机语录(3秒)
 /随机数 x    获取x个随机数(3秒)
 /随机表情    获取一个随机表情
+/老婆状态   查看老婆功能是否开启
+/禁老婆     禁止抽老婆功能
+/解老婆     解放抽老婆功能
 /抽老婆      抽一个老婆送给你
+/换老婆      换一个老婆给你
 /抽歌手      抽一个歌手'''
     await helpmenu.finish(Message(f'[CQ:at,qq={event.get_user_id()}]%s'%help_detail))

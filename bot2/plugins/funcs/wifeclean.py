@@ -12,6 +12,6 @@ require("nonebot_plugin_apscheduler")
 from nonebot_plugin_apscheduler import scheduler
 from bot2.plugins.sql.del_sql import del_wife
 
-@scheduler.scheduled_job("cron", hour=1,minute=0)
+@scheduler.scheduled_job("cron", hour=3,minute=0)
 async def clean_wife():
     del_wife()
