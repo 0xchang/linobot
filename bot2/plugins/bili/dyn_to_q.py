@@ -47,16 +47,16 @@ async def while_dyn():
         values=select_info_from_group(uid[0])
         now = time.time()
         #print('我访问了动态',uid)
-        dynres=await updynamic.dyn(uid[0])
-
+        dynres=await updynamic.dyn(uid[0],False)
 
         if now-dynres[1]>15:
             continue
         elif dynres[0]==1:
-            continue
+            for value in values:
+                await senddyn(bot,(value[5], value[8], value[2], value[3]),dynres)
         elif dynres[0]==8:
             for value in values:
                 await senddyn(bot,(value[6],value[9],value[2],value[3]),dynres)
         else:
             for value in values:
-                await senddyn(bot, (value[5], value[8], value[2], value[3]), dynres)
+                await senddyn(bot,(value[5], value[8], value[2], value[3]), dynres)

@@ -44,5 +44,6 @@ async def helpmenu_handle(event:Event):
 /解老婆     解放抽老婆功能
 /抽老婆      抽一个老婆送给你
 /换老婆      换一个老婆给你
+/置顶     查看up动态置顶信息
 /抽歌手      抽一个歌手'''
     await helpmenu.finish(Message(f'[CQ:at,qq={event.get_user_id()}]%s'%help_detail))

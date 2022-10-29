@@ -11,14 +11,15 @@
 from bilibili_api import user
 import bot2.plugins.sql as sql
 
-async def dyn(uid:int)->(int,int,str):
+async def dyn(uid:int,top:bool)->(int,int,str):
     name=sql.select_sql.select_user(uid)[0][1]
     u=user.User(uid)
-    res=await u.get_dynamics()
+    res=await u.get_dynamics(0,top)
     contype=res['cards'][0]['desc']['type']
     mess = '%s发布了新动态,大家快去瞅瞅\n'%name
     if contype==1:
-        return (contype,0,mess)
+        mess=mess+'如果我没猜错的话，这好像是一个投票捏，快去看看喵\n'+'https://t.bilibili.com/'+str(res['cards'][0]['desc']['dynamic_id'])
+        return (contype,res['cards'][0]['desc']['timestamp'],mess)
     elif contype==2:
         desccripton=res['cards'][0]['card']['item']['description']
         mess+=desccripton+'\n'

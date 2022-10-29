@@ -158,3 +158,14 @@ def select_wifesta(gid:int):
     cur.close()
     con.close()
     return value
+
+def select_uid_from_qid(qid:int):
+    select_sql = 'select uid from fgroup where qqid=? and gtype="group"'
+    con = sqlite3.connect('data/info.data')
+    cur = con.cursor()
+    cur.execute(select_sql, (qid,))
+    con.commit()
+    value = cur.fetchall()
+    cur.close()
+    con.close()
+    return value
