@@ -124,4 +124,4 @@ async def stealwife_handle(event:GroupMessageEvent,argcom:Message=CommandArg()):
         else:
             # 更新
             update_data(update_wife(event.get_user_id(), value0[1], value0[2], value0[3]))
-        await stealwife.finish(Message(f'恭喜你偷到了老婆，快快快你老婆吧！'))
+        await stealwife.finish(Message(f'恭喜你偷到了老婆，快看看你老婆吧！'))
