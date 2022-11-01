@@ -17,7 +17,7 @@ infoxian = on_command('查询', priority=231)
 @infoxian.handle()
 async def infoxian_handle(event: GroupMessageEvent,argcom:Message=CommandArg()):
     flag=True
-    if argcom.extract_plain_text()!='':
+    if argcom.extract_plain_text().replace(' ','')!='':
         return
     try:
         uid = argcom[0].get('data').get('qq')

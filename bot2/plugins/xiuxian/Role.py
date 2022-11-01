@@ -29,6 +29,19 @@ class XianRole:
         self.signStatus=0
         self.getSql()
 
+    def clear(self):
+        self.gold=0
+        self.attack=20
+        self.defense=10
+        self.speed=6
+        self.HP=100
+        self.MP=50
+        self.level=1
+        self.experience=0
+        self.stime=int(time.time())
+        self.signStatus=0
+        self.upSql()
+
     def setSex(self,sex:str):
         self.sex=sex
 
