@@ -12,6 +12,7 @@ from nonebot import on_command
 from nonebot.adapters.onebot.v11 import GroupMessageEvent
 from nonebot.adapters.onebot.v11.message import Message
 
+
 helpxian = on_command('修仙帮助', priority=239)
 @helpxian.handle()
 async def infoxian_handle(event: GroupMessageEvent):
