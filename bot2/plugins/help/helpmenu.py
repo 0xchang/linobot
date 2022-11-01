@@ -10,13 +10,9 @@
 import os
 
 from nonebot.adapters.onebot.v11.message import Message
-from nonebot.adapters.onebot.v11 import Event
 from nonebot import on_command
 
-helpmenu=on_command('帮助',priority=150)
-@helpmenu.handle()
-async def helpmenu_handle(event:Event):
-    help_detail='''
+help_detail='''
 /帮助                   获取帮助信息
 /关注uid              关注主播
 /取关uid              取关主播
@@ -49,6 +45,10 @@ async def helpmenu_handle(event:Event):
 /换老婆             换一个老婆给你
 /偷老婆atxx         你可以偷xx的老婆
 /置顶                查看up动态置顶信息
-/抽歌手             抽一个歌手'''
+/抽歌手             抽一个歌手
+'''
+helpmenu=on_command('帮助',priority=150)
+@helpmenu.handle()
+async def helpmenu_handle():
     pwd=os.getcwd()
     await helpmenu.finish(Message(f'[CQ:image,file=file:///{pwd}/img/helpbot.png]'))

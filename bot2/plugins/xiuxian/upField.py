@@ -23,3 +23,14 @@ async def infoxian_handle(event: GroupMessageEvent):
         mess='您的金币不足'
     del u
     await upxian.finish(Message(mess))
+
+jiujiupxian = on_command('究极进化', priority=239)
+@jiujiupxian.handle()
+async def jiujiupxian_handle(event: GroupMessageEvent):
+    uid = event.get_user_id()
+    u = XianRole(uid, event.sender.nickname)
+    count=0
+    while u.goldToField():
+        count+=1
+    mess=f'恭喜你消耗大量金币进化{count}次，各项属性大量增加！'
+    await jiujiupxian.finish(Message(mess))

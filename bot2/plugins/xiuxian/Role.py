@@ -10,6 +10,7 @@
 import random
 import sqlite3
 import time
+from nonebot.adapters.onebot.v11.message import Message
 
 class XianRole:
     def __init__(self,uid:int,name:str='无名氏',sex:str='男'):
@@ -57,11 +58,13 @@ class XianRole:
             return '你的蓝量不足，不能攻击'
         if self.HP<=0:
             self.gold-=15
-            return f'你的血量为0,你掉了一些15金子'
+            return f'你的血量为0,你掉了一些15灵石'
+        self.MP-=2
+        u1.MP-=2
         if u1.HP<=0:
             u1.gold-=25
             self.gold+=25
-            return '你要攻击的人的血量为0,你捡起来了他的25金子'
+            return '你要攻击的人的血量为0,你捡起来了他的25灵石'
         if self.speed>=u1.speed:
             #先攻击
             at1=self.attack-u1.defense
@@ -75,10 +78,10 @@ class XianRole:
                     return f'回合结束！你掉了{at2}血，他掉了{at1}血'
                 self.gold-=25
                 u1.gold+=25
-                return '你死了，他捡起了你的25金'
+                return '你死了，他捡起了你的25灵石'
             u1.gold-=25
             self.gold+=25
-            return '他死了，你捡起了他的25金'
+            return '他死了，你捡起了他的25灵石'
         else:
             #后攻击
             at1=u1.attack-self.defense
@@ -92,15 +95,45 @@ class XianRole:
                     return f'回合结束！你掉了{at1}血，他掉了{at2}血'
                 self.gold+=25
                 u1.gold-=25
-                return '他死了，你捡起了他的25金'
+                return '他死了，你捡起了他的25灵石'
             u1.gold+=25
             self.gold-=25
-            return '你死了，他捡起了你的25金'
+            return '你死了，他捡起了你的25灵石'
 
+    def honor(self)->str:
+        level=self.level
+        n0=level//10
+        n1=level%10
+        honor=''
+        if n0<1:
+            honor+='练气期'
+        elif n0<2:
+            honor+='筑基期'
+        elif n0<3:
+            honor+='结丹期'
+        elif n0<4:
+            honor+='金丹期'
+        elif n0<5:
+            honor+='元婴期'
+        elif n0<6:
+            honor += '出窍期'
+        elif n0<7:
+            honor+='化神期'
+        elif n0<8:
+            honor+='渡劫期'
+        elif n0<9:
+            honor+='真仙'
+        honor+=f'{num_to_char(n1)}阶'
+        return honor
 
     def getInfo(self):
         self.upSql()
-        return f'姓名:{self.name}\n性别:{self.sex}\n血量:{self.HP}\n蓝量:{self.MP}\n攻击:{self.attack}\n防御:{self.defense}\n速度:{self.speed}\n等级:{self.level}\n经验:{self.experience}\n金币:{self.gold}\n修仙年份:{int((time.time()-self.stime)/86400)}天'
+        return f'姓名:{self.name}\n境界:{self.honor()}\n性别:{self.sex}\n血量:{self.HP}\n蓝量:{self.MP}\n攻击:{self.attack}\n防御:{self.defense}\n速度:{self.speed}\n灵气:{self.experience}/{self.level*100}\n灵石:{self.gold}\n修仙年份:{int((time.time()-self.stime)/86400)}天'
+
+    def dazuo(self)->int:
+        exp=random.randint(-20,40)
+        self.experience+=exp
+        return exp
 
     def incSign(self)->bool:
         if self.signStatus==0:
@@ -117,8 +150,11 @@ class XianRole:
         return g
 
     def fishing(self)->(int,int):
-        g=random.randint(5,20)
-        e=random.randint(5,10)
+        if self.gold<2:
+            return (0,0)
+        self.gold-=2
+        g=random.randint(1,20)
+        e=random.randint(1,10)
         self.gold+=g
         self.experience+=e
         self.upLevel()
@@ -178,3 +214,8 @@ class XianRole:
         self.upLevel()
         #更新数据
         self.upSql()
+
+def num_to_char(num:int):
+    num_dict = {"0": u"零", "1": u"一", "2": u"二", "3": u"三", "4": u"四", "5": u"五", "6": u"六", "7": u"七", "8": u"八",
+                "9": u"九"}
+    return num_dict[str(num)]
