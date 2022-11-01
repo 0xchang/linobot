@@ -1,0 +1,25 @@
+#!/bin/env python
+# -*- coding: utf-8 -*-
+"""
+@time: 2022/11/1 13:50
+@author: 0xchang
+@E-mail: oxchang@163.com
+@file: upField.py
+@Github: https://github.com/0xchang
+"""
+from nonebot import on_command
+from nonebot.adapters.onebot.v11 import GroupMessageEvent
+from bot2.plugins.xiuxian.Role import XianRole
+from nonebot.adapters.onebot.v11.message import Message
+
+upxian = on_command('进化', priority=239)
+@upxian.handle()
+async def infoxian_handle(event: GroupMessageEvent):
+    uid = event.get_user_id()
+    u = XianRole(uid, event.sender.nickname)
+    if u.goldToField():
+        mess='恭喜你消耗部分金币进化成功，各项属性有所增加！'
+    else:
+        mess='您的金币不足'
+    del u
+    await upxian.finish(Message(mess))

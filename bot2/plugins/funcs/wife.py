@@ -10,8 +10,9 @@
 from nonebot.adapters.onebot.v11.message import Message
 from nonebot.adapters.onebot.v11 import GroupMessageEvent,Bot
 from nonebot import on_command
+from nonebot.params import CommandArg
 import random
-from bot2.plugins.sql.select_sql import select_wife,select_wifesta
+from bot2.plugins.sql.select_sql import select_wife,select_wifesta,select_uid_from_qid
 from bot2.plugins.sql.insert_sql import insert_wife,insert_wifesta
 from bot2.plugins.sql.update_sql import update_wife,update_data,update_wifesta
 
@@ -56,7 +57,6 @@ async def changewife(bot:Bot,event:GroupMessageEvent):
     mywife=data[random.randint(0,len(data)-1)]
     mess=f'[CQ:at,qq={qqid}],您亲爱的老婆是[CQ:image,file=http://q.qlogo.cn/headimg_dl?dst_uin={mywife["user_id"]}&spec=5&img_type=jpg]【{mywife["nickname"]}】 ({mywife["user_id"]})呐!'
     value=select_wife(qqid,gid)
-    print(value)
     if len(value)==0:
         #插入
         insert_wife(qqid,gid,mywife['user_id'],mywife['nickname'])
@@ -104,3 +104,24 @@ async def wifesta_handle(event:GroupMessageEvent):
     if res[1]==0:
         await wifesta.finish(Message(f'老婆状态关闭'))
     await wifesta.finish(Message(f'老婆状态开启'))
+
+stealwife=on_command('偷老婆',priority=223)
+@stealwife.handle()
+async def stealwife_handle(event:GroupMessageEvent,argcom:Message=CommandArg()):
+    uid=argcom[0].get('data').get('qq')
+    value0=select_wife(uid,event.group_id)
+    if len(value0)==0:
+        await stealwife.finish(Message(f'他连老婆都没有呢，你看他这么可怜别偷了！'))
+    else:
+        value0=value0[0]
+        print(value0)
+        if random.choice((True,False)):
+            await stealwife.finish(Message(f'偷老婆失败了喵'))
+        value = select_wife(event.get_user_id(), event.group_id)
+        if len(value) == 0:
+            # 插入
+            insert_wife(event.get_user_id(), value0[1], value0[2], value0[3])
+        else:
+            # 更新
+            update_data(update_wife(event.get_user_id(), value0[1], value0[2], value0[3]))
+        await stealwife.finish(Message(f'恭喜你偷到了老婆，快快快你老婆吧！'))

@@ -16,7 +16,7 @@ from nonebot import on_command
 from nonebot.params import CommandArg
 from nonebot.permission import SUPERUSER
 from bilibili_api import user
-from bot2.plugins.sql import insert_sql,create_sql,select_sql,del_sql
+from bot2.plugins.sql import insert_sql,select_sql,del_sql
 from nonebot.adapters.onebot.v11 import GROUP_ADMIN, GROUP_OWNER
 
 follow=on_command('关注',priority=4,permission=SUPERUSER|GROUP_OWNER|GROUP_ADMIN)
@@ -40,7 +40,6 @@ async def follow_handle(event:Event,comargs:Message=CommandArg()):
         if alltype=='group':
             qid=event.group_id
         #创建user/fgroup表,同步
-        create_sql.create_table()
         #查询表中数据,uid是否存在,存在则返回已关注,同步
         res_user=select_sql.select_user(mid)
         res_group=select_sql.select_group(mid,alltype,qid)

@@ -14,7 +14,6 @@ from nonebot.adapters.onebot.v11 import Adapter as ONEBOT_V11Adapter
 #            format=default_format)
 
 # You can pass some keyword args config to init function
-from bot2.plugins.sql.create_sql import create_table
 nonebot.init()
 app = nonebot.get_asgi()
 
@@ -22,12 +21,14 @@ driver = nonebot.get_driver()
 driver.register_adapter(ONEBOT_V11Adapter)
 
 nonebot.load_builtin_plugins("echo")
+nonebot.load_plugins("bot2/plugins/dirinit")
 nonebot.load_plugins("bot2/plugins/test")
 nonebot.load_plugins("bot2/plugins/yanxi")
 nonebot.load_plugins('bot2/plugins/funcs')
 nonebot.load_plugins('bot2/plugins/help')
 nonebot.load_plugins('bot2/plugins/bili')
 nonebot.load_plugins('bot2/plugins/forup')
+nonebot.load_plugins('bot2/plugins/xiuxian')
 # Please DO NOT modify this file unless you know what you are doing!
 # As an alternative, you should use command `nb` or modify `pyproject.toml` to load plugins
 
@@ -39,6 +40,5 @@ nonebot.load_plugins('bot2/plugins/forup')
 
 
 if __name__ == "__main__":
-    create_table()
     nonebot.logger.warning("Always use `nb run` to start the bot instead of manually running!")
     nonebot.run(app="__mp_main__:app")
