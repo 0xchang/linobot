@@ -31,7 +31,7 @@ async def signxian_handle(event:GroupMessageEvent):
     uid=event.get_user_id()
     u=XianRole(uid,event.sender.nickname)
     if u.incSign():
-        mess=f'恭喜你签到成功!\n经验+{u.level*5}  金币+50'
+        mess=f'恭喜你签到成功!\n灵气+{u.level*5}  灵石+50'
     else:
         mess='你已经签到过了!'
     del u

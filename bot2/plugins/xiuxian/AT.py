@@ -9,7 +9,7 @@
 """
 from nonebot import on_command
 from nonebot.adapters.onebot.v11 import GroupMessageEvent
-from bot2.plugins.xiuxian import Role
+from bot2.plugins.xiuxian.Role import XianRole
 from nonebot.adapters.onebot.v11.message import Message
 from nonebot.params import CommandArg
 

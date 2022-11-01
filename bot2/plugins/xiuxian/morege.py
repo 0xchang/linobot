@@ -41,7 +41,7 @@ async def infoxian_handle(event: GroupMessageEvent):
     gold,exp=u.fishing()
     del u
     if gold+exp==0:
-        mess='你没钱买鱼饵了,快去打工吧！'
+        mess='你没灵石买鱼饵了,快去打工吧！'
     elif gold+exp>10:
         mess=f'你钓鱼得到了{random.choice(goods)},灵石+{gold}，灵气+{exp}'
     else:

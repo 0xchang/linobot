@@ -18,8 +18,8 @@ async def infoxian_handle(event: GroupMessageEvent):
     uid = event.get_user_id()
     u = XianRole(uid)
     if u.upHPMP():
-        mess='恭喜你消耗20金币增加了50HP,30MP'
+        mess='恭喜你消耗20灵石增加了50HP,30MP'
     else:
-        mess='您的金币不足'
+        mess='您的灵石不足'
     del u
     await uphmxian.finish(Message(mess))

@@ -19,8 +19,8 @@ async def infoxian_handle(event: GroupMessageEvent):
     u = XianRole(uid)
     exp=u.dazuo()
     if exp<0:
-        mess=f'你在练功的时候走火入魔了，经验{exp}'
+        mess=f'你在练功的时候走火入魔了，灵气{exp}'
     else:
-        mess=f'你练功状态还行，经验+{exp}'
+        mess=f'你练功状态还行，灵气+{exp}'
     del u
     await upexpxian.finish(Message(mess))

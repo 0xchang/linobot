@@ -69,8 +69,8 @@ class XianRole:
             #先攻击
             at1=self.attack-u1.defense
             at2=u1.attack-self.defense
-            at1 = 0 if at1 <= 0 else at1
-            at2 = 0 if at2 <= 0 else at2
+            at1 = 0 if at1 <= 0 else at1*5
+            at2 = 0 if at2 <= 0 else at2*5
             u1.HP-=at1
             if u1.HP>0:
                 self.HP-=at2
@@ -85,9 +85,9 @@ class XianRole:
         else:
             #后攻击
             at1=u1.attack-self.defense
-            at1=0 if at1<=0 else at1
+            at1=0 if at1<=0 else at1*5
             at2=self.attack-u1.defense
-            at2 = 0 if at2 <= 0 else at2
+            at2 = 0 if at2 <= 0 else at2*5
             self.HP-=at1
             if self.HP>0:
                 u1.HP-=at2
@@ -100,7 +100,9 @@ class XianRole:
             self.gold-=25
             return '你死了，他捡起了你的25灵石'
 
-    def honor(self)->str:
+
+
+    def xianlevel(self)->str:
         level=self.level
         n0=level//10
         n1=level%10
@@ -126,9 +128,24 @@ class XianRole:
         honor+=f'{num_to_char(n1)}阶'
         return honor
 
+    def honor(self):
+        level=self.level
+        honor=''
+        if level<20:
+            honor='无名小卒'
+        elif level<40:
+            honor='有所小成'
+        elif level<60:
+            honor='有所大成'
+        elif level<80:
+            honor='扬名立万'
+        elif level<100:
+            honor='名动天下'
+        return honor
+
     def getInfo(self):
         self.upSql()
-        return f'姓名:{self.name}\n境界:{self.honor()}\n性别:{self.sex}\n血量:{self.HP}\n蓝量:{self.MP}\n攻击:{self.attack}\n防御:{self.defense}\n速度:{self.speed}\n灵气:{self.experience}/{self.level*100}\n灵石:{self.gold}\n修仙年份:{int((time.time()-self.stime)/86400)}天'
+        return f'姓名:{self.name}\n境界:{self.xianlevel()}\n称号:{self.honor()}\n性别:{self.sex}\n血量:{self.HP}\n蓝量:{self.MP}\n攻击:{self.attack}\n防御:{self.defense}\n速度:{self.speed}\n灵气:{self.experience}/{self.level*100}\n灵石:{self.gold}\n修仙年份:{int((time.time()-self.stime)/86400)}天'
 
     def dazuo(self)->int:
         exp=random.randint(-20,40)
@@ -176,8 +193,6 @@ class XianRole:
             self.attack+=random.randint(0,3)
             self.defense+=random.randint(0,3)
             self.speed+=random.randint(0,3)
-            self.HP+=random.randint(0,3)
-            self.MP+=random.randint(0,3)
             self.upSql()
             return True
         return False

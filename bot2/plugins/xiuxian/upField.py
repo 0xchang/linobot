@@ -18,9 +18,9 @@ async def infoxian_handle(event: GroupMessageEvent):
     uid = event.get_user_id()
     u = XianRole(uid, event.sender.nickname)
     if u.goldToField():
-        mess='恭喜你消耗部分金币进化成功，各项属性有所增加！'
+        mess='恭喜你消耗部分灵石进化成功，各项属性有所增加！'
     else:
-        mess='您的金币不足'
+        mess='您的灵石不足'
     del u
     await upxian.finish(Message(mess))
 
@@ -32,5 +32,5 @@ async def jiujiupxian_handle(event: GroupMessageEvent):
     count=0
     while u.goldToField():
         count+=1
-    mess=f'恭喜你消耗大量金币进化{count}次，各项属性大量增加！'
+    mess=f'恭喜你消耗大量灵石进化{count}次，各项属性大量增加！'
     await jiujiupxian.finish(Message(mess))
