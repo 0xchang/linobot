@@ -17,8 +17,6 @@ uphmxian = on_command('回复', priority=240)
 async def infoxian_handle(event: Event):
     uid = event.get_user_id()
     u = XianRole(uid)
-    if u.isBiguan():
-        await uphmxian.finish(Message(f'你正在闭关'))
     if u.upHPMP():
         mess='恭喜你消耗20灵石增加了50HP,30MP'
     else:
