@@ -46,6 +46,7 @@ help_detail='''
 /偷老婆atxx         你可以偷xx的老婆
 /置顶                查看up动态置顶信息
 /抽歌手             抽一个歌手
+/看番               搜索番剧并返回网址
 '''
 helpmenu=on_command('帮助',priority=150)
 @helpmenu.handle()

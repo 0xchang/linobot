@@ -13,8 +13,10 @@ def create_xian():
     cur=con.cursor()
     create_xian_sql='create table if not exists Role(uid int,name text,gold int,attack int,defense int,speed int,HP int,MP int,level int,experience int,stime int,sex text,sign int)'
     create_xiulian_sql='create table if not exists biguan(uid int,xtime int)'
+    create_chenghao_sql='create table if not exists chenghao(uid int,kill int,fish int,dazuo int,work int)'
     cur.execute(create_xian_sql)
     cur.execute(create_xiulian_sql)
+    cur.execute(create_chenghao_sql)
     con.commit()
     cur.close()
     con.close()

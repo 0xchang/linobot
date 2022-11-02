@@ -26,6 +26,10 @@ class XianRole:
         self.stime=int(time.time())
         self.sex=sex
         self.signStatus=0
+        self.killnum=0
+        self.fishnum=0
+        self.dazuonum=0
+        self.worknum=0
         self.getSql()
 
     def clear(self):
@@ -39,6 +43,10 @@ class XianRole:
         self.experience=0
         self.stime=int(time.time())
         self.signStatus=0
+        self.killnum=0
+        self.fishnum=0
+        self.dazuonum=0
+        self.worknum=0
         self.upSql()
 
     def biguan(self):
@@ -114,6 +122,7 @@ class XianRole:
             return f'你的血量为0,你掉了一些15灵石'
         self.MP-=2
         u1.MP-=2
+        self.killnum+=1
         if u1.HP<=0:
             u1.gold-=25
             self.gold+=25
@@ -182,18 +191,65 @@ class XianRole:
         return honor
 
     def honor(self):
-        level=self.level
-        honor=''
-        if level<20:
-            honor='无名小卒'
-        elif level<40:
-            honor='有所小成'
-        elif level<60:
-            honor='有所大成'
-        elif level<80:
-            honor='扬名立万'
-        elif level<100:
-            honor='名动天下'
+        honor=self.killhonor()+','+self.dazuohonor()+','+self.workhonor()+','+self.fishhonor()
+        return honor
+
+    def workhonor(self)->str:
+        work=self.worknum
+        if work<100:
+            honor='打工新人'
+        elif work<500:
+            honor='打工油条'
+        elif work<1000:
+            honor='打工狂魔'
+        else:
+            honor='打工肝帝'
+        return honor
+
+    def fishhonor(self)->str:
+        fish=self.fishnum
+        if fish<100:
+            hornor='钓鱼新手'
+        elif fish<500:
+            hornor='钓鱼油条'
+        elif fish<1000:
+            hornor='钓鱼狂魔'
+        else:
+            hornor='钓鱼肝帝'
+        return hornor
+
+    def dazuohonor(self)->str:
+        dazuo=self.dazuonum
+        if dazuo<100:
+            honor='练功新人'
+        elif dazuo<500:
+            honor='练功油条'
+        elif dazuo<1000:
+            honor='练功入神'
+        elif dazuo<1500:
+            honor='练功狂魔'
+        else:
+            honor='练功肝帝'
+        return honor
+
+    def killhonor(self)->str:
+        kill=self.killnum
+        if kill<100:
+            honor='小杀一下'
+        elif kill<500:
+            honor='百人刀魂'
+        elif kill<1000:
+            honor='刀不过千'
+        elif kill<2000:
+            honor='千军亦死'
+        elif kill<3000:
+            honor='杀人狂魔'
+        elif kill<5000:
+            honor='令人发指'
+        elif kill<10000:
+            honor='亡魂魔神'
+        else:
+            honor='一将功成万骨枯'
         return honor
 
     def getInfo(self):
@@ -206,6 +262,7 @@ class XianRole:
 
     def dazuo(self)->int:
         exp=random.randint(-20,40)
+        self.dazuonum+=1
         self.experience+=exp
         return exp
 
@@ -220,6 +277,7 @@ class XianRole:
 
     def work(self)->int:
         g=random.randint(10,50)
+        self.worknum+=1
         self.gold+=g
         return g
 
@@ -227,6 +285,7 @@ class XianRole:
         if self.gold<5:
             return (0,0,False)
         self.gold-=5
+        self.fishnum+=1
         g=random.randint(1,20)
         e=random.randint(1,10)
         if g+e<15:
@@ -270,6 +329,7 @@ class XianRole:
         cur=con.cursor()
         cur.execute('update Role set name=?,gold=?,attack=?,defense=?,speed=?,HP=?,MP=?,level=?,experience=?,sex=?,sign=? where uid=?',
                     (self.name,self.gold,self.attack,self.defense,self.speed,self.HP,self.MP,self.level,self.experience,self.sex,self.signStatus,self.uid))
+        cur.execute('update chenghao set kill=?,fish=?,dazuo=?,work=? where uid=?',(self.killnum,self.fishnum,self.dazuonum,self.worknum,self.uid))
         con.commit()
         cur.close()
         con.close()
@@ -286,6 +346,16 @@ class XianRole:
         else:
             cur.execute('insert into Role(uid,name,gold,attack,defense,speed,HP,MP,level,experience,stime,sex,sign) values(?,?,?,?,?,?,?,?,?,?,?,?,?)',
                         (self.uid,self.name,self.gold,self.attack,self.defense,self.speed,self.HP,self.MP,self.level,self.experience,self.stime,self.sex,self.signStatus))
+            con.commit()
+        cur.execute('select * from chenghao where uid =?',(self.uid,))
+        con.commit()
+        value=cur.fetchall()
+        if len(value)!=0:
+            value=value[0]
+            _,self.killnum,self.fishnum,self.dazuonum,self.worknum=value
+        else:
+            cur.execute('insert into chenghao(uid,kill,fish,dazuo,work) values(?,?,?,?,?)',
+                        (self.uid,self.killnum,self.fishnum,self.dazuonum,self.worknum))
             con.commit()
         cur.close()
         con.close()
