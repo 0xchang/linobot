@@ -10,7 +10,6 @@
 import random
 import sqlite3
 import time
-from nonebot.adapters.onebot.v11.message import Message
 
 class XianRole:
     def __init__(self,uid:int,name:str='无名氏',sex:str='男'):
@@ -41,6 +40,47 @@ class XianRole:
         self.stime=int(time.time())
         self.signStatus=0
         self.upSql()
+
+    def biguan(self):
+        con=sqlite3.connect('data/xiuxian.data')
+        cur=con.cursor()
+        cur.execute('select * from biguan where uid=?',(self.uid,))
+        con.commit()
+        va=cur.fetchall()
+        if len(va)==0:
+            cur.execute('insert into biguan(uid,xtime) values(?,?)',(self.uid,int(time.time())))
+            con.commit()
+            self.experience+=500
+            now=int(time.time())
+        else:
+            va=va[0][1]
+            if int(time.time())-va>30*60:
+                cur.execute('update biguan set xtime=? where uid=?',(int(time.time()),self.uid))
+                con.commit()
+                self.experience+=500
+                now=int(time.time())
+            else:
+                now=int(time.time())-va
+        cur.close()
+        con.close()
+        return now
+
+    def isBiguan(self):
+        con=sqlite3.connect('data/xiuxian.data')
+        cur=con.cursor()
+        cur.execute('select * from biguan where uid=?',(self.uid,))
+        con.commit()
+        va = cur.fetchall()
+        cur.close()
+        con.close()
+        if len(va)==0:
+            return False
+        else:
+            va=va[0][1]
+            if int(time.time())-va>30*60:
+                return False
+            else:
+                return True
 
     def setSex(self,sex:str):
         self.sex=sex
@@ -158,7 +198,11 @@ class XianRole:
 
     def getInfo(self):
         self.upSql()
-        return f'姓名:{self.name}\n境界:{self.xianlevel()}\n称号:{self.honor()}\n性别:{self.sex}\n血量:{self.HP}\n蓝量:{self.MP}\n攻击:{self.attack}\n防御:{self.defense}\n速度:{self.speed}\n灵气:{self.experience}/{self.level*100}\n灵石:{self.gold}\n修仙年份:{int((time.time()-self.stime)/86400)}天'
+        if self.isBiguan():
+            bg='闭关中'
+        else:
+            bg='出战中'
+        return f'姓名:{self.name}\n境界:{self.xianlevel()}\n称号:{self.honor()}\n性别:{self.sex}\n血量:{self.HP}\n蓝量:{self.MP}\n攻击:{self.attack}\n防御:{self.defense}\n速度:{self.speed}\n灵气:{self.experience}/{self.level*100}\n灵石:{self.gold}\n闭关:{bg}\n修仙年份:{int((time.time()-self.stime)/86400)}天'
 
     def dazuo(self)->int:
         exp=random.randint(-20,40)

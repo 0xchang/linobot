@@ -20,6 +20,8 @@ async def infoxian_handle(event: GroupMessageEvent,argcom:Message=CommandArg()):
     uid1 = argcom[0].get('data').get('qq')
     u0 = XianRole(uid0, event.sender.nickname)
     u1 = XianRole(uid1)
+    if u0.isBiguan() or u1.isBiguan():
+        await atxian.finish(Message(f'你正在闭关或者你攻击的人正在闭关'))
     mess=u0.kill(u1)
     del u1
     del u0

@@ -24,6 +24,7 @@ helpxiuxian='''
 /回复             消耗金币回HP,MP
 /练功             你可以练功
 /清零             直接把xx数据清零(管理员)
+/闭关             修炼30分钟，期间不能干任何事
 '''
 helpxian = on_command('修仙帮助', priority=239)
 @helpxian.handle()

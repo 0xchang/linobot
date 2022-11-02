@@ -10,7 +10,7 @@
 import random
 
 from nonebot import on_command
-from nonebot.adapters.onebot.v11 import GroupMessageEvent
+from nonebot.adapters.onebot.v11 import GroupMessageEvent,Event
 from bot2.plugins.xiuxian.Role import XianRole
 from nonebot.adapters.onebot.v11.message import Message
 
@@ -19,6 +19,8 @@ workxian = on_command('打工', priority=234)
 async def infoxian_handle(event: GroupMessageEvent):
     uid = event.get_user_id()
     u = XianRole(uid, event.sender.nickname)
+    if u.isBiguan():
+        await workxian.finish(Message(f'你正在闭关'))
     res=u.work()
     if res<=20:
         mess=f'你打工不认真，仅仅得了{res}灵石'
@@ -33,11 +35,13 @@ goods=['秋刀鱼','比目鱼','三文鱼','多宝鱼','石斑鱼','黑头鱼','
 bads=['破烂的鞋子','枯枝','烂木头','衣服','拖鞋','蛇']
 fishxian = on_command('钓鱼', priority=235)
 @fishxian.handle()
-async def infoxian_handle(event: GroupMessageEvent):
+async def infoxian_handle(event: Event):
     global goods
     global bads
     uid = event.get_user_id()
     u = XianRole(uid, event.sender.nickname)
+    if u.isBiguan():
+        await fishxian.finish(Message(f'你正在闭关'))
     gold,exp=u.fishing()
     del u
     if gold+exp==0:

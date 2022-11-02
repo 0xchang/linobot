@@ -17,6 +17,8 @@ upexpxian = on_command('练功', priority=241)
 async def infoxian_handle(event: GroupMessageEvent):
     uid = event.get_user_id()
     u = XianRole(uid)
+    if u.isBiguan():
+        await upexpxian.finish(Message(f'你正在闭关'))
     exp=u.dazuo()
     if exp<0:
         mess=f'你在练功的时候走火入魔了，灵气{exp}'

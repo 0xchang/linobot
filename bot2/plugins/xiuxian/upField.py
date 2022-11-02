@@ -8,7 +8,7 @@
 @Github: https://github.com/0xchang
 """
 from nonebot import on_command
-from nonebot.adapters.onebot.v11 import GroupMessageEvent
+from nonebot.adapters.onebot.v11 import GroupMessageEvent,Event
 from bot2.plugins.xiuxian.Role import XianRole
 from nonebot.adapters.onebot.v11.message import Message
 
@@ -17,6 +17,8 @@ upxian = on_command('进化', priority=239)
 async def infoxian_handle(event: GroupMessageEvent):
     uid = event.get_user_id()
     u = XianRole(uid, event.sender.nickname)
+    if u.isBiguan():
+        await upxian.finish(Message(f'你正在闭关'))
     if u.goldToField():
         mess='恭喜你消耗部分灵石进化成功，各项属性有所增加！'
     else:
@@ -26,7 +28,7 @@ async def infoxian_handle(event: GroupMessageEvent):
 
 jiujiupxian = on_command('究极进化', priority=239)
 @jiujiupxian.handle()
-async def jiujiupxian_handle(event: GroupMessageEvent):
+async def jiujiupxian_handle(event: Event):
     uid = event.get_user_id()
     u = XianRole(uid, event.sender.nickname)
     count=0
