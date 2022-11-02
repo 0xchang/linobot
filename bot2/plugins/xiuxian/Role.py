@@ -343,6 +343,12 @@ class XianRole:
         if len(value)!=0:
             value=value[0]
             _,self.name,self.gold,self.attack,self.defense,self.speed,self.HP,self.MP,self.level,self.experience,self.stime,self.sex,self.signStatus=value
+            if self.HP<0:
+                self.HP=0
+            if self.MP<0:
+                self.MP=0
+            if self.gold<0:
+                self.gold=0
         else:
             cur.execute('insert into Role(uid,name,gold,attack,defense,speed,HP,MP,level,experience,stime,sex,sign) values(?,?,?,?,?,?,?,?,?,?,?,?,?)',
                         (self.uid,self.name,self.gold,self.attack,self.defense,self.speed,self.HP,self.MP,self.level,self.experience,self.stime,self.sex,self.signStatus))
