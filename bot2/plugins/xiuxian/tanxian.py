@@ -1,10 +1,10 @@
 #!/bin/env python
 # -*- coding: utf-8 -*-
 """
-@time: 2022/11/1 15:21
+@time: 2022/11/2 21:18
 @author: 0xchang
 @E-mail: oxchang@163.com
-@file: uphm.py
+@file: tanxian.py
 @Github: https://github.com/0xchang
 """
 from nonebot import on_command
@@ -12,8 +12,8 @@ from nonebot.adapters.onebot.v11 import Event
 from bot2.plugins.xiuxian.Role import XianRole
 from nonebot.adapters.onebot.v11.message import Message
 
-uphmxian = on_command('回复', priority=240)
-@uphmxian.handle()
+txxian = on_command('探险', priority=245)
+@txxian.handle()
 async def infoxian_handle(event: Event):
     uid = event.get_user_id()
     u = XianRole(uid)
@@ -22,16 +22,4 @@ async def infoxian_handle(event: Event):
     else:
         mess='您的灵石不足'
     del u
-    await uphmxian.finish(Message(mess))
-
-biguphmxian = on_command('大回复术', priority=241)
-@biguphmxian.handle()
-async def infoxian_handle(event: Event):
-    uid = event.get_user_id()
-    u = XianRole(uid)
-    if u.upBigHPMP():
-        mess='恭喜你消耗200灵石增加了500HP,300MP'
-    else:
-        mess='您的灵石不足'
-    del u
-    await biguphmxian.finish(Message(mess))
+    await txxian.finish(Message(mess))

@@ -22,6 +22,8 @@ async def infoxian_handle(event: GroupMessageEvent):
     exp=u.dazuo()
     if exp<0:
         mess=f'你在练功的时候走火入魔了，灵气{exp}'
+    elif exp==160*u.level:
+        mess = f'你tm顿悟了，灵气+{exp}'
     else:
         mess=f'你练功状态还行，灵气+{exp}'
     del u
