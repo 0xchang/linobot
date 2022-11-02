@@ -223,16 +223,24 @@ class XianRole:
         self.gold+=g
         return g
 
-    def fishing(self)->(int,int):
-        if self.gold<2:
-            return (0,0)
-        self.gold-=2
+    def fishing(self)->(int,int,bool):
+        if self.gold<5:
+            return (0,0,False)
+        self.gold-=5
         g=random.randint(1,20)
         e=random.randint(1,10)
+        if g+e<15:
+            return (g,e,False)
+        elif g+e<=20:
+            g=g//3
+            e=e//3
+        elif g+e>28:
+            g*=3
+            e*=3
         self.gold+=g
         self.experience+=e
         self.upLevel()
-        return (g,e)
+        return (g,e,True)
 
     def upLevel(self):
         if self.experience>self.level*100:
