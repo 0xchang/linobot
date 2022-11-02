@@ -393,8 +393,8 @@ class XianRole:
             self.HP += 50
 
     def goldToField(self) -> bool:
-        if self.gold >= 15:
-            self.gold -= random.randint(12, 15)
+        if self.gold >= 20:
+            self.gold -= random.randint(15, 20)
             self.attack += random.randint(0, 3)
             self.defense += random.randint(0, 3)
             self.speed += random.randint(0, 3)
