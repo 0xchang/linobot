@@ -10,7 +10,8 @@
 import random
 import sqlite3
 import time
-from bot2.plugins.xiuxian.AMonster import Monster
+from bot2.plugins.xiuxian.AMonster import Monster,MonBoss
+
 
 class XianRole:
     def __init__(self, uid: int, name: str = '无名氏', sex: str = '男'):
@@ -50,28 +51,28 @@ class XianRole:
         self.worknum = 0
         self.upSql()
 
-    def biguan(self,bt:int):
+    def biguan(self, bt: int):
         con = sqlite3.connect('data/xiuxian.data')
         cur = con.cursor()
         cur.execute('select * from biguan where uid=?', (self.uid,))
         con.commit()
         va = cur.fetchall()
         if len(va) == 0:
-            cur.execute('insert into biguan(uid,xtime,jtime) values(?,?,?)', (self.uid, int(time.time()),bt))
+            cur.execute('insert into biguan(uid,xtime,jtime) values(?,?,?)', (self.uid, int(time.time()), bt))
             con.commit()
-            self.experience += 30*bt
+            self.experience += 30 * bt
             now = int(time.time())
         else:
-            jt=va[0][2]
+            jt = va[0][2]
             va = va[0][1]
             if int(time.time()) - va > jt * 60:
-                cur.execute('update biguan set xtime=?,jtime=? where uid=?', (int(time.time()),bt, self.uid))
+                cur.execute('update biguan set xtime=?,jtime=? where uid=?', (int(time.time()), bt, self.uid))
                 con.commit()
-                self.experience += 30*bt
+                self.experience += 30 * bt
                 now = int(time.time())
             else:
                 now = int(time.time()) - va
-        print(now,va)
+        print(now, va)
         cur.close()
         con.close()
         return now
@@ -87,7 +88,7 @@ class XianRole:
         if len(va) == 0:
             return False
         else:
-            jt=va[0][2]
+            jt = va[0][2]
             xt = va[0][1]
             if int(time.time()) - xt > jt * 60:
                 return False
@@ -127,26 +128,55 @@ class XianRole:
             self.HP += 500
             return True
 
-    def kmonster(self,m:Monster)->(bool,int,int):
-        count=0
+    def kmonboss(self, m: MonBoss) -> (bool, int, int, int):
+        count = 0
         at1 = self.attack - m.getDefense()
         at2 = m.getAttack() - self.defense
         at1 = 0 if at1 <= 0 else at1 * 3
         at2 = 0 if at2 <= 0 else at2 * 3
-        if at1==0 and at2==0:
-            return False,0,0
-        while m.getHP()>0 and self.HP>0:
-            count+=1
-            m.HP-=at1
-            self.HP-=at2
-        if m.getHP()>0:
-            return False,0,0
+        if at1 == 0 and at2 == 0:
+            return False, 0, 0
+        while m.getHP() > 0 and self.HP > 0:
+            self.MP -= 2
+            count += 1
+            m.HP -= at1
+            self.HP -= at2
+        if m.getHP() > 0:
+            return False, 0, 0, 0
         else:
-            zgold=(m.getAttack()+m.getDefense())*count//10
-            self.gold+=zgold
-            return True,zgold,at2
+            zgold = (m.getAttack() + m.getDefense()) * count // 2
+            zexp = zgold // 2
+            self.gold += zgold
+            self.experience += zexp
+            con=sqlite3.connect('data/xiuxian.data')
+            cur=con.cursor()
+            cur.execute('update monboss set live=? where name=?',(0,m.name))
+            con.commit()
+            cur.close()
+            con.close()
+            return True, zgold, zexp, at2
 
-    def kten(self,u1)->str:
+    def kmonster(self, m: Monster) -> (bool, int, int):
+        count = 0
+        at1 = self.attack - m.getDefense()
+        at2 = m.getAttack() - self.defense
+        at1 = 0 if at1 <= 0 else at1 * 3
+        at2 = 0 if at2 <= 0 else at2 * 3
+        if at1 == 0 and at2 == 0:
+            return False, 0, 0
+        while m.getHP() > 0 and self.HP > 0:
+            self.MP -= 2
+            count += 1
+            m.HP -= at1
+            self.HP -= at2
+        if m.getHP() > 0:
+            return False, 0, 0
+        else:
+            zgold = (m.getAttack() + m.getDefense()) * count // 10
+            self.gold += zgold
+            return True, zgold, at2
+
+    def kten(self, u1) -> str:
         for i in range(10):
             self.kill(u1)
         return '你攻击了十次'
@@ -331,32 +361,32 @@ class XianRole:
             bg = '闭关中'
         else:
             bg = '出战中'
-        return f'姓名:{self.name}\n境界:{self.xianlevel()}\n称号:{self.honor()}\n性别:{self.sex}\n血量:{self.HP}\n蓝量:{self.MP}\n攻击:{self.attack}\n防御:{self.defense}\n速度:{self.speed}\n灵气:{self.experience}/{self.level**2 * 100}\n灵石:{self.gold}\n闭关:{bg}\n修仙年份:{int((time.time() - self.stime) / 86400)}天'
+        return f'姓名:{self.name}\n境界:{self.xianlevel()}\n称号:{self.honor()}\n性别:{self.sex}\n血量:{self.HP}\n蓝量:{self.MP}\n攻击:{self.attack}\n防御:{self.defense}\n速度:{self.speed}\n灵气:{self.experience}/{self.level ** 2 * 100}\n灵石:{self.gold}\n闭关:{bg}\n修仙年份:{int((time.time() - self.stime) / 86400)}天'
 
-    def dazuo(self) -> (int,int):
+    def dazuo(self) -> (int, int):
         exp = random.randint(-3, 50)
-        status=0
-        if exp<0:
-            exp*=random.randint(2,5)*self.level
-            status=-1
-        elif exp==0:
-            if random.choice((True,False)):
-                self.level-=1
-                status=-3
+        status = 0
+        if exp < 0:
+            exp *= random.randint(2, 5) * self.level
+            status = -1
+        elif exp == 0:
+            if random.choice((True, False)):
+                self.level -= 1
+                status = -3
             else:
-                status=-2
-        elif exp in (40,41):
-            exp=exp*random.randint(5,8)*self.level//8
-            status=1
-        elif exp in (49,50):
-            exp=self.level*exp*random.randint(3,5)
-            status=2
+                status = -2
+        elif exp in (40, 41):
+            exp = exp * random.randint(5, 8) * self.level // 8
+            status = 1
+        elif exp in (49, 50):
+            exp = self.level * exp * random.randint(3, 5)
+            status = 2
         else:
-            exp=exp*self.level//8
-            status=0
+            exp = exp * self.level // 8
+            status = 0
         self.dazuonum += 1
         self.experience += exp
-        return exp,status
+        return exp, status
 
     def incSign(self) -> bool:
         if self.signStatus == 0:
@@ -394,14 +424,14 @@ class XianRole:
         return (g, e, True)
 
     def upLevel(self):
-        if self.experience > self.level**2 * 100:
-            self.experience -= self.level**2 * 100
+        if self.experience > self.level ** 2 * 100:
+            self.experience -= self.level ** 2 * 100
             self.level += 1
-            self.attack += 10*self.level
-            self.defense += 5*self.level
-            self.speed += 3*self.level
-            self.MP += 10*self.level
-            self.HP += 30*self.level
+            self.attack += 10 * self.level
+            self.defense += 5 * self.level
+            self.speed += 3 * self.level
+            self.MP += 10 * self.level
+            self.HP += 30 * self.level
 
     def goldToField(self) -> bool:
         if self.gold >= 20:
@@ -414,13 +444,13 @@ class XianRole:
         return False
 
     def kaigua(self):
-        self.HP+=50
-        self.MP+=50
-        self.attack+=1000
-        self.defense+=1000
-        self.speed+=1000
-        self.experience+=100000
-        self.gold+=1000
+        self.HP += 50
+        self.MP += 50
+        self.attack += 1000
+        self.defense += 1000
+        self.speed += 1000
+        self.experience += 100000
+        self.gold += 1000
 
     def isLive(self) -> bool:
         return True if self.HP > 0 else False

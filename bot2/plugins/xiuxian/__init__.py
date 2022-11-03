@@ -8,7 +8,7 @@
 @Github: https://github.com/0xchang
 """
 import sqlite3
-from bot2.plugins.xiuxian.moncfg import monsters
+from bot2.plugins.xiuxian.moncfg import monsters,monboss
 
 def create_xian():
     con = sqlite3.connect('data/xiuxian.data')
@@ -17,10 +17,12 @@ def create_xian():
     create_xiulian_sql = 'create table if not exists biguan(uid int,xtime int,jtime int)'
     create_chenghao_sql = 'create table if not exists chenghao(uid int,kill int,fish int,dazuo int,work int)'
     create_monster_sql = 'create table if not exists monsters(name text,HP int,attack int,defense int)'
+    create_mboos_sql = 'create table if not exists monboss(name text,HP int,attack int,defense int,live int)'
     cur.execute(create_xian_sql)
     cur.execute(create_xiulian_sql)
     cur.execute(create_chenghao_sql)
     cur.execute(create_monster_sql)
+    cur.execute(create_mboos_sql)
     con.commit()
     cur.close()
     con.close()
@@ -33,9 +35,12 @@ def create_monster():
     con = sqlite3.connect('data/xiuxian.data')
     cur = con.cursor()
     cur.execute('delete from monsters')
+    cur.execute('delete from monboss')
     con.commit()
     for monster in monsters:
         cur.execute('insert into monsters(name,HP,attack,defense) values(?,?,?,?)', monster)
+    for monster in monboss:
+        cur.execute('insert into monboss(name,HP,attack,defense,live) values(?,?,?,?,1)', monster)
     con.commit()
     cur.close()
     con.close()

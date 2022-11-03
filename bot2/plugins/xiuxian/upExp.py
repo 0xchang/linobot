@@ -11,10 +11,7 @@ from nonebot import on_command
 from nonebot.adapters.onebot.v11 import GroupMessageEvent
 from bot2.plugins.xiuxian.Role import XianRole
 from nonebot.adapters.onebot.v11.message import Message
-
 upexpxian = on_command('练功', priority=241)
-
-
 @upexpxian.handle()
 async def infoxian_handle(event: GroupMessageEvent):
     uid = event.get_user_id()

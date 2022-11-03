@@ -28,6 +28,8 @@ helpxiuxian='''
 /闭关x            闭关x分钟，期间不能干任何事
 /杀人x            攻击十次x
 /打怪             随机打怪，不强的时候别来
+/打bossxx        打xxboss，boss很强，别来
+/查boss          查看boss列表,boss每三十分钟复活一次
 '''
 helpxian = on_command('修仙帮助', priority=239)
 @helpxian.handle()
