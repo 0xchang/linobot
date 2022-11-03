@@ -331,21 +331,29 @@ class XianRole:
             bg = '闭关中'
         else:
             bg = '出战中'
-        return f'姓名:{self.name}\n境界:{self.xianlevel()}\n称号:{self.honor()}\n性别:{self.sex}\n血量:{self.HP}\n蓝量:{self.MP}\n攻击:{self.attack}\n防御:{self.defense}\n速度:{self.speed}\n灵气:{self.experience}/{self.level * 100}\n灵石:{self.gold}\n闭关:{bg}\n修仙年份:{int((time.time() - self.stime) / 86400)}天'
+        return f'姓名:{self.name}\n境界:{self.xianlevel()}\n称号:{self.honor()}\n性别:{self.sex}\n血量:{self.HP}\n蓝量:{self.MP}\n攻击:{self.attack}\n防御:{self.defense}\n速度:{self.speed}\n灵气:{self.experience}/{self.level**2 * 100}\n灵石:{self.gold}\n闭关:{bg}\n修仙年份:{int((time.time() - self.stime) / 86400)}天'
 
-    def dazuo(self) -> int:
-        exp = random.randint(-4, 50)
+    def dazuo(self) -> (int,int):
+        exp = random.randint(-5, 50)
+        status=0
         if exp<0:
-            exp-=10
+            exp-=350
+            status=-1
         elif exp==0:
-            exp=-50
-        elif exp==40:
-            exp=160*self.level
+            exp-=1800
+            status=-2
+        elif exp in (40,41):
+            exp=exp*random.randint(5,8)*self.level//8
+            status=1
+        elif exp in (49,50):
+            exp=self.level*exp*random.randint(3,5)
+            status=2
         else:
-            exp=exp*self.level//3
+            exp=exp*self.level//8
+            status=0
         self.dazuonum += 1
         self.experience += exp
-        return exp
+        return exp,status
 
     def incSign(self) -> bool:
         if self.signStatus == 0:
@@ -383,14 +391,14 @@ class XianRole:
         return (g, e, True)
 
     def upLevel(self):
-        if self.experience > self.level * 100:
-            self.experience -= self.level * 100
+        if self.experience > self.level**2 * 100:
+            self.experience -= self.level**2 * 100
             self.level += 1
-            self.attack += 10*self.level//2
-            self.defense += 5*self.level//2
-            self.speed += 3*self.level//2
-            self.MP += 30
-            self.HP += 50
+            self.attack += 10*self.level
+            self.defense += 5*self.level
+            self.speed += 3*self.level
+            self.MP += 10*self.level
+            self.HP += 30*self.level
 
     def goldToField(self) -> bool:
         if self.gold >= 20:

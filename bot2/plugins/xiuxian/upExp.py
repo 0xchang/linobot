@@ -13,18 +13,24 @@ from bot2.plugins.xiuxian.Role import XianRole
 from nonebot.adapters.onebot.v11.message import Message
 
 upexpxian = on_command('练功', priority=241)
+
+
 @upexpxian.handle()
 async def infoxian_handle(event: GroupMessageEvent):
     uid = event.get_user_id()
     u = XianRole(uid)
     if u.isBiguan():
         await upexpxian.finish(Message(f'你正在闭关'))
-    exp=u.dazuo()
-    if exp<0:
-        mess=f'你在练功的时候走火入魔了，灵气{exp}'
-    elif exp==160*u.level:
+    exp,status = u.dazuo()
+    if status == -2:
+        mess = f'你在练功的时候走火入魔了，损失大量灵气{exp}'
+    elif status == -1:
+        mess = f'你不小心走火入魔了，灵气{exp}'
+    elif status == 0:
+        mess = f'你正常修炼，灵气+{exp}'
+    elif status == 1:
         mess = f'你tm顿悟了，灵气+{exp}'
     else:
-        mess=f'你练功状态还行，灵气+{exp}'
+        mess = f'你tm遇到高人了，灵气+{exp}'
     del u
     await upexpxian.finish(Message(mess))
