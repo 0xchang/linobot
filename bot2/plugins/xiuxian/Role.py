@@ -334,14 +334,17 @@ class XianRole:
         return f'姓名:{self.name}\n境界:{self.xianlevel()}\n称号:{self.honor()}\n性别:{self.sex}\n血量:{self.HP}\n蓝量:{self.MP}\n攻击:{self.attack}\n防御:{self.defense}\n速度:{self.speed}\n灵气:{self.experience}/{self.level**2 * 100}\n灵石:{self.gold}\n闭关:{bg}\n修仙年份:{int((time.time() - self.stime) / 86400)}天'
 
     def dazuo(self) -> (int,int):
-        exp = random.randint(-5, 50)
+        exp = random.randint(-3, 50)
         status=0
         if exp<0:
-            exp-=350
+            exp*=random.randint(2,5)*self.level
             status=-1
         elif exp==0:
-            exp-=1800
-            status=-2
+            if random.choice((True,False)):
+                self.level-=1
+                status=-3
+            else:
+                status=-2
         elif exp in (40,41):
             exp=exp*random.randint(5,8)*self.level//8
             status=1
@@ -416,7 +419,7 @@ class XianRole:
         self.attack+=1000
         self.defense+=1000
         self.speed+=1000
-        self.experience+=1000
+        self.experience+=100000
         self.gold+=1000
 
     def isLive(self) -> bool:

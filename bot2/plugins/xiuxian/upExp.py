@@ -21,9 +21,11 @@ async def infoxian_handle(event: GroupMessageEvent):
     u = XianRole(uid)
     if u.isBiguan():
         await upexpxian.finish(Message(f'你正在闭关'))
-    exp,status = u.dazuo()
-    if status == -2:
-        mess = f'你在练功的时候走火入魔了，损失大量灵气{exp}'
+    exp, status = u.dazuo()
+    if status == -3:
+        mess = f'你在练功的时候走火入魔了，等级-1'
+    elif status == -2:
+        mess = f'你在练功的时候走火入魔了，好在你稳住了心神，灵气不增不减'
     elif status == -1:
         mess = f'你不小心走火入魔了，灵气{exp}'
     elif status == 0:
