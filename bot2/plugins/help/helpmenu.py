@@ -47,6 +47,9 @@ help_detail='''
 /置顶                查看up动态置顶信息
 /抽歌手             抽一个歌手
 /看番               搜索番剧并返回网址
+/早饭
+/午饭
+/晚饭
 '''
 helpmenu=on_command('帮助',priority=150)
 @helpmenu.handle()

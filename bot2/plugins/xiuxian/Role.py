@@ -379,12 +379,12 @@ class XianRole:
             exp *= random.randint(2, 5) * self.level
             status = -1
         elif exp == 0:
-            if 0 == random.randint(0, 20):
+            if 0 == random.randint(0, 100):
                 self.level -= 1
                 status = -3
             else:
                 exp = -20
-                exp *= self.level * random.randint(2, 10)
+                exp *= self.level * random.randint(2, 5)
                 status = -2
         elif exp in (40, 41):
             exp = exp * random.randint(5, 8) * self.level // 8

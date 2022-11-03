@@ -13,8 +13,9 @@ from nonebot_plugin_apscheduler import scheduler
 from nonebot import get_bots
 from bot2.plugins.sql.select_sql import select_groupid
 
+
 #催早饭
-@scheduler.scheduled_job("cron", hour=8,minute=24)
+@scheduler.scheduled_job("cron", hour=8,minute=30)
 async def good_morning():
     bot, = get_bots().values()
     qqids=select_groupid()
@@ -23,7 +24,7 @@ async def good_morning():
         await bot.send_msg(
             message_type="group",
             group_id=qqid[0],
-            message='啥时候吃早饭?说的就是你'
+            message='亲爱的小宝贝，你吃早饭了吗[CQ:face,id=12]'
         )
 
 #催午饭
@@ -36,11 +37,11 @@ async def good_morning():
         await bot.send_msg(
             message_type="group",
             group_id=qqid[0],
-            message='吃午饭了吗?宝贝'
+            message='亲爱的大宝贝，你吃午饭了吗[CQ:face,id=24]'
         )
 
 #催晚饭
-@scheduler.scheduled_job("cron", hour=17,minute=20)
+@scheduler.scheduled_job("cron", hour=17,minute=30)
 async def good_night():
     bot, = get_bots().values()
     qqids=select_groupid()
@@ -49,5 +50,5 @@ async def good_night():
         await bot.send_msg(
             message_type="group",
             group_id=qqid[0],
-            message='你吃晚饭了没?不用我指名道姓吧'
+            message='亲爱的宝贝，你吃晚饭了吗[CQ:face,id=21]'
         )
