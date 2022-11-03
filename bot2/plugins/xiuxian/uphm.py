@@ -30,8 +30,20 @@ async def infoxian_handle(event: Event):
     uid = event.get_user_id()
     u = XianRole(uid)
     if u.upBigHPMP():
-        mess='恭喜你消耗200灵石增加了500HP,300MP'
+        mess='恭喜你消耗200灵石增加了530HP,330MP'
     else:
         mess='您的灵石不足'
     del u
     await biguphmxian.finish(Message(mess))
+
+superuphmxian = on_command('超级回复', priority=241)
+@superuphmxian.handle()
+async def infoxian_handle(event: Event):
+    uid = event.get_user_id()
+    u = XianRole(uid)
+    if u.upBigHPMP():
+        mess='恭喜你消耗2000灵石增加了5800HP,3800MP'
+    else:
+        mess='您的灵石不足'
+    del u
+    await superuphmxian.finish(Message(mess))

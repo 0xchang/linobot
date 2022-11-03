@@ -45,15 +45,15 @@ async def infoxian_handle(event: Event):
     if u.isBiguan():
         await fishxian.finish(Message(f'你正在闭关'))
     gold,exp,isfish=u.fishing()
-    del u
     if gold+exp==0:
         mess='你没灵石买鱼饵了,快去打工吧！'
     elif not isfish:
         mess = '你一无所获，真倒霉！下次再来吧'
-    elif gold+exp>30:
+    elif gold+exp>u.level*50:
         mess = f'恭喜！你掉到了宝藏，得到了{random.choice(bzang)},灵石+{gold}，灵气+{exp}'
-    elif gold+exp>20:
+    elif gold+exp>1200:
         mess=f'你钓鱼得到了{random.choice(goods)},灵石+{gold}，灵气+{exp}'
     else:
         mess=f'你钓鱼得到了{random.choice(bads)},灵石+{gold}，灵气+{exp}'
+    del u
     await fishxian.finish(Message(mess))

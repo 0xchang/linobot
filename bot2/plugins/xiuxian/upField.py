@@ -31,8 +31,6 @@ jiujiupxian = on_command('究极进化', priority=239)
 async def jiujiupxian_handle(event: Event):
     uid = event.get_user_id()
     u = XianRole(uid, event.sender.nickname)
-    count=0
-    while u.goldToField() and count<100:
-        count+=1
-    mess=f'恭喜你消耗大量灵石进化{count}次，各项属性大量增加！'
+    u.supergoldToField()
+    mess=f'恭喜你消耗大量灵石进化100次，各项属性大量增加！'
     await jiujiupxian.finish(Message(mess))

@@ -10,7 +10,7 @@
 import random
 import sqlite3
 import time
-from bot2.plugins.xiuxian.AMonster import Monster,MonBoss
+from bot2.plugins.xiuxian.AMonster import Monster, MonBoss
 
 
 class XianRole:
@@ -124,8 +124,17 @@ class XianRole:
             return False
         else:
             self.gold -= 200
-            self.MP += 300
-            self.HP += 500
+            self.MP += 330
+            self.HP += 530
+            return True
+
+    def upSuperHPMP(self):
+        if self.gold < 2000:
+            return False
+        else:
+            self.gold -= 2000
+            self.MP += 3800
+            self.HP += 5800
             return True
 
     def kmonboss(self, m: MonBoss) -> (bool, int, int, int):
@@ -145,12 +154,12 @@ class XianRole:
             return False, 0, 0, 0
         else:
             zgold = (m.getAttack() + m.getDefense()) * count // 2
-            zexp = zgold // 2
+            zexp = zgold * 4
             self.gold += zgold
             self.experience += zexp
-            con=sqlite3.connect('data/xiuxian.data')
-            cur=con.cursor()
-            cur.execute('update monboss set live=? where name=?',(0,m.name))
+            con = sqlite3.connect('data/xiuxian.data')
+            cur = con.cursor()
+            cur.execute('update monboss set live=? where name=?', (0, m.name))
             con.commit()
             cur.close()
             con.close()
@@ -370,10 +379,12 @@ class XianRole:
             exp *= random.randint(2, 5) * self.level
             status = -1
         elif exp == 0:
-            if random.choice((True, False)):
+            if 0 == random.randint(0, 20):
                 self.level -= 1
                 status = -3
             else:
+                exp = -20
+                exp *= self.level * random.randint(2, 10)
                 status = -2
         elif exp in (40, 41):
             exp = exp * random.randint(5, 8) * self.level // 8
@@ -404,20 +415,23 @@ class XianRole:
         return g
 
     def fishing(self) -> (int, int, bool):
-        if self.gold < 5:
+        if self.gold < 50:
             return (0, 0, False)
-        self.gold -= 5
+        self.gold -= 50
         self.fishnum += 1
-        g = random.randint(1, 20)
-        e = random.randint(1, 10)
-        if g + e < 15:
+        g = random.randint(1, 30)
+        e = random.randint(1, 50)
+        if g + e < 40:
             return (g, e, False)
-        elif g + e <= 20:
+        elif g + e <= 60:
             g = g // 3
             e = e // 3
-        elif g + e > 28:
-            g *= 3
-            e *= 3
+        elif g + e > 78:
+            g *= self.level * 50
+            e *= 50 * self.level
+        else:
+            g *= 20
+            e *= 20
         self.gold += g
         self.experience += e
         self.upLevel()
@@ -432,6 +446,16 @@ class XianRole:
             self.speed += 3 * self.level
             self.MP += 10 * self.level
             self.HP += 30 * self.level
+
+    def supergoldToField(self) -> bool:
+        if self.gold >= 2000:
+            self.gold -= random.randint(1500, 2000)
+            self.attack += random.randint(100, 300)
+            self.defense += random.randint(100, 300)
+            self.speed += random.randint(100, 300)
+            self.upSql()
+            return True
+        return False
 
     def goldToField(self) -> bool:
         if self.gold >= 20:

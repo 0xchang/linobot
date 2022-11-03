@@ -22,7 +22,7 @@ async def infoxian_handle(event: GroupMessageEvent):
     if status == -3:
         mess = f'你在练功的时候走火入魔了，等级-1'
     elif status == -2:
-        mess = f'你在练功的时候走火入魔了，好在你稳住了心神，灵气不增不减'
+        mess = f'你在练功的时候走火入魔了，好在你稳住了心神,没有掉级，灵气{exp}'
     elif status == -1:
         mess = f'你不小心走火入魔了，灵气{exp}'
     elif status == 0:
