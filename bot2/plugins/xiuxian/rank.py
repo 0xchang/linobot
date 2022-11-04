@@ -21,6 +21,7 @@ def rankGold():
     cur.close()
     con.close()
     value = sorted(value, key=lambda t: t[1])
+    value.reverse()
     value = value[:10]
     return value
 
@@ -34,6 +35,7 @@ def rankAttack():
     cur.close()
     con.close()
     value = sorted(value, key=lambda t: t[1])
+    value.reverse()
     value = value[:10]
     return value
 
@@ -47,6 +49,7 @@ def rankDefense():
     cur.close()
     con.close()
     value = sorted(value, key=lambda t: t[1])
+    value.reverse()
     value = value[:10]
     return value
 
@@ -60,6 +63,7 @@ def rankSpeed():
     cur.close()
     con.close()
     value = sorted(value, key=lambda t: t[1])
+    value.reverse()
     value = value[:10]
     return value
 
@@ -73,6 +77,7 @@ def rankLevel():
     cur.close()
     con.close()
     value = sorted(value, key=lambda t: t[1])
+    value.reverse()
     value = value[:10]
     return value
 
@@ -140,5 +145,5 @@ async def rlevelxian_handle():
         u = XianRole(uid=v[2])
         mess += '姓名:' + v[0] + ',境界:' + u.xianlevel() + '\n'
         del u
-    mess+='榜单前十'
+    mess += '榜单前十'
     await rlevelxian.finish(mess)
