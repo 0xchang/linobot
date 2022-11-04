@@ -26,11 +26,25 @@ async def infoxian_handle(event: GroupMessageEvent):
     del u
     await upxian.finish(Message(mess))
 
+jiujiupxian = on_command('大进化', priority=239)
+@jiujiupxian.handle()
+async def jiujiupxian_handle(event: Event):
+    uid = event.get_user_id()
+    u = XianRole(uid, event.sender.nickname)
+    if u.biggoldToField():
+        mess='恭喜你消耗大量灵石进化100次，各项属性大量增加！'
+    else:
+        mess='你的灵石不够了捏'
+    await jiujiupxian.finish(Message(mess))
+
+
 jiujiupxian = on_command('究极进化', priority=239)
 @jiujiupxian.handle()
 async def jiujiupxian_handle(event: Event):
     uid = event.get_user_id()
     u = XianRole(uid, event.sender.nickname)
-    u.supergoldToField()
-    mess=f'恭喜你消耗大量灵石进化100次，各项属性大量增加！'
+    if u.supgoldToField():
+        mess='恭喜你消耗大量灵石进化10000次，各项属性大量增加！'
+    else:
+        mess='你的灵石不够了捏'
     await jiujiupxian.finish(Message(mess))

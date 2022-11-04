@@ -60,7 +60,7 @@ class XianRole:
         if len(va) == 0:
             cur.execute('insert into biguan(uid,xtime,jtime) values(?,?,?)', (self.uid, int(time.time()), bt))
             con.commit()
-            self.experience += 30 * bt
+            self.experience += 3 * bt *self.level
             now = int(time.time())
         else:
             jt = va[0][2]
@@ -68,7 +68,7 @@ class XianRole:
             if int(time.time()) - va > jt * 60:
                 cur.execute('update biguan set xtime=?,jtime=? where uid=?', (int(time.time()), bt, self.uid))
                 con.commit()
-                self.experience += 30 * bt
+                self.experience += 3 * bt * self.level
                 now = int(time.time())
             else:
                 now = int(time.time()) - va
@@ -300,6 +300,7 @@ class XianRole:
         honor += f'{num_to_char(n1)}阶'
         if '鸿钧' in honor:
             honor = '鸿钧'
+            honor+=f'{level-260}阶'
         return honor
 
     def honor(self):
@@ -447,12 +448,22 @@ class XianRole:
             self.MP += 10 * self.level
             self.HP += 30 * self.level
 
-    def supergoldToField(self) -> bool:
+    def supgoldToField(self) -> bool:
+        if self.gold >= 200000:
+            self.gold -= random.randint(190000, 200000)
+            self.attack += random.randint(9000, 28000)
+            self.defense += random.randint(9000, 28000)
+            self.speed += random.randint(9000, 28000)
+            self.upSql()
+            return True
+        return False
+
+    def biggoldToField(self) -> bool:
         if self.gold >= 2000:
-            self.gold -= random.randint(1500, 2000)
-            self.attack += random.randint(100, 300)
-            self.defense += random.randint(100, 300)
-            self.speed += random.randint(100, 300)
+            self.gold -= random.randint(1700, 2000)
+            self.attack += random.randint(100, 280)
+            self.defense += random.randint(100, 280)
+            self.speed += random.randint(100, 280)
             self.upSql()
             return True
         return False

@@ -14,8 +14,9 @@ from nonebot.adapters.onebot.v11.message import Message
 helpxiuxian='''
 /修仙帮助          获取帮助
 /查询             查看个人信息
-/进化             消耗金币增强属性
-/究极进化          消耗所有金币进化
+/进化             消耗灵石增强属性
+/大进化            比进化牛必
+/究极进化          比大进化牛必
 /签到             签到得奖励
 /改名             改名字
 /改性别           改变性别

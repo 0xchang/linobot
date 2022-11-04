@@ -50,6 +50,7 @@ help_detail='''
 /早饭
 /午饭
 /晚饭
+/水果
 '''
 helpmenu=on_command('帮助',priority=150)
 @helpmenu.handle()
