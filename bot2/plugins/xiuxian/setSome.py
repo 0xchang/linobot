@@ -17,6 +17,8 @@ namexian = on_command('改名', priority=232)
 @namexian.handle()
 async def infoxian_handle(event: GroupMessageEvent,argcom:Message=CommandArg()):
     name=argcom.extract_plain_text()
+    if len(name)>25:
+        await namexian.finish('你的名字太长了，设置短一些吧')
     uid = event.get_user_id()
     u = XianRole(uid)
     u.setName(name)
