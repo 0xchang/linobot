@@ -9,7 +9,7 @@
 """
 import random
 
-from nonebot import on_command
+from nonebot import on_fullmatch
 from nonebot.adapters.onebot.v11 import Event
 from bot2.plugins.xiuxian.Role import XianRole
 from bot2.plugins.xiuxian.AMonster import Monster
@@ -17,7 +17,7 @@ from nonebot.adapters.onebot.v11.message import Message
 from bot2.plugins.xiuxian.moncfg import monsters
 mon = monsters
 
-atmoxian = on_command('打怪', priority=240)
+atmoxian = on_fullmatch('打怪', priority=240)
 
 @atmoxian.handle()
 async def infoxian_handle(event: Event):

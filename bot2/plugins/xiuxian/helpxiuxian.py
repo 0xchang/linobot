@@ -8,7 +8,7 @@
 @Github: https://github.com/0xchang
 """
 import os
-from nonebot import on_command
+from nonebot import on_fullmatch
 from nonebot.adapters.onebot.v11.message import Message
 
 helpxiuxian='''
@@ -33,7 +33,7 @@ helpxiuxian='''
 /打bossxx        打xxboss，boss很强，别来
 /查boss          查看boss列表,boss每三十分钟复活一次
 '''
-helpxian = on_command('修仙帮助', priority=239)
+helpxian = on_fullmatch('修仙帮助', priority=239)
 @helpxian.handle()
 async def infoxian_handle():
     pwd=os.getcwd()

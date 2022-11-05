@@ -9,14 +9,14 @@
 """
 from nonebot.adapters.onebot.v11.message import Message
 from nonebot.adapters.onebot.v11 import GroupMessageEvent,Bot
-from nonebot import on_command
+from nonebot import on_command,on_fullmatch
 from nonebot.params import CommandArg
 import random
 from bot2.plugins.sql.select_sql import select_wife,select_wifesta,select_uid_from_qid
 from bot2.plugins.sql.insert_sql import insert_wife,insert_wifesta
 from bot2.plugins.sql.update_sql import update_wife,update_data,update_wifesta
 
-hwife=on_command('换老婆',priority=107)
+hwife=on_fullmatch('换老婆',priority=107)
 @hwife.handle()
 async def hwife_handle(bot:Bot,event:GroupMessageEvent):
     gid=event.group_id
@@ -29,7 +29,7 @@ async def hwife_handle(bot:Bot,event:GroupMessageEvent):
     await hwife.finish(Message(mess))
 
 
-cwife=on_command('抽老婆',priority=108)
+cwife=on_fullmatch('抽老婆',priority=108)
 @cwife.handle()
 async def cwife_handle(bot:Bot,event:GroupMessageEvent):
     qqid = event.get_user_id()
@@ -65,7 +65,7 @@ async def changewife(bot:Bot,event:GroupMessageEvent):
         update_data(update_wife(qqid,gid,mywife['user_id'],mywife['nickname']))
     return mess
 
-jinwife=on_command('禁老婆',priority=220)
+jinwife=on_fullmatch('禁老婆',priority=220)
 @jinwife.handle()
 async def jinwife_handle(event:GroupMessageEvent):
     gid=event.group_id
@@ -93,7 +93,7 @@ async def jiewife_handle(event:GroupMessageEvent):
         update_data(update_wifesta(gid, 1))
     await jiewife.finish(Message(f'已经开启抽老婆功能'))
 
-wifesta=on_command('老婆状态',priority=222)
+wifesta=on_fullmatch('老婆状态',priority=222)
 @wifesta.handle()
 async def wifesta_handle(event:GroupMessageEvent):
     gid=event.group_id

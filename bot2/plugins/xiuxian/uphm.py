@@ -7,12 +7,12 @@
 @file: uphm.py
 @Github: https://github.com/0xchang
 """
-from nonebot import on_command
+from nonebot import on_fullmatch
 from nonebot.adapters.onebot.v11 import Event
 from bot2.plugins.xiuxian.Role import XianRole
 from nonebot.adapters.onebot.v11.message import Message
 
-uphmxian = on_command('回复', priority=240)
+uphmxian = on_fullmatch('回复', priority=240)
 @uphmxian.handle()
 async def infoxian_handle(event: Event):
     uid = event.get_user_id()
@@ -24,7 +24,7 @@ async def infoxian_handle(event: Event):
     del u
     await uphmxian.finish(Message(mess))
 
-biguphmxian = on_command('大回复术', priority=241)
+biguphmxian = on_fullmatch('大回复术', priority=241)
 @biguphmxian.handle()
 async def infoxian_handle(event: Event):
     uid = event.get_user_id()
@@ -36,7 +36,7 @@ async def infoxian_handle(event: Event):
     del u
     await biguphmxian.finish(Message(mess))
 
-superuphmxian = on_command('超级回复', priority=241)
+superuphmxian = on_fullmatch('超级回复', priority=241)
 @superuphmxian.handle()
 async def infoxian_handle(event: Event):
     uid = event.get_user_id()

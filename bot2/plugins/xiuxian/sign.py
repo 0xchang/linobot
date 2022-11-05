@@ -11,7 +11,7 @@ from nonebot import require
 require("nonebot_plugin_apscheduler")
 from nonebot_plugin_apscheduler import scheduler
 import sqlite3
-from nonebot import on_command
+from nonebot import on_fullmatch
 from nonebot.adapters.onebot.v11 import GroupMessageEvent
 from nonebot.adapters.onebot.v11.message import Message
 from bot2.plugins.xiuxian.Role import XianRole
@@ -25,7 +25,7 @@ async def good_morning():
     cur.close()
     con.close()
 
-signxian=on_command('签到',priority=230)
+signxian=on_fullmatch('签到',priority=230)
 @signxian.handle()
 async def signxian_handle(event:GroupMessageEvent):
     uid=event.get_user_id()

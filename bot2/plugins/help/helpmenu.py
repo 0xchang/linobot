@@ -10,7 +10,7 @@
 import os
 
 from nonebot.adapters.onebot.v11.message import Message
-from nonebot import on_command
+from nonebot import on_fullmatch
 
 help_detail='''
 /帮助                   获取帮助信息
@@ -45,6 +45,7 @@ help_detail='''
 /换老婆             换一个老婆给你
 /偷老婆atxx         你可以偷xx的老婆
 /置顶                查看up动态置顶信息
+/投稿               查看up投稿视频，默认0
 /抽歌手             抽一个歌手
 /看番               搜索番剧并返回网址
 /早饭
@@ -52,7 +53,7 @@ help_detail='''
 /晚饭
 /水果
 '''
-helpmenu=on_command('帮助',priority=150)
+helpmenu=on_fullmatch('帮助',priority=150)
 @helpmenu.handle()
 async def helpmenu_handle():
     pwd=os.getcwd()

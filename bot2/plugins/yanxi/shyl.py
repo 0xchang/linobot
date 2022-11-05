@@ -11,10 +11,10 @@ import time
 
 from nonebot.adapters.onebot.v11.message import Message
 from nonebot.adapters.onebot.v11 import Event
-from nonebot import on_command
+from nonebot import on_fullmatch
 import bot2.plugins.yanxi.yanxi as yanxi
 
-shyl=on_command('社会语录',priority=203)
+shyl=on_fullmatch('社会语录',priority=203)
 shyl_time=0
 
 @shyl.handle()

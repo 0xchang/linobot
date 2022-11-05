@@ -9,12 +9,12 @@
 """
 import random
 
-from nonebot import on_command
+from nonebot import on_fullmatch
 from nonebot.adapters.onebot.v11 import GroupMessageEvent,Event
 from bot2.plugins.xiuxian.Role import XianRole
 from nonebot.adapters.onebot.v11.message import Message
 
-workxian = on_command('打工', priority=234)
+workxian = on_fullmatch('打工', priority=234)
 @workxian.handle()
 async def infoxian_handle(event: GroupMessageEvent):
     uid = event.get_user_id()
@@ -34,7 +34,7 @@ async def infoxian_handle(event: GroupMessageEvent):
 goods=['秋刀鱼','比目鱼','三文鱼','多宝鱼','石斑鱼','黑头鱼','马鲛','金目鲷','金枪鱼','军曹鱼']
 bads=['破烂的鞋子','枯枝','烂木头','衣服','拖鞋','蛇']
 bzang=['黑盒子','银盒子','金盒子']
-fishxian = on_command('钓鱼', priority=235)
+fishxian = on_fullmatch('钓鱼', priority=235)
 @fishxian.handle()
 async def infoxian_handle(event: Event):
     global goods

@@ -11,13 +11,13 @@ import time
 
 from nonebot.adapters.onebot.v11.message import Message
 from nonebot.adapters.onebot.v11 import Event
-from nonebot import on_command
+from nonebot import on_fullmatch
 import bot2.plugins.yanxi.yanxi as yanxi
 
 
 
 
-xljt=on_command("心灵鸡汤",priority=200)
+xljt=on_fullmatch("心灵鸡汤",priority=200)
 xljt_time=0
 
 @xljt.handle()

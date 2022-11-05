@@ -7,13 +7,13 @@
 @file: gua.py
 @Github: https://github.com/0xchang
 """
-from nonebot import on_command
+from nonebot import on_fullmatch
 from nonebot.adapters.onebot.v11 import Event
 from bot2.plugins.xiuxian.Role import XianRole
 from nonebot.adapters.onebot.v11.message import Message
 from nonebot.permission import SUPERUSER
 
-yfctxian = on_command('一飞冲天', priority=242,permission=SUPERUSER)
+yfctxian = on_fullmatch('一飞冲天', priority=242,permission=SUPERUSER)
 @yfctxian.handle()
 async def yfctxian_handle(event: Event):
     uid = event.get_user_id()

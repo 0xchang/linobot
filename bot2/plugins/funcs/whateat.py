@@ -10,9 +10,9 @@
 import random
 
 from nonebot.adapters.onebot.v11.message import Message
-from nonebot import on_command
+from nonebot import on_fullmatch
 
-eatzaocmd = on_command('早饭', priority=281)
+eatzaocmd = on_fullmatch('早饭', priority=281)
 
 
 @eatzaocmd.handle()
@@ -28,7 +28,7 @@ async def songer_handle():
     await eatzaocmd.finish(Message(mess))
 
 
-eatwucmd = on_command('午饭', priority=281)
+eatwucmd = on_fullmatch('午饭', priority=281)
 
 
 @eatwucmd.handle()
@@ -45,7 +45,7 @@ async def songer_handle():
     await eatwucmd.finish(Message(mess))
 
 
-eatwancmd = on_command('晚饭', priority=281)
+eatwancmd = on_fullmatch('晚饭', priority=281)
 
 
 @eatwancmd.handle()
@@ -62,7 +62,7 @@ async def songer_handle():
     await eatwancmd.finish(Message(mess))
 
 
-eatsgcmd = on_command('水果', priority=281)
+eatsgcmd = on_fullmatch('水果', priority=281)
 
 
 @eatsgcmd.handle()

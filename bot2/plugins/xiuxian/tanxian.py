@@ -7,12 +7,12 @@
 @file: tanxian.py
 @Github: https://github.com/0xchang
 """
-from nonebot import on_command
+from nonebot import on_fullmatch
 from nonebot.adapters.onebot.v11 import Event
 from bot2.plugins.xiuxian.Role import XianRole
 from nonebot.adapters.onebot.v11.message import Message
 
-txxian = on_command('探险', priority=245)
+txxian = on_fullmatch('探险', priority=245)
 @txxian.handle()
 async def infoxian_handle(event: Event):
     uid = event.get_user_id()

@@ -7,11 +7,11 @@
 @file: lookboss.py
 @Github: https://github.com/0xchang
 """
-from nonebot import on_command
+from nonebot import on_fullmatch
 from nonebot.adapters.onebot.v11.message import Message
 import sqlite3
 
-lbossxian = on_command('查boss', priority=262, )
+lbossxian = on_fullmatch('查boss', priority=262, )
 
 
 @lbossxian.handle()

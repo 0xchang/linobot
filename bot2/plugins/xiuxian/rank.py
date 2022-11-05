@@ -8,7 +8,7 @@
 @Github: https://github.com/0xchang
 """
 import sqlite3
-from nonebot import on_command
+from nonebot import on_fullmatch
 from bot2.plugins.xiuxian.Role import XianRole
 
 
@@ -82,7 +82,7 @@ def rankLevel():
     return value
 
 
-rgoldxian = on_command('富豪榜', priority=241)
+rgoldxian = on_fullmatch('富豪榜', priority=241)
 
 
 @rgoldxian.handle()
@@ -95,7 +95,7 @@ async def rgoldxian_handle():
     await rgoldxian.finish(mess)
 
 
-rattackxian = on_command('攻击榜', priority=241)
+rattackxian = on_fullmatch('攻击榜', priority=241)
 
 
 @rattackxian.handle()
@@ -108,7 +108,7 @@ async def rattackxian_handle():
     await rattackxian.finish(mess)
 
 
-rdefensexian = on_command('防御榜', priority=241)
+rdefensexian = on_fullmatch('防御榜', priority=241)
 
 
 @rdefensexian.handle()
@@ -121,7 +121,7 @@ async def rdefensexian_handle():
     await rdefensexian.finish(mess)
 
 
-rspeedxian = on_command('速度榜', priority=241)
+rspeedxian = on_fullmatch('速度榜', priority=241)
 
 
 @rspeedxian.handle()
@@ -134,7 +134,7 @@ async def rspeedxian_handle():
     await rspeedxian.finish(mess)
 
 
-rlevelxian = on_command('境界榜', priority=241)
+rlevelxian = on_fullmatch('境界榜', priority=241)
 
 
 @rlevelxian.handle()

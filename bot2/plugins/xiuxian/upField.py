@@ -7,12 +7,12 @@
 @file: upField.py
 @Github: https://github.com/0xchang
 """
-from nonebot import on_command
+from nonebot import on_fullmatch
 from nonebot.adapters.onebot.v11 import GroupMessageEvent,Event
 from bot2.plugins.xiuxian.Role import XianRole
 from nonebot.adapters.onebot.v11.message import Message
 
-upxian = on_command('进化', priority=239)
+upxian = on_fullmatch('进化', priority=239)
 @upxian.handle()
 async def infoxian_handle(event: GroupMessageEvent):
     uid = event.get_user_id()
@@ -26,7 +26,7 @@ async def infoxian_handle(event: GroupMessageEvent):
     del u
     await upxian.finish(Message(mess))
 
-jiujiupxian = on_command('大进化', priority=239)
+jiujiupxian = on_fullmatch('大进化', priority=239)
 @jiujiupxian.handle()
 async def jiujiupxian_handle(event: Event):
     uid = event.get_user_id()
@@ -38,7 +38,7 @@ async def jiujiupxian_handle(event: Event):
     await jiujiupxian.finish(Message(mess))
 
 
-jiujiupxian = on_command('究极进化', priority=239)
+jiujiupxian = on_fullmatch('究极进化', priority=239)
 @jiujiupxian.handle()
 async def jiujiupxian_handle(event: Event):
     uid = event.get_user_id()
