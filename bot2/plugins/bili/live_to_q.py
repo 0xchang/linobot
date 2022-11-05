@@ -28,7 +28,7 @@ async def while_live():
         mess=liveres[1]
         if liveres[0]==0:
             await liveBye(bot, liveres[2],ginfos)
-        if time.time()-liveres[0]>10:
+        if time.time()-liveres[0]>15:
             continue
         for ginfo in ginfos:
             if ginfo[4]!=1:

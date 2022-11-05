@@ -39,7 +39,7 @@ async def senddyn(bot,value,dynres):
             )
 
 
-@scheduler.scheduled_job("cron", second='*/15')
+@scheduler.scheduled_job("cron", second='*/18')
 async def while_dyn():
     bot, = get_bots().values()
     uids=select_uid_from_user()
@@ -49,7 +49,7 @@ async def while_dyn():
         #print('我访问了动态',uid)
         dynres=await updynamic.dyn(uid[0],False)
 
-        if now-dynres[1]>15:
+        if now-dynres[1]>20:
             continue
         elif dynres[0]==1:
             for value in values:
