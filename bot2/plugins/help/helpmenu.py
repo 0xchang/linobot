@@ -52,6 +52,7 @@ help_detail='''
 /午饭
 /晚饭
 /水果
+/昵称颜色           可以修改群昵称的颜色
 '''
 helpmenu=on_fullmatch('帮助',priority=150)
 @helpmenu.handle()
