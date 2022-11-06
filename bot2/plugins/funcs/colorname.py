@@ -41,6 +41,6 @@ color_name = on_fullmatch('昵称颜色', priority=281)
 
 @color_name.handle()
 async def color_name_handle():
-    color0 = '<&ÿĀĀĀ>黑色 \n<&ÿÿ5@>红色 \n<&ÿÿ]>粉色 \n<&ÿÒUÐ>紫色 \n<&ÿÄW>绿色 \n<&ÿÿÏP>黄色'
+    color0 = '<&ÿĀĀĀ>黑色 \n<&ÿÿ5@>红色 \n<&ÿÿ]>粉色 \n<&ÿÒUÐ>紫色 \n<&ÿÄW>绿色 \n<&ÿÿÏP>黄色 \n<%ĀĀÖ>渐变紫'
     mess=color0+'\n以上特殊代码+名字即可，仅适用于群昵称'
     await color_name.finish(Message(mess))
