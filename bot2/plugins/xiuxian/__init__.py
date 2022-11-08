@@ -18,11 +18,13 @@ def create_xian():
     create_chenghao_sql = 'create table if not exists chenghao(uid int,kill int,fish int,dazuo int,work int)'
     create_monster_sql = 'create table if not exists monsters(name text,HP int,attack int,defense int)'
     create_mboos_sql = 'create table if not exists monboss(name text,HP int,attack int,defense int,live int)'
+    create_bank_sql='create table if not exists bank(uid int,gold int)'
     cur.execute(create_xian_sql)
     cur.execute(create_xiulian_sql)
     cur.execute(create_chenghao_sql)
     cur.execute(create_monster_sql)
     cur.execute(create_mboos_sql)
+    cur.execute(create_bank_sql)
     con.commit()
     cur.close()
     con.close()

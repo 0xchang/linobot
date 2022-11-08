@@ -35,6 +35,12 @@ def create_xiuxian_help():
     打怪---------随机打怪，不强的时候别来
     /打bossxx------打xxboss，boss很强，别来
     查boss--------查看boss列表,boss三十分钟复活一次
+    查钱---------查看钱庄余额
+    开户---------向钱庄申请账户
+    销户---------向钱庄销户(钱庄余额会全部清空)
+    存钱 100------向钱庄存灵石
+    取钱 100------向钱庄取灵石
+    转账@xx 100----向xx转账100灵石
     '''
     lino_path=os.path.join(os.getcwd(),'img','lino.jpg')
     current=Image.open(lino_path)
