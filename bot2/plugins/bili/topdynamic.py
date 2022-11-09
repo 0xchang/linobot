@@ -7,7 +7,7 @@
 @file: topdynamic.py
 @Github: https://github.com/0xchang
 """
-import bot2.plugins.bili.updynamic as upd
+from bot2.plugins.bili.updynamic import dyn
 from nonebot.adapters.onebot.v11.message import Message
 from nonebot.adapters.onebot.v11 import GroupMessageEvent
 from nonebot import on_fullmatch
@@ -21,7 +21,7 @@ async def topd_handle(event:GroupMessageEvent):
     values=select_uid_from_qid(gid)
     for value in values:
         uid=value[0]
-        res=await upd.dyn(uid,True)
+        res=await dyn(uid,True)
         res=res[2]
         mess=f'[CQ:at,qq={qid}]'+res
         mess=mess.replace('发布了新','的置顶')

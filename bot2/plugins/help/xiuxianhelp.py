@@ -1,21 +1,20 @@
 #!/bin/env python
 # -*- coding: utf-8 -*-
 """
-@time: 2022/11/1 14:46
+@time: 2022/11/9 13:22
 @author: 0xchang
 @E-mail: oxchang@163.com
-@file: helpxiuxian.py
+@file: xiuxianhelp.py
 @Github: https://github.com/0xchang
 """
 import os
-from nonebot import on_fullmatch
+from nonebot import on_command
 from PIL import Image,ImageDraw,ImageFont
-import random
 from nonebot.adapters.onebot.v11.message import Message
 
 def create_xiuxian_help():
     helpxiuxian='''
-    修仙帮助------获取帮助
+                    **********修仙菜单**********
     /查询--------查看个人信息
     进化---------消耗灵石增强属性
     大进化--------比进化牛必
@@ -45,14 +44,15 @@ def create_xiuxian_help():
     lino_path=os.path.join(os.getcwd(),'img','lino.jpg')
     current=Image.open(lino_path)
     draw=ImageDraw.Draw(current)
-    font=ImageFont.truetype(os.path.join(os.getcwd(),'fonts','千图小兔体.ttf'),size=40)
+    font=ImageFont.truetype(os.path.join(os.getcwd(),'fonts','qiantuxiaotuti.ttf'),size=40)
     draw.text((10, 420),text=helpxiuxian,font=font,fill=(94,38,18))
     current.save('./img/helpxiuxian.png')
 
 create_xiuxian_help()
 
-helpxian = on_fullmatch('修仙帮助', priority=239)
+helpxian = on_command('修仙帮助',aliases={'修仙菜单'}, priority=239)
 @helpxian.handle()
 async def infoxian_handle():
-    path=os.path.join(os.getcwd(),'img','helpxiuxian.png')
+    pwd = os.getcwd()
+    path = os.path.join(pwd, 'img', 'helpxiuxian.png')
     await helpxian.finish(Message(f'[CQ:image,file=file:///{path}]'))

@@ -23,9 +23,3 @@ async def _(bot: Bot, event: GroupMessageEvent):
         await power.send("群主测试成功")
     else:
         await power.send("群员测试成功")
-
-face=on_command('随机表情',priority=204)
-face_time=0
-@face.handle()
-async def face_handle(event:Event):
-    await face.finish(Message(f'[CQ:at,qq={event.get_user_id()}][CQ:face,id=%d]'%random.randint(0,221)))

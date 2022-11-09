@@ -14,8 +14,7 @@ require("nonebot_plugin_apscheduler")
 from nonebot_plugin_apscheduler import scheduler
 from nonebot import get_bots
 from bot2.plugins.bili import updynamic
-from bot2.plugins.sql.select_sql import select_uid_from_user
-from bot2.plugins.sql.select_sql import select_info_from_group
+from bot2.plugins.sql.select_sql import select_uid_from_user, select_info_from_group
 
 
 async def senddyn(bot,value,dynres):

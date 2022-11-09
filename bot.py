@@ -40,6 +40,13 @@ nonebot.load_plugins('bot2/plugins/help')
 nonebot.load_plugins('bot2/plugins/bili')
 nonebot.load_plugins('bot2/plugins/forup')
 nonebot.load_plugins('bot2/plugins/xiuxian')
+nonebot.load_plugin('nonebot_plugin_remake')
+nonebot.load_plugin('nonebot_plugin_simplemusic')
+nonebot.load_plugin('nonebot_plugin_petpet')
+nonebot.load_plugin('nonebot_plugin_smart_reply')
+nonebot.load_plugin('nonebot_plugin_setu4')
+nonebot.load_plugin('nonebot_plugin_tarot')
+nonebot.load_plugin('nonebot_plugin_aidraw')
 # Please DO NOT modify this file unless you know what you are doing!
 # As an alternative, you should use command `nb` or modify `pyproject.toml` to load plugins
 

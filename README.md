@@ -6,15 +6,42 @@ go-cqhttp默认安装即可
 
 ### 本项目
 **推荐使用conda安装python环境方便多版本管理,python>3.8**
+
+* ubuntu系统先看https://github.com/noneplugin/nonebot-plugin-imageutils
+
 ```
 git clone
 cd linobot
 pip install -r requirements.txt
 nb plugin install nonebot_plugin_apscheduler
+nb plugin install nonebot_plugin_simplemusic
+nb plugin install nonebot_plugin_remake
+nb plugin install nonebot_plugin_imageutils
+nb plugin install nonebot_plugin_petpet
+nb plugin install nonebot-plugin-smart-reply
+nb plugin install nonebot-plugin-setu4
+nb plugin install nonebot-plugin-tarot
+nb plugin install nonebot-plugin-aidraw
 #修改.env.dev文件内容
 nb run
 #注意.env.dev中的端口需和go-cqhttp当中的端口一致
 ```
+### 更新2022-11-9
+使用`nonebot_plugin_simplemusic`插件，地址https://github.com/noneplugin/nonebot-plugin-simplemusic
+
+使用`nonebot_plugin_remake`插件，地址https://github.com/noneplugin/nonebot-plugin-remake
+
+使用`nonebot_plugin_petpet`插件，地址https://github.com/noneplugin/nonebot-plugin-petpet
+
+使用`nonebot_plugin_imageutils`，地址https://github.com/noneplugin/nonebot-plugin-imageutils
+
+使用`nonebot-plugin-smart-reply`，地址https://github.com/Special-Week/nonebot_plugin_smart_reply
+
+使用`nonebot-plugin-setu4`，地址https://github.com/Special-Week/nonebot_plugin_setu4
+
+使用`nonebot-plugin-tarot`，地址https://github.com/MinatoAquaCrews/nonebot_plugin_tarot
+
+使用`nonebot-plugin-aidraw`，地址https://github.com/A-kirami/nonebot-plugin-aidraw
 
 ### 更新2022-11-8
 增加银行系统
