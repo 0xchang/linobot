@@ -31,6 +31,10 @@ async def bgxian_handle(event: GroupMessageEvent, argcom: Message = CommandArg()
         cur.execute('select * from monboss where name=?', (bt,))
         con.commit()
         val = cur.fetchall()
+        if len(val) == 0:
+            cur.execute('select * from highmonboss where name=?', (bt,))
+            con.commit()
+            val = cur.fetchall()
         cur.close()
         con.close()
         if len(val) == 0:

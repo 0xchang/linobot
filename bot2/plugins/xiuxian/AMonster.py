@@ -50,7 +50,13 @@ class MonBoss:
         cur.execute('select * from monboss where name=?', (self.name,))
         con.commit()
         val = cur.fetchall()
+        if val==[]:
+            cur.execute('select * from highmonboss where name=?', (self.name,))
+            con.commit()
+            val = cur.fetchall()
         _1, self.HP, self.attack, self.defense, _2 = val[0]
+        cur.close()
+        con.close()
 
     def getAttack(self) -> int:
         return self.attack

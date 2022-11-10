@@ -11,17 +11,17 @@ from nonebot import on_fullmatch
 from nonebot.adapters.onebot.v11.message import Message
 import sqlite3
 
-lbossxian = on_fullmatch('查boss', priority=262, )
+lbossxian = on_fullmatch('查boss', priority=262)
 
 
 @lbossxian.handle()
 async def lbossxian_handle():
     mess = ''
-    con=sqlite3.connect('data/xiuxian.data')
-    cur=con.cursor()
+    con = sqlite3.connect('data/xiuxian.data')
+    cur = con.cursor()
     cur.execute('select * from monboss')
     con.commit()
-    monboss=cur.fetchall()
+    monboss = cur.fetchall()
     cur.close()
     con.close()
     for mon in monboss:
@@ -31,4 +31,29 @@ async def lbossxian_handle():
         else:
             mess += '否'
         mess += '\n'
+    mess=mess[:-1]
     await lbossxian.finish(Message(mess))
+
+
+lhbossxian = on_fullmatch('高阶boss', priority=263)
+
+
+@lhbossxian.handle()
+async def lhbossxian_handle():
+    mess = ''
+    con = sqlite3.connect('data/xiuxian.data')
+    cur = con.cursor()
+    cur.execute('select * from highmonboss')
+    con.commit()
+    monboss = cur.fetchall()
+    cur.close()
+    con.close()
+    for mon in monboss:
+        mess = mess + mon[0] + '->血量:' + str(mon[1]) + ',攻击:' + str(mon[2]) + ',防御:' + str(mon[3]) + ',存活:'
+        if mon[4] == 1:
+            mess += '是'
+        else:
+            mess += '否'
+        mess += '\n'
+    mess=mess[:-1]
+    await lhbossxian.finish(Message(mess))
