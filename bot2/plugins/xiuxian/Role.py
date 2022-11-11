@@ -60,7 +60,7 @@ class XianRole:
         if len(va) == 0:
             cur.execute('insert into biguan(uid,xtime,jtime) values(?,?,?)', (self.uid, int(time.time()), bt))
             con.commit()
-            self.experience += 3 * bt *self.level
+            self.experience += 3 * bt * self.level
             now = int(time.time())
         else:
             jt = va[0][2]
@@ -153,13 +153,14 @@ class XianRole:
         if m.getHP() > 0:
             return False, 0, 0, 0
         else:
-            zgold = (m.getAttack() + m.getDefense()) * count // 2
-            zexp = zgold * 4
+            zgold = (m.getAttack() + m.getDefense()) * count // 4
+            zexp = zgold * 2
             self.gold += zgold
             self.experience += zexp
             con = sqlite3.connect('data/xiuxian.data')
             cur = con.cursor()
             cur.execute('update monboss set live=? where name=?', (0, m.name))
+            cur.execute('update highmonboss set live=? where name=?', (0, m.name))
             con.commit()
             cur.close()
             con.close()
@@ -300,7 +301,7 @@ class XianRole:
         honor += f'{num_to_char(n1)}阶'
         if '鸿钧' in honor:
             honor = '鸿钧'
-            honor+=f'{level-260}阶'
+            honor += f'{level - 260}阶'
         return honor
 
     def honor(self):
@@ -388,13 +389,13 @@ class XianRole:
                 exp *= self.level * random.randint(2, 5)
                 status = -2
         elif exp in (40, 41):
-            exp = exp * random.randint(5, 8) * self.level // 8
+            exp = exp * random.randint(5, 8) * self.level // 4
             status = 1
         elif exp in (49, 50):
             exp = self.level * exp * random.randint(3, 5)
             status = 2
         else:
-            exp = exp * self.level // 8
+            exp = exp * self.level // 4
             status = 0
         self.dazuonum += 1
         self.experience += exp
@@ -442,28 +443,28 @@ class XianRole:
         if self.experience > self.level ** 2 * 100:
             self.experience -= self.level ** 2 * 100
             self.level += 1
-            self.attack += 10 * self.level
-            self.defense += 5 * self.level
-            self.speed += 3 * self.level
+            self.attack += 20 * self.level
+            self.defense += 10 * self.level
+            self.speed += 6 * self.level
             self.MP += 10 * self.level
             self.HP += 30 * self.level
 
     def supgoldToField(self) -> bool:
         if self.gold >= 200000:
-            self.gold -= random.randint(190000, 200000)
-            self.attack += random.randint(9000, 28000)
-            self.defense += random.randint(9000, 28000)
-            self.speed += random.randint(9000, 28000)
+            self.gold -= random.randint(195000, 200000)
+            self.attack += random.randint(5000, 14000)
+            self.defense += random.randint(5000, 14000)
+            self.speed += random.randint(5000, 14000)
             self.upSql()
             return True
         return False
 
     def biggoldToField(self) -> bool:
         if self.gold >= 2000:
-            self.gold -= random.randint(1700, 2000)
-            self.attack += random.randint(100, 280)
-            self.defense += random.randint(100, 280)
-            self.speed += random.randint(100, 280)
+            self.gold -= random.randint(1800, 2000)
+            self.attack += random.randint(100, 180)
+            self.defense += random.randint(100, 180)
+            self.speed += random.randint(100, 180)
             self.upSql()
             return True
         return False
@@ -471,9 +472,9 @@ class XianRole:
     def goldToField(self) -> bool:
         if self.gold >= 20:
             self.gold -= random.randint(15, 20)
-            self.attack += random.randint(0, 3)
-            self.defense += random.randint(0, 3)
-            self.speed += random.randint(0, 3)
+            self.attack += random.randint(0, 2)
+            self.defense += random.randint(0, 2)
+            self.speed += random.randint(0, 2)
             self.upSql()
             return True
         return False
@@ -481,11 +482,11 @@ class XianRole:
     def kaigua(self):
         self.HP += 50
         self.MP += 50
-        self.attack += 1000
-        self.defense += 1000
-        self.speed += 1000
-        self.experience += 100000
-        self.gold += 1000
+        self.attack += 10000
+        self.defense += 10000
+        self.speed += 10000
+        self.experience += 1000000
+        self.gold += 100000
 
     def isLive(self) -> bool:
         return True if self.HP > 0 else False
@@ -518,8 +519,8 @@ class XianRole:
                 self.MP = 0
             if self.gold < 0:
                 self.gold = 0
-            if len(self.name)>25:
-                self.name=self.name[:25]
+            if len(self.name) > 25:
+                self.name = self.name[:25]
         else:
             cur.execute(
                 'insert into Role(uid,name,gold,attack,defense,speed,HP,MP,level,experience,stime,sex,sign) values(?,?,?,?,?,?,?,?,?,?,?,?,?)',

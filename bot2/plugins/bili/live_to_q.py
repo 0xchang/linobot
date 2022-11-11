@@ -22,13 +22,15 @@ async def while_live():
     uids = select_uid_from_user()
     for uid in uids:
         #print('我访问了直播', uid)
+        live_val = select_live(uid[0])[0]
         user = select_user(uid[0])[0]
         ginfos = select_info_from_group(user[0])
         liveres=await uplive(user[2],user[1])
         mess=liveres[1]
         if liveres[0]==0:
             await liveBye(bot, liveres[2],ginfos)
-        if time.time()-liveres[0]>15:
+            continue
+        if live_val[1]==1:
             continue
         for ginfo in ginfos:
             if ginfo[4]!=1:
