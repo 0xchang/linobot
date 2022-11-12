@@ -33,11 +33,13 @@ async def while_live():
         if live_val[1]==1:
             continue
         for ginfo in ginfos:
+            time.sleep(0.1)
             if ginfo[4]!=1:
                 continue
             elif ginfo[7]==1:
                 if '[CQ:at,qq=all]' not in mess:
                     mess='[CQ:at,qq=all]'+mess
+            print(mess)
             await bot.send_msg(
                 message_type=ginfo[2],
                 group_id=ginfo[3],
@@ -59,6 +61,7 @@ async def liveBye(bot,data:tuple,ginfos:tuple):
     hour=int(spendtime/3600)
     mess='【下播提醒】\n'+name+'下播了喵,谢谢观看\n'+'本次直播人气峰值: %d\n'%pnum+'本次直播时长为%s小时%s分钟%s秒\n'%(hour,minute,second)+'希望大家多来看我哦!'
     for ginfo in ginfos:
+        time.sleep(0.1)
         await bot.send_msg(
             message_type=ginfo[2],
             group_id=ginfo[3],

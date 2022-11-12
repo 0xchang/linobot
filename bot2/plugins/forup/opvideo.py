@@ -51,7 +51,7 @@ async def video_close_handle(event:Event,comargs:Message=CommandArg()):
         await video_close.finish(Message(f'uid只能为纯数字'))
     else:
         uid, mtype, qqid = res
-        usql.update_data(usql.update_video(uid, mtype, qqid, 1))
+        usql.update_data(usql.update_video(uid, mtype, qqid, 0))
     await video_close.finish(Message(f'已经关闭视频通知'))
 
 @video_close_at.handle()
@@ -62,5 +62,5 @@ async def videoat_close_handle(event:Event,comargs:Message=CommandArg()):
         await video_close_at.finish(Message(f'uid只能为纯数字'))
     else:
         uid, mtype, qqid = res
-        usql.update_data(usql.update_videoat(uid, mtype, qqid, 1))
+        usql.update_data(usql.update_videoat(uid, mtype, qqid, 0))
     await video_close_at.finish(Message(f'已经关闭视频全体通知'))

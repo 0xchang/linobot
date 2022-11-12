@@ -52,10 +52,13 @@ async def while_dyn():
             continue
         elif dynres[0]==1:
             for value in values:
+                time.sleep(0.1)
                 await senddyn(bot,(value[5], value[8], value[2], value[3]),dynres)
         elif dynres[0]==8:
             for value in values:
+                time.sleep(0.1)
                 await senddyn(bot,(value[6],value[9],value[2],value[3]),dynres)
         else:
             for value in values:
+                time.sleep(0.1)
                 await senddyn(bot,(value[5], value[8], value[2], value[3]), dynres)

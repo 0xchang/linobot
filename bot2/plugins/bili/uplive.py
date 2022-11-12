@@ -20,7 +20,7 @@ async def uplive(roomid:int,name:str):
     title=liveres['title']
     cover=liveres['cover']
     stime=liveres['live_start_time']
-    res=name+'开播了,快去看看喵\n'+title+'\n[CQ:image,file=%s]\n'%cover+liveUrl
+    res=name+'开播了,快去看看喵\n'+title+'\n[CQ:image,file=%s]'%cover+liveUrl
     #print(res)
     status=1
     if stime==0:
