@@ -19,6 +19,17 @@ def select_user(uid:int):
     con.close()
     return value
 
+def select_userName(name:str):
+    select_sql='select * from user where name=?'
+    con=sqlite3.connect('data/info.data')
+    cur=con.cursor()
+    cur.execute(select_sql,(name,))
+    con.commit()
+    value=cur.fetchall()
+    cur.close()
+    con.close()
+    return value
+
 def select_uid_from_user():
     select_sql='select uid from user'
     con=sqlite3.connect('data/info.data')
