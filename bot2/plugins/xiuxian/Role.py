@@ -33,6 +33,7 @@ class XianRole:
         self.dazuonum = 0
         self.worknum = 0
         self.getSql()
+        self.upLevel()
 
     def clear(self):
         self.gold = 0
