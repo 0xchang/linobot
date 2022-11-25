@@ -38,6 +38,7 @@ def create_bili_img():
     置顶------------------查看up动态置顶信息
     /投稿-----------------查看up投稿视频，默认0
     查粉------------------看看粉丝有多少
+    查成分uid-------------查你nnd
     '''
     lino_path = os.path.join(os.getcwd(), 'img', 'lino.jpg')
     current = Image.open(lino_path)
