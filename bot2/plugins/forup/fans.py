@@ -7,7 +7,7 @@
 @file: fans.py
 @Github: https://github.com/0xchang
 """
-from bilibili_api import user, sync
+from bilibili_api import user
 from nonebot import on_fullmatch
 from nonebot.adapters.onebot.v11.message import Message
 from nonebot.adapters.onebot.v11 import GroupMessageEvent
@@ -21,7 +21,6 @@ async def fans_handle(event:GroupMessageEvent):
     mess=''
     for value in values:
         value=value.split(',')
-        #print(value)
         if len(value[0])==0:
             continue
         u = user.User(value[1])

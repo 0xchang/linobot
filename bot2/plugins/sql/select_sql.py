@@ -63,6 +63,17 @@ def select_groupid():
     con.close()
     return value
 
+def sel_uid_from_fgroup(qid:int):
+    select_sql='select uid from fgroup where gtype=? and qqid=?'
+    con = sqlite3.connect('data/info.data')
+    cur = con.cursor()
+    cur.execute(select_sql, ('group',qid))
+    con.commit()
+    value = cur.fetchall()
+    cur.close()
+    con.close()
+    return value
+
 def select_follow_group(gtype:str,qqid:int):
     select_sql='select uid from fgroup where gtype=? and qqid=?'
     con=sqlite3.connect('data/info.data')
