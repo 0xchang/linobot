@@ -31,4 +31,4 @@ async def dahanghai_handle(event:GroupMessageEvent):
             resp=await r.get_dahanghai()
             num=resp['info']['num']
             time.sleep(0.1)
-            await dahanghai.send(Message(f'{name}的舰长数量TM只有<{num}>个了,生产队的驴都不敢像你这么歇的，还不努力一下。。。'))
+            await dahanghai.send(Message(f'{name}目前已经拥有《{num}》舰长啦 这是大家对lino的喜欢捏 大步向前继续努力吧喵！'))
