@@ -18,7 +18,7 @@ shyl=on_fullmatch('社会语录',priority=203)
 shyl_time=0
 
 @shyl.handle()
-async def shyl_handle(event:Event):
+async def shyl_handle():
     global shyl_time
     print(shyl_time)
     if yanxi.time_check(time.time(),shyl_time):
@@ -26,5 +26,5 @@ async def shyl_handle(event:Event):
     else:
         shyltxt=await yanxi.yanxiapi('http://api.yanxi520.cn/api/shehui.php')
         shyl_time = time.time()
-        await shyl.finish(Message(f'[CQ:at,qq={event.get_user_id()}]%s'%shyltxt))
+        await shyl.finish(Message('%s'%shyltxt),at_sender=True)
 

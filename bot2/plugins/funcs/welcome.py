@@ -16,7 +16,7 @@ from nonebot.adapters.onebot.v11 import GroupIncreaseNoticeEvent
 welcom = on_notice()
 
 @welcom.handle()
-async def welcome(bot: Bot, event: GroupIncreaseNoticeEvent, state: T_State):
+async def welcome( event: GroupIncreaseNoticeEvent):
     user = event.get_user_id()
     at_ = "欢迎！：[CQ:at,qq={}]".format(user)
     msg = at_ + '加入大家庭,你可以使用/帮助来获取帮助信息'

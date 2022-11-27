@@ -26,4 +26,4 @@ async def tgrj_handle(event:Event):
     else:
         tgrjtxt=await yanxi.yanxiapi('http://api.yanxi520.cn/api/tiangou.php')
         tgrj_time=time.time()
-        await tgrj.finish(Message(f'[CQ:at,qq={event.get_user_id()}]%s'%tgrjtxt))
+        await tgrj.finish(Message('%s'%tgrjtxt),at_sender=True)

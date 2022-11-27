@@ -31,4 +31,4 @@ async def bgxian_handle(event: GroupMessageEvent,argcom:Message=CommandArg()):
     else:
         mess = f'你在闭关中，闭关时间为{t // 60}分钟'
     del u
-    await bgxian.finish(Message(mess))
+    await bgxian.finish(Message(mess),at_sender=True)

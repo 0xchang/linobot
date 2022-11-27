@@ -51,12 +51,12 @@ async def follow_handle(event:Event,comargs:Message=CommandArg()):
             insert_sql.insert_live(mid,0)
         #group表中数据,没有则添加
         if len(res_group)!=0:
-            await follow.finish(Message(f'[CQ:at,qq={event.get_user_id()}]您已经关注了%s哦'%res_user[0][1]))
+            await follow.finish(Message('您已经关注了%s哦'%res_user[0][1]),at_sender=True)
         else:
             insert_sql.insert_group(mid,roomid,alltype,qid)
-            await follow.finish(Message(f'[CQ:at,qq={event.get_user_id()}]已关注%s(%d)了哦'%(name,mid)))
+            await follow.finish(Message('已关注%s(%d)了哦'%(name,mid)),at_sender=True)
     else:
-        await follow.finish(Message(f'[CQ:at,qq={event.get_user_id()}]你输入的主播id有误,您可以重来吗?谢谢!'))
+        await follow.finish(Message('你输入的主播id有误,您可以重来吗?谢谢!'),at_sender=True)
 
 get_follow=on_command('关注列表',priority=151)
 @get_follow.handle()
@@ -67,8 +67,8 @@ async def get_follow_handle(event:Event):
         qid=event.user_id
     res=select_sql.select_follow_group(event.message_type,qid)
     if len(res)==0:
-        await get_follow.finish(Message(f'[CQ:at,qq={event.get_user_id()}]没有关注任何人'))
-    await get_follow.finish(Message(f'[CQ:at,qq={event.get_user_id()}]关注列表为\n%s'%res))
+        await get_follow.finish(Message('没有关注任何人'),at_sender=True)
+    await get_follow.finish(Message('关注列表为\n%s'%res),at_sender=True)
 
 nofollow=on_command('取关',priority=152,permission=SUPERUSER)
 #操作取关事件
@@ -101,5 +101,5 @@ async def follow_info_handle(event:Event):
         qid=event.user_id
     res=select_sql.select_follow_info(event.message_type,qid)
     if len(res)==0:
-        await get_follow.finish(Message(f'[CQ:at,qq={event.get_user_id()}]没有关注任何人'))
-    await get_follow.finish(Message(f'[CQ:at,qq={event.get_user_id()}]关注列表为\n%s'%str(res)))
+        await get_follow.finish(Message('没有关注任何人'),at_sender=True)
+    await get_follow.finish(Message('关注列表为\n%s'%str(res)),at_sender=True)

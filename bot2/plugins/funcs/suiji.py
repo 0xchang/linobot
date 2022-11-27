@@ -28,15 +28,15 @@ async def rand_num_handle(event:Event,comargs:Message=CommandArg()):
         if num=='':
             num=random.randint(0,1000)
             rand_num_time=time.time()
-            await rand_num.finish(Message(f'[CQ:at,qq={event.get_user_id()}]%d' % num))
+            await rand_num.finish(Message('%d' % num),at_sender=True)
             return
         else:
             num=int(num)
             if num>100:
-                await rand_num.finish(Message(f'[CQ:at,qq={event.get_user_id()}]亲,最多生成100个随机数呢'))
+                await rand_num.finish(Message('亲,最多生成100个随机数呢'),at_sender=True)
             num=[random.randint(0,1000) for _ in range(num)]
             rand_num_time=time.time()
-            await rand_num.finish(Message(f'[CQ:at,qq={event.get_user_id()}]%s'%str(num)))
+            await rand_num.finish(Message('%s'%str(num)),at_sender=True)
             return
     except Exception:
         pass

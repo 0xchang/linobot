@@ -19,11 +19,11 @@ sjyl=on_fullmatch('随机语录',priority=201)
 sjyl_time=0
 
 @sjyl.handle()
-async def sjyl_handle(event:Event):
+async def sjyl_handle():
     global sjyl_time
     if yanxi.time_check(time.time(),sjyl_time):
         return
     else:
         sjyltxt=await yanxi.yanxiapi('http://api.yanxi520.cn/api/yan.php')
         sjyl_time = time.time()
-        await sjyl.finish(Message(f'[CQ:at,qq={event.get_user_id()}]%s'%sjyltxt))
+        await sjyl.finish(Message('%s'%sjyltxt),at_sender=True)

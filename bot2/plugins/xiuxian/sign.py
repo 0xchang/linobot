@@ -35,4 +35,4 @@ async def signxian_handle(event:GroupMessageEvent):
     else:
         mess='你已经签到过了!'
     del u
-    await signxian.finish(Message(mess))
+    await signxian.finish(Message(mess),at_sender=True)

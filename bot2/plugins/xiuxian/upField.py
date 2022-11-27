@@ -20,7 +20,7 @@ async def infoxian_handle(event: GroupMessageEvent):
     uid = event.get_user_id()
     u = XianRole(uid, event.sender.nickname)
     if u.isBiguan():
-        await upxian.finish(Message(f'你正在闭关'))
+        await upxian.finish(Message(f'你正在闭关'),at_sender=True)
     if u.goldToField():
         mess = '恭喜你消耗部分灵石进化成功，各项属性有所增加！'
     else:

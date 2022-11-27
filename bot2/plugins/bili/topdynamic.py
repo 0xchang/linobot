@@ -17,12 +17,11 @@ topd=on_fullmatch('置顶',priority=107)
 @topd.handle()
 async def topd_handle(event:GroupMessageEvent):
     gid=event.group_id
-    qid=event.get_user_id()
     values=select_uid_from_qid(gid)
     for value in values:
         uid=value[0]
         res=await dyn(uid,True)
         res=res[2]
-        mess=f'[CQ:at,qq={qid}]'+res
+        mess=res
         mess=mess.replace('发布了新','的置顶')
-        await topd.send(Message(mess))
+        await topd.send(Message(mess),at_sender=True)

@@ -28,6 +28,6 @@ async def xljt_handle(event:Event):
         else:
                 xjlttxt=await yanxi.yanxiapi('http://api.yanxi520.cn/api/xljtwr.php')
                 xljt_time=time.time()
-                await xljt.finish(Message(f'[CQ:at,qq={event.get_user_id()}]%s'%xjlttxt))
+                await xljt.finish(Message('%s'%xjlttxt),at_sender=True)
 
 

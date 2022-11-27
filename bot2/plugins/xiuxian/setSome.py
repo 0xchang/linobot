@@ -24,7 +24,7 @@ async def infoxian_handle(event: GroupMessageEvent,argcom:Message=CommandArg()):
     u.setName(name)
     mess=f'改名成功，你的新名字为{name}'
     del u
-    await namexian.finish(Message(mess))
+    await namexian.finish(Message(mess),at_sender=True)
 
 sexxian = on_command('改性别', priority=237)
 @sexxian.handle()
@@ -38,4 +38,4 @@ async def infoxian_handle(event: GroupMessageEvent,argcom:Message=CommandArg()):
     else:
         mess='改变性别失败，只能为男、女、阴阳人'
     del u
-    await sexxian.finish(Message(mess))
+    await sexxian.finish(Message(mess),at_sender=True)
