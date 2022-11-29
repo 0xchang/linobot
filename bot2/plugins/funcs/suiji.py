@@ -11,7 +11,7 @@ import random
 import time
 
 from nonebot.adapters.onebot.v11.message import Message
-from nonebot import on_command
+from nonebot import on_command,on_fullmatch
 from nonebot.params import CommandArg
 from nonebot.adapters.onebot.v11 import Event
 from bot2.plugins.yanxi.yanxi import time_check
@@ -40,3 +40,9 @@ async def rand_num_handle(event:Event,comargs:Message=CommandArg()):
             return
     except Exception:
         pass
+
+touzi=on_fullmatch('骰子',priority=198)
+@touzi.handle()
+async def touzi_handle():
+    rnum=random.randint(1,6)
+    await touzi.finish(Message(f'{rnum}'))

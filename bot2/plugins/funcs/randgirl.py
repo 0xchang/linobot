@@ -51,7 +51,7 @@ white_girl.handle()
 
 @white_girl.handle()
 async def white_girl_handle():
-    res = requests.get('http://ap1.iw233.cn/api.php?sort=yin', allow_redirects=False)
+    res = requests.get('http://api.iw233.cn/api.php?sort=yin', allow_redirects=False)
     await white_girl.finish(Message(f'[CQ:image,file={res.headers["Location"]}]'))
 
 
@@ -62,7 +62,7 @@ catear_pic.handle()
 
 @catear_pic.handle()
 async def catear_pic_handle():
-    res = requests.get('http://ap1.iw233.cn/api.php?sort=cat', allow_redirects=False)
+    res = requests.get('http://api.iw233.cn/api.php?sort=cat', allow_redirects=False)
     await catear_pic.finish(Message(f'[CQ:image,file={res.headers["Location"]}]'))
 
 
