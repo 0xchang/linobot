@@ -111,6 +111,20 @@ class XianRole:
     def getName(self):
         return self.name
 
+    def upHP(self,gold:int)->bool:
+        if self.gold<gold:
+            return False
+        self.HP+=gold*2
+        self.gold-=gold
+        return True
+
+    def upMP(self,gold:int)->bool:
+        if self.gold<gold:
+            return False
+        self.MP+=gold//2
+        self.gold-=gold
+        return True
+
     def upHPMP(self) -> bool:
         if self.gold < 20:
             return False
