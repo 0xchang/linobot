@@ -49,6 +49,7 @@ def create_xiuxian_help():
     速度榜
     富豪榜
     境界榜
+    境界帮助
     '''
     lino_path=os.path.join(os.getcwd(),'img','lino.jpg')
     current=Image.open(lino_path)
