@@ -42,6 +42,11 @@ def create_xiuxian_help():
     存钱 100------向钱庄存灵石
     取钱 100------向钱庄取灵石
     转账@xx 100----向xx转账100灵石
+    攻击榜
+    防御榜
+    速度榜
+    富豪榜
+    境界榜
     '''
     lino_path=os.path.join(os.getcwd(),'img','lino.jpg')
     current=Image.open(lino_path)
