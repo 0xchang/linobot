@@ -7,6 +7,8 @@
 @file: upExp.py
 @Github: https://github.com/0xchang
 """
+import time
+
 from nonebot import on_fullmatch
 from nonebot.adapters.onebot.v11 import GroupMessageEvent
 from bot2.plugins.xiuxian.Role import XianRole
@@ -14,9 +16,15 @@ from nonebot.adapters.onebot.v11.message import Message
 
 upexpxian = on_fullmatch('练功', priority=241)
 
-
+liantime=0
 @upexpxian.handle()
 async def infoxian_handle(event: GroupMessageEvent):
+    global liantime
+    ntime=time.time()
+    if ntime-liantime<0.3:
+        return
+    else:
+        liantime=ntime
     uid = event.get_user_id()
     u = XianRole(uid)
     if u.isBiguan():

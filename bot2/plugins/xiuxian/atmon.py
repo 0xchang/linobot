@@ -8,6 +8,7 @@
 @Github: https://github.com/0xchang
 """
 import random
+import time
 
 from nonebot import on_fullmatch
 from nonebot.adapters.onebot.v11 import Event
@@ -19,8 +20,15 @@ mon = monsters
 
 atmoxian = on_fullmatch('打怪', priority=240)
 
+guaitime=0
 @atmoxian.handle()
 async def infoxian_handle(event: Event):
+    global guaitime
+    ntime=time.time()
+    if ntime-guaitime<0.3:
+        return
+    else:
+        guaitime=ntime
     uid = event.get_user_id()
     u = XianRole(uid)
     if u.isBiguan():
