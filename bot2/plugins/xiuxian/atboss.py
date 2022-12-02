@@ -7,6 +7,8 @@
 @file: atboss.py
 @Github: https://github.com/0xchang
 """
+import time
+
 from nonebot import on_command
 from nonebot.rule import to_me
 from nonebot.adapters.onebot.v11 import GroupMessageEvent, Event
@@ -65,7 +67,7 @@ async def asgrboss_handle(event: Event, argcom: Message = CommandArg()):
     bname = argcom.extract_plain_text().strip()
     con = sqlite3.connect('data/xiuxian.data')
     cur = con.cursor()
-    cur.execute('select * from gerenboss where uid=? and name=?', (uid, bname))
+    cur.execute('select * from gerenboss where uid=?', (uid,))
     con.commit()
     grboss = cur.fetchall()
     if grboss == []:
@@ -76,10 +78,16 @@ async def asgrboss_handle(event: Event, argcom: Message = CommandArg()):
             if gb[0] == bname:
                 grboss = (uid, gb[0], gb[1], gb[2], gb[3], 1)
     else:
+        cur.execute('select * from gerenboss where uid=? and name=?', (uid, bname))
+        con.commit()
+        grboss = cur.fetchall()
+        if grboss == []:
+            await atgrbossxian.finish(Message('没有这个个人boss'))
         grboss = grboss[0]
     cur.close()
     con.close()
     if grboss[5] == 0:
+        time.sleep(0.2)
         await atgrbossxian.finish(Message('这个boss好像没有复活'))
     else:
         u = XianRole(uid)
