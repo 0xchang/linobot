@@ -13,7 +13,7 @@ nonebot2 = "^2.0.0-beta.1"
 nb-cli = "^0.6.0"
 
 [tool.nonebot]
-plugins = ["nonebot_plugin_apscheduler", "nonebot_plugin_remake", "nonebot_plugin_songpicker2", "nonebot_plugin_simplemusic", "nonebot_plugin_petpet", "nonebot_plugin_imageutils", "nonebot_plugin_today_in_history", "nonebot_plugin_setu4", "nonebot_plugin_smart_reply", "nonebot_plugin_tarot", "nonebot_plugin_ddcheck", "nonebot_plugin_aidraw"]
+plugins = ["nonebot_plugin_remake", "nonebot_plugin_songpicker2", "nonebot_plugin_simplemusic", "nonebot_plugin_petpet", "nonebot_plugin_imageutils", "nonebot_plugin_today_in_history", "nonebot_plugin_setu4", "nonebot_plugin_smart_reply", "nonebot_plugin_tarot", "nonebot_plugin_ddcheck", "nonebot_plugin_aidraw", "nonebot_plugin_crazy_thursday", "nonebot_plugin_apscheduler"]
 plugin_dirs = ["bot2/plugins"]
 
 [build-system]

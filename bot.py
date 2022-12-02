@@ -47,6 +47,7 @@ nonebot.load_plugin('nonebot_plugin_smart_reply')
 nonebot.load_plugin('nonebot_plugin_setu4')
 nonebot.load_plugin('nonebot_plugin_tarot')
 nonebot.load_plugin('nonebot_plugin_aidraw')
+nonebot.load_plugin('nonebot_plugin_crazy_thursday')
 # Please DO NOT modify this file unless you know what you are doing!
 # As an alternative, you should use command `nb` or modify `pyproject.toml` to load plugins
 

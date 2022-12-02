@@ -22,6 +22,7 @@ nb plugin install nonebot-plugin-smart-reply
 nb plugin install nonebot-plugin-setu4
 nb plugin install nonebot-plugin-tarot
 nb plugin install nonebot-plugin-aidraw
+nb plugin install nonebot-plugin-crazy-thursday
 #修改.env.dev文件内容
 nb run
 #注意.env.dev中的端口需和go-cqhttp当中的端口一致
@@ -42,6 +43,8 @@ nb run
 使用`nonebot-plugin-tarot`，地址https://github.com/MinatoAquaCrews/nonebot_plugin_tarot
 
 使用`nonebot-plugin-aidraw`，地址https://github.com/A-kirami/nonebot-plugin-aidraw
+
+使用`nonebot_plugin_crazy_thursday`，地址https://github.com/MinatoAquaCrews/nonebot_plugin_crazy_thursday
 
 ### 更新2022-11-8
 增加银行系统
