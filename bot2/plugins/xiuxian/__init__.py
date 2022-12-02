@@ -21,6 +21,7 @@ def create_xian():
     create_hmboos_sql = 'create table if not exists monboss(name text,HP int,attack int,defense int,live int)'
     create_mboos_sql = 'create table if not exists highmonboss(name text,HP int,attack int,defense int,live int)'
     create_bank_sql = 'create table if not exists bank(uid int,gold int)'
+    create_grboss_sql = 'create table if not exists gerenboss(uid int,name text,HP int,attack int,defense int,live int)'
     cur.execute(create_xian_sql)
     cur.execute(create_xiulian_sql)
     cur.execute(create_chenghao_sql)
@@ -28,6 +29,7 @@ def create_xian():
     cur.execute(create_mboos_sql)
     cur.execute(create_bank_sql)
     cur.execute(create_hmboos_sql)
+    cur.execute(create_grboss_sql)
     con.commit()
     cur.close()
     con.close()
@@ -42,6 +44,7 @@ def create_monster():
     cur.execute('delete from monsters')
     cur.execute('delete from monboss')
     cur.execute('delete from highmonboss')
+    cur.execute('delete from gerenboss')
     con.commit()
     for monster in monsters:
         cur.execute('insert into monsters(name,HP,attack,defense) values(?,?,?,?)', monster)

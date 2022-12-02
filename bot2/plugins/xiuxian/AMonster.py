@@ -66,3 +66,20 @@ class MonBoss:
 
     def getDefense(self) -> int:
         return self.defense
+
+
+class GeRBoss:
+    def __init__(self,name,attack,defense,HP):
+        self.name = name
+        self.attack = attack
+        self.defense = defense
+        self.HP = HP
+
+    def getAttack(self) -> int:
+        return self.attack
+
+    def getHP(self) -> int:
+        return self.HP
+
+    def getDefense(self) -> int:
+        return self.defense

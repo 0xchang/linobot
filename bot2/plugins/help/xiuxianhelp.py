@@ -36,6 +36,8 @@ def create_xiuxian_help():
     /打bossxx------打xxboss，boss很强，别来
     查boss--------查看boss列表,boss三十分钟复活一次
     高阶boss-------同上
+    个人boss-------同上
+    杀bossxx-------打xxboss,个人专属boss,私聊打boss
     查钱---------查看钱庄余额
     开户---------向钱庄申请账户
     销户---------向钱庄销户(钱庄余额会全部清空)

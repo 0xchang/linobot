@@ -176,6 +176,7 @@ class XianRole:
             cur = con.cursor()
             cur.execute('update monboss set live=? where name=?', (0, m.name))
             cur.execute('update highmonboss set live=? where name=?', (0, m.name))
+            cur.execute('update gerenboss set live=? where name=? and uid=?', (0, m.name,self.uid))
             con.commit()
             cur.close()
             con.close()

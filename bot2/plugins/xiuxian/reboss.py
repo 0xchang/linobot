@@ -18,6 +18,7 @@ async def reboss():
     cur=con.cursor()
     cur.execute('update monboss set live=1')
     cur.execute('update highmonboss set live=1')
+    cur.execute('update gerenboss set live=1')
     cur.execute('delete from biguan where uid IS NULL')
     cur.execute('delete from Role where uid IS NULL')
     con.commit()
