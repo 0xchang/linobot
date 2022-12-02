@@ -52,6 +52,7 @@ def create_xiuxian_help():
     富豪榜
     境界榜
     境界帮助
+    赌灵石--------一夜暴富还是上天台?
     '''
     lino_path=os.path.join(os.getcwd(),'img','lino.jpg')
     current=Image.open(lino_path)

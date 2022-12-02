@@ -419,8 +419,11 @@ class XianRole:
 
     def incSign(self) -> bool:
         if self.signStatus == 0:
-            self.gold += 50
+            self.gold += 25*self.level
             self.experience += self.level * 5
+            self.attack+=self.level*10
+            self.defense+=self.level*6
+            self.speed+=self.level*3
             self.signStatus = 1
             self.upLevel()
             return True
