@@ -10,7 +10,6 @@
 import time
 
 from nonebot.adapters.onebot.v11.message import Message
-from nonebot.adapters.onebot.v11 import Event
 from nonebot import on_fullmatch
 import bot2.plugins.yanxi.yanxi as yanxi
 
@@ -24,7 +23,7 @@ async def shyl_handle():
     if yanxi.time_check(time.time(),shyl_time):
         return
     else:
-        shyltxt=await yanxi.yanxiapi('http://api.yanxi520.cn/api/shehui.php')
+        shyltxt=await yanxi.yanxiapi('http://yanxi520.cn/api/shehui.php')
         shyl_time = time.time()
         await shyl.finish(Message('%s'%shyltxt),at_sender=True)
 

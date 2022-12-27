@@ -24,6 +24,6 @@ async def sjyl_handle():
     if yanxi.time_check(time.time(),sjyl_time):
         return
     else:
-        sjyltxt=await yanxi.yanxiapi('http://api.yanxi520.cn/api/yan.php')
+        sjyltxt=await yanxi.yanxiapi('http://yanxi520.cn/api/yan.php')
         sjyl_time = time.time()
         await sjyl.finish(Message('%s'%sjyltxt),at_sender=True)

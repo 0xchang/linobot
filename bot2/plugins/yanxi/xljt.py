@@ -26,7 +26,7 @@ async def xljt_handle(event:Event):
         if yanxi.time_check(time.time(),xljt_time):
                 return
         else:
-                xjlttxt=await yanxi.yanxiapi('http://api.yanxi520.cn/api/xljtwr.php')
+                xjlttxt=await yanxi.yanxiapi('http://yanxi520.cn/api/xljtwr.php')
                 xljt_time=time.time()
                 await xljt.finish(Message('%s'%xjlttxt),at_sender=True)
 

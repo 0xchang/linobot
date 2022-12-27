@@ -24,6 +24,6 @@ async def tgrj_handle(event:Event):
     if yanxi.time_check(time.time(),tgrj_time):
         return
     else:
-        tgrjtxt=await yanxi.yanxiapi('http://api.yanxi520.cn/api/tiangou.php')
+        tgrjtxt=await yanxi.yanxiapi('http://yanxi520.cn/api/tiangou.php')
         tgrj_time=time.time()
         await tgrj.finish(Message('%s'%tgrjtxt),at_sender=True)

@@ -18,4 +18,5 @@ speak_cmd = on_command('发话',priority=302)
 async def speak_handle(argcom:Message=CommandArg()):
     txt=argcom.extract_plain_text().strip().replace(' ','')
     mess = f'[CQ:tts,text={txt}]'
+    print(mess)
     await speak_cmd.finish(Message(mess))
