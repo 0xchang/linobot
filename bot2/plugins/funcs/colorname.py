@@ -47,4 +47,20 @@ async def color_name_handle():
     color3 = '<%ĀĀÝ>朝夕 \n<%ĀĀÞ>潮流 ​ \n'
     mess = color0 + color1 + color2 + color3 + '\n以上特殊代码+名字即可，仅适用于群昵称'
     await color_name.finish(Message(mess))
+col_n = on_command('黑色', aliases={'红色', '粉色', '紫色', '黄色', '初春', '冬梅', '高级灰', '黄昏', '科技感',
+                                  '马卡龙', '霓虹闪烁', '日出', '盛夏', '糖果缤纷', '晚秋', '夜空', '粉黛', '朝夕', '潮流'},priority=282)
 
+@col_n.handle()
+async def coln_handle(event: GroupMessageEvent, argcom: Message = CommandArg()):
+    name=argcom.extract_plain_text().strip()
+    gmess=event.get_plaintext()
+    col_dict={'红色':'<&ÿÿ5@>','黑色':'<&ÿĀĀĀ>','粉色':'<&ÿÿ]>',
+              '紫色':'<&ÿÒUÐ>','黄色':'<&ÿÿÏP>','初春':'<%ĀĀÐ>',
+              '冬梅':'<%ĀĀÑ>','高级灰':'<%ĀĀÒ>','黄昏':'<%ĀĀÓ>',
+              '科技感':'<%ĀĀÔ>','马卡龙':'<%ĀĀÕ>','霓虹闪烁':'<%ĀĀÖ>',
+              '日出':'<%ĀĀ×>','盛夏':'<%ĀĀØ>','糖果缤纷':'<%ĀĀÙ>',
+              '晚秋':'<%ĀĀÚ>​','夜空':'<%ĀĀÛ>','粉黛':'<%ĀĀÜ>',
+              '朝夕':'<%ĀĀÝ>','潮流':'<%ĀĀÞ>'}
+    for key in col_dict.keys():
+        if gmess.startswith(key):
+            await col_n.send(Message(f'{col_dict[key]}{name}'))
