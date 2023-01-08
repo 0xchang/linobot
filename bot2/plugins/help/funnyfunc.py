@@ -45,6 +45,7 @@ def create_funny_img():
     竖屏少女------------别刷太快
     发话xxx------------让机器人说话
     疫情安全-----------显示疫情注意事项
+    提醒--------------提醒你要做什么事情
     '''
     lino_path = os.path.join(os.getcwd(), 'img', 'lino.jpg')
     current = Image.open(lino_path)

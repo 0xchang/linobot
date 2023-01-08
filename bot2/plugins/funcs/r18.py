@@ -27,8 +27,8 @@ async def r18handle(bot: Bot):
     imgurl = requests.get(url='https://moe.jitsu.top/r18/', headers=headers, allow_redirects=False).headers[
         'Location']
     print(imgurl)
-    mid = (await r18.send(Message(f'[CQ:image,file={imgurl}]')))['message_id']
-    await asyncio.sleep(7)
+    mid = (await r18.send(Message(f'{imgurl}')))['message_id']
+    await asyncio.sleep(10)
     await bot.delete_msg(message_id=mid)
 
 
@@ -42,6 +42,7 @@ async def pr18handle(bot: Bot):
     text = requests.get(url='https://moe.jitsu.top/img/?sort=r18&type=json', headers=headers).text
     data = json.loads(text)
     imgurl = data['pics'][0]
-    mid = (await pr18.send(Message(f'[CQ:image,file={imgurl}]')))['message_id']
-    await asyncio.sleep(7)
+    print(imgurl)
+    mid = (await pr18.send(Message(f'{imgurl}')))['message_id']
+    await asyncio.sleep(10)
     await bot.delete_msg(message_id=mid)
