@@ -16,7 +16,7 @@ from nonebot.adapters.onebot.v11 import Bot
 import json
 import asyncio
 
-r18 = on_fullmatch('r18')
+r18 = on_fullmatch({'r18','R18'},priority=330)
 
 
 
@@ -28,11 +28,11 @@ async def r18handle(bot: Bot):
         'Location']
     print(imgurl)
     mid = (await r18.send(Message(f'{imgurl}')))['message_id']
-    await asyncio.sleep(10)
+    await asyncio.sleep(30)
     await bot.delete_msg(message_id=mid)
 
 
-pr18 = on_fullmatch('pr18')
+pr18 = on_fullmatch({'pr18','PR18','Pr18'},priority=330)
 
 
 @pr18.handle()
@@ -44,5 +44,5 @@ async def pr18handle(bot: Bot):
     imgurl = data['pics'][0]
     print(imgurl)
     mid = (await pr18.send(Message(f'{imgurl}')))['message_id']
-    await asyncio.sleep(10)
+    await asyncio.sleep(30)
     await bot.delete_msg(message_id=mid)
