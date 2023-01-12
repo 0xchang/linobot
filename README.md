@@ -22,7 +22,18 @@ nb plugin install nonebot-plugin-smart-reply
 nb plugin install nonebot-plugin-setu4
 nb plugin install nonebot-plugin-tarot
 nb plugin install nonebot-plugin-crazy-thursday
-#修改.env.dev文件内容
+nb plugin install nonebot_plugin_caiyunai
+```
+### 修改.env文件内容
+```shell
+ENVIRONMENT=dev
+APSCHEDULER_CONFIG={"apscheduler.timezone": "Asia/Shanghai"}
+TAROT_PATH="./data/tarot"
+CHAIN_REPLY=false
+caiyunai_apikey=xxxxxxxxxxxxxxx(参照https://github.com/noneplugin/nonebot-plugin-caiyunai)
+```
+
+```shell
 nb run
 #注意.env.dev中的端口需和go-cqhttp当中的端口一致
 ```
@@ -49,6 +60,8 @@ nb run
 * 使用`nonebot-plugin-aidraw`，地址https://github.com/A-kirami/nonebot-plugin-aidraw
 
 * 使用`nonebot_plugin_crazy_thursday`，地址https://github.com/MinatoAquaCrews/nonebot_plugin_crazy_thursday
+
+* 使用`nonebot_plugin_caiyunai`，地址https://github.com/noneplugin/nonebot-plugin-caiyunai
 
 ### 更新2022-11-8
 * 增加银行系统
