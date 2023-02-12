@@ -54,6 +54,7 @@ def create_xiuxian_help():
     境界帮助
     赌灵石--------一夜暴富还是上天台?
     殊死一搏-----和别人对赌，输的一方禁言一分钟
+    九死一生-----赢的概率上升
     '''
     lino_path=os.path.join(os.getcwd(),'img','lino.jpg')
     current=Image.open(lino_path)

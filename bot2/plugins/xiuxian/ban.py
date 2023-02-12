@@ -36,3 +36,28 @@ async def ssyb_handle(bot: Bot, event: GroupMessageEvent, argcom: Message = Comm
         Message(f'刚才拼搏中招的人是{die}[CQ:image,file=http://q.qlogo.cn/headimg_dl?dst_uin={die}&spec=5&img_type=jpg]'))
     await bot.set_group_ban(group_id=gid, user_id=die, duration=60)
     await ssyb.finish(Message('他将被禁言一分钟'))
+
+
+
+jsys = on_command('九死一生', priority=100, block=True)
+
+
+@jsys.handle()
+async def jsys_handle(bot: Bot, event: GroupMessageEvent, argcom: Message = CommandArg()):
+    uid1 = event.get_user_id()
+    uid2 = argcom[0].get('data').get('qq')
+    gid = event.group_id
+    u1 = XianRole(uid1)
+    if u1.gold < 500000:
+        await jsys.finish(Message(f'你身上的灵石不够，要50w灵石'))
+    u1.gold -= 500000
+    del u1
+    if random.randint(1,10)==5:
+        die=uid1
+    else:
+        die=uid2
+    await jsys.send(Message(f'你花费了50w灵石和{uid2}进行对赌，输的一方将被禁言一分钟'))
+    await jsys.send(
+        Message(f'刚才拼搏中招的人是{die}[CQ:image,file=http://q.qlogo.cn/headimg_dl?dst_uin={die}&spec=5&img_type=jpg]'))
+    await bot.set_group_ban(group_id=gid, user_id=die, duration=60)
+    await jsys.finish(Message('他将被禁言一分钟'))
