@@ -1,0 +1,93 @@
+[
+  {
+    "id": 1,
+    "name": "人",
+    "description": "普通而平凡的人类。虽然没有像其他种族那样天生拥有特殊的能力，但是可以通过修炼和培养来获得更强大的力量和技能。",
+    "phy_at_up": 1.5,
+    "phy_de_up": 1.5,
+    "mag_at_up": 1,
+    "mag_de_up": 1,
+    "at_sp_up": 1.1,
+    "mov_sp_up": 1,
+    "hit_up": 1.1,
+    "evade_up": 1.1
+  },
+  {
+    "id": 2,
+    "name": "鬼",
+    "description": "邪恶和恐怖的存在。他们的修炼方法通常是通过吸取人类灵魂或者使用黑暗魔法来获得力量，与佛和人类相对立。",
+    "phy_at_up": 1.1,
+    "phy_de_up": 1.2,
+    "mag_at_up": 1.5,
+    "mag_de_up": 0.8,
+    "at_sp_up": 1.1,
+    "mov_sp_up": 1,
+    "hit_up": 1,
+    "evade_up": 1.5
+  },
+  {
+    "id": 3,
+    "name": "妖",
+    "description": "一种常见的种族。他们通常有强大的魔法能力，可以操纵元素、变身和吸取其他生物的灵魂能量。",
+    "phy_at_up": 0.8,
+    "phy_de_up": 1.2,
+    "mag_at_up": 1.5,
+    "mag_de_up": 1.5,
+    "at_sp_up": 1,
+    "mov_sp_up": 1,
+    "hit_up": 1.1,
+    "evade_up": 1
+  },
+  {
+    "id": 4,
+    "name": "魔",
+    "description": "邪恶和险恶的种族。修炼邪门歪道，比如吸取其他生物的精气或者使用禁忌魔法。被其他种族视为敌对势力。",
+    "phy_at_up": 0.8,
+    "phy_de_up": 1.1,
+    "mag_at_up": 1.5,
+    "mag_de_up": 1.1,
+    "at_sp_up": 1.5,
+    "mov_sp_up": 1,
+    "hit_up": 1.3,
+    "evade_up": 1
+  },
+  {
+    "id": 5,
+    "name": "仙",
+    "description": "飘逸和神秘的存在。通过修炼来提高自己的力量和境界，可以操控天地之力和飞行穿梭于不同的空间。",
+    "phy_at_up": 1.5,
+    "phy_de_up": 1.2,
+    "mag_at_up": 0.7,
+    "mag_de_up": 1.2,
+    "at_sp_up": 1.1,
+    "mov_sp_up": 1,
+    "hit_up": 1,
+    "evade_up": 1.5
+  },
+  {
+    "id": 6,
+    "name": "佛",
+    "description": "慈悲和正义的种族。通过修行和超脱来提高自己的精神境界和力量。是正义力量，与魔相对立。",
+    "phy_at_up": 1.2,
+    "phy_de_up": 1.5,
+    "mag_at_up": 0.8,
+    "mag_de_up": 1.5,
+    "at_sp_up": 1,
+    "mov_sp_up": 1,
+    "hit_up": 1,
+    "evade_up": 1
+  },
+  {
+    "id": 7,
+    "name": "神",
+    "description": "强大而神秘的存在，掌管着自然和人类的命运。力量和影响力超出其他种族的想象，但是他们往往不会干预人类的世界。",
+    "phy_at_up": 1.6,
+    "phy_de_up": 1.6,
+    "mag_at_up": 1.1,
+    "mag_de_up": 1.1,
+    "at_sp_up": 1.2,
+    "mov_sp_up": 1,
+    "hit_up": 1.1,
+    "evade_up": 1
+  }
+]

@@ -5,6 +5,7 @@ import os
 import nonebot
 from nonebot.adapters.onebot.v11 import Adapter as ONEBOT_V11Adapter
 from nonebot.log import logger, default_format
+from pathlib import Path
 
 # Custom your logger
 # 
@@ -32,14 +33,15 @@ driver = nonebot.get_driver()
 driver.register_adapter(ONEBOT_V11Adapter)
 
 nonebot.load_builtin_plugins("echo")
-nonebot.load_plugins("bot2/plugins/dirinit")
-nonebot.load_plugins("bot2/plugins/test")
-nonebot.load_plugins("bot2/plugins/yanxi")
-nonebot.load_plugins('bot2/plugins/funcs')
-nonebot.load_plugins('bot2/plugins/help')
-nonebot.load_plugins('bot2/plugins/bili')
-nonebot.load_plugins('bot2/plugins/forup')
-nonebot.load_plugins('bot2/plugins/xiuxian')
+nonebot.load_plugin(Path("bot2/plugins/eat/"))
+nonebot.load_plugin(Path('bot2/plugins/bili/'))
+nonebot.load_plugin(Path("bot2/plugins/mgroup/"))
+nonebot.load_plugin(Path("bot2/plugins/help/"))
+nonebot.load_plugin(Path("bot2/plugins/wife/"))
+nonebot.load_plugin(Path("bot2/plugins/yanxi/"))
+# 修仙插件,后面补上
+# nonebot.load_plugin(Path("bot2/plugins/xiuxian/"))
+
 nonebot.load_plugin('nonebot_plugin_remake')
 nonebot.load_plugin('nonebot_plugin_simplemusic')
 nonebot.load_plugin('nonebot_plugin_petpet')

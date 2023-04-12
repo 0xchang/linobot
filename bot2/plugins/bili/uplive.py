@@ -8,23 +8,20 @@
 @Github: https://github.com/0xchang
 """
 from bilibili_api import live
-from bot2.plugins.sql.update_sql import update_data,update_live_sta
+from .bilidbs import UpDB
 
-async def uplive(roomid:int,name:str):
-    r=live.LiveRoom(roomid)
-    liveres=await r.get_room_info()
-    pnum=liveres['watched_show']['num']
-    liveres=liveres['room_info']
-    uid=liveres['uid']
-    liveUrl='https://live.bilibili.com/'+str(roomid)
-    title=liveres['title']
-    cover=liveres['cover']
-    stime=liveres['live_start_time']
-    res=name+'开播了,快去看看喵\n'+title+'\n[CQ:image,file=%s]'%cover+liveUrl
-    #print(res)
-    status=1
-    if stime==0:
-        status=0
-    else:
-        update_data(update_live_sta(uid,status,stime))
-    return (stime,res,(uid,name,status,pnum,stime))
+
+async def uplive(roomid: int, name: str):
+    r = live.LiveRoom(roomid)
+    liveres = await r.get_room_info()
+    pnum = liveres['watched_show']['num']
+    liveres = liveres['room_info']
+    uid = liveres['uid']
+    liveUrl = 'https://live.bilibili.com/' + str(roomid)
+    title = liveres['title']
+    cover = liveres['cover']
+    startTime = liveres['live_start_time']
+    res = name + '开播了,快去看看喵\n' + title + '\n[CQ:image,file=%s]' % cover + liveUrl
+    if startTime != 0:
+        UpDB.update_start_time(uid, startTime)
+    return res, pnum, startTime
