@@ -42,7 +42,7 @@ async def _(event: GroupMessageEvent):
         if res:
             res = res[0]
             await mwife.finish(Message(
-                f'你轻轻地摸了一下你的老婆[CQ:image,file=http://q.qlogo.cn/headimg_dl?dst_uin={res[2]}&spec=5&img_type=jpg]{res[3]}更喜欢你了'))
+                f'你轻轻地摸了一下你的老婆的皮鼓[CQ:image,file=http://q.qlogo.cn/headimg_dl?dst_uin={res[2]}&spec=5&img_type=jpg]{res[3]}更喜欢你了'))
         else:
             await mwife.finish('你还没有老婆，去抽一个吧')
     else:
