@@ -111,6 +111,7 @@ async def _(event: GroupMessageEvent, argcom: Message = CommandArg()):
     if random.randint(1, 4) == 1:
         wid = value[2]
         name = value[3]
+        WifesDB.insert(gid, int(event.get_user_id()), wid, name)
         WifesDB.update(gid, int(event.get_user_id()), wid, name)
         await stealwife.finish('恭喜你偷到了老婆，快看看你老婆吧!', at_sender=True)
     await stealwife.finish('你偷老婆失败了，等会再来吧')

@@ -26,13 +26,13 @@ async def dyn(uid: int, name: str, top: bool) -> (int, int, str):
         mess += desccripton + '\n'
         for pic in res['cards'][0]['card']['item']['pictures']:
             pic = pic['img_src']
-            mess += f'[CQ:image,file=%s]' % pic
+            mess += f'[CQ:image,file={pic}]'
     elif contype == 4:
         mess += res['cards'][0]['card']['item']['content']
     elif contype == 8:
         mess += res['cards'][0]['card']['title']
-        mess += '[CQ:image,file=%s]' % res['cards'][0]['card']['pic']
-        mess += '这是一条视频哦!快去看喵!%s' % res['cards'][0]['card']['short_link']
+        mess += '[CQ:image,file={}]'.format(res['cards'][0]['card']['pic'])
+        mess += '这是一条视频哦!快去看喵!{}'.format(res['cards'][0]['card'].get('short_link'))
         return contype, res['cards'][0]['desc']['timestamp'], mess
     mess += '\nhttps://t.bilibili.com/' + str(res['cards'][0]['desc']['dynamic_id'])
     return contype, res['cards'][0]['desc']['timestamp'], mess
