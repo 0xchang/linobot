@@ -57,7 +57,7 @@ async def _(event: GroupIncreaseNoticeEvent):
     at_ = f"欢迎[CQ:at,qq={user}]"
     msg = at_ + '加入大家庭,你可以使用/帮助来获取帮助信息'
     msg = Message(msg)
-    await welcom.finish(f'{msg}')
+    await welcom.finish(msg)
 
 
 @speak_cmd.handle()

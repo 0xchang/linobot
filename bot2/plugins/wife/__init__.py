@@ -29,6 +29,40 @@ newwife = on_regex('^[抽换]老婆$', priority=110)
 enwife = on_regex('^[解禁]老婆$', priority=110)
 stealwife = on_command('偷老婆', priority=110)
 helpwife = on_fullmatch('老婆帮助', priority=110)
+cwife = on_fullmatch('c老婆', priority=110)
+mwife = on_fullmatch('摸老婆', priority=110)
+
+
+@mwife.handle()
+async def _(event: GroupMessageEvent):
+    gid = event.group_id
+    uid = event.get_user_id()
+    if WifeDBSet.sel_gid(gid):
+        res = WifesDB.sel_gau(gid, uid)
+        if res:
+            res = res[0]
+            await mwife.finish(Message(
+                f'你轻轻地摸了一下你的老婆[CQ:image,file=http://q.qlogo.cn/headimg_dl?dst_uin={res[2]}&spec=5&img_type=jpg]{res[3]}更喜欢你了'))
+        else:
+            await mwife.finish('你还没有老婆，去抽一个吧')
+    else:
+        await mwife.finish('未开启老婆功能')
+
+
+@cwife.handle()
+async def _(event: GroupMessageEvent):
+    gid = event.group_id
+    uid = event.get_user_id()
+    if WifeDBSet.sel_gid(gid):
+        res = WifesDB.sel_gau(gid, uid)
+        if res:
+            res = res[0]
+            await cwife.finish(Message(
+                f'你狠狠地c了一顿你的老婆[CQ:image,file=http://q.qlogo.cn/headimg_dl?dst_uin={res[2]}&spec=5&img_type=jpg]{res[3]}欲罢不能了'))
+        else:
+            await cwife.finish('你还没有老婆，去抽一个吧')
+    else:
+        await cwife.finish('未开启老婆功能')
 
 
 @enwife.handle()
@@ -94,5 +128,7 @@ async def _():
 解老婆--可以了
 抽老婆--展示你的老婆
 换老婆--换一个老婆
-偷老婆--偷别人的老婆'''
+偷老婆--偷别人的老婆
+c老婆--emmm
+摸老婆--摸一下你的老婆'''
     await helpwife.finish(helpmenu)
