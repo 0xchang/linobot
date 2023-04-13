@@ -88,7 +88,7 @@ async def _(bot: Bot, event: GroupMessageEvent):
             res = res[0]
             await newwife.finish(
                 Message(
-                    f',您亲爱的老婆是[CQ:image,file=http://q.qlogo.cn/headimg_dl?dst_uin={res[2]}&spec=5&img_type=jpg]【{res[3]}】 ({res[2]})呐!'))
+                    f'您亲爱的老婆是[CQ:image,file=http://q.qlogo.cn/headimg_dl?dst_uin={res[2]}&spec=5&img_type=jpg]【{res[3]}】 ({res[2]})呐!'))
         else:
             data = await bot.call_api('get_group_member_list', group_id=gid)
             mywife = random.choice(data)
@@ -107,7 +107,8 @@ async def _(event: GroupMessageEvent, argcom: Message = CommandArg()):
     value = WifesDB.sel_gau(gid, uid)
     if not value:
         await stealwife.finish('他连老婆都没有呢，你看他这么可怜别偷了！')
-    if random.randint(1, 6) == 1:
+    value=value[0]
+    if random.randint(1, 4) == 1:
         wid = value[2]
         name = value[3]
         WifesDB.update(gid, int(event.get_user_id()), wid, name)
