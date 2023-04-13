@@ -9,68 +9,45 @@
 """
 import json
 
-res = json.load(open('drug_init.json', 'r', encoding='utf8'))
-a = set()
-for r in res:
-    for s in r.get('materials').split():
-        # print(s)
-        a.add(s)
+res1 = json.load(open('weapon_init.json', 'r', encoding='utf8'))
+res2 = json.load(open('herbs_init.json', 'r', encoding='utf8'))
+res3 = json.load(open('ore_init.json', 'r', encoding='utf-8'))
+# print(res)
+s1 = set()
+s2 = set()
+sn = set()
+for i in res1:
+    materials = i['materials']
+    materials = materials.split()
+    sn.add(i['name'])
+    for m in materials:
+        s1.add(m)
+for i in res2:
+    s2.add(i['name'])
+# with open('drug_init.json','w',encoding='utf-8') as f:
+# f.write(res)
 
-count = 3000
+# print(s1)
+# print(s2)
+# print(sn)
+# print(s1 & s2)
+r = []
+id = 1100
+for i in s1:
+    if i in s1 & s2 or i in sn:
+        continue
+    else:
+        d = {
+            "id": id,
+            "name": i,
+            "description": "一种营养丰富、药用价值极高的珍贵食材，具有增强身体灵气、滋补身体等功效。"
+        }
+        r.append(d)
+        id += 1
 
-q='''龙鳞战甲
-
-魔法长袍
-
-钢铁盔甲
-
-火焰护甲
-
-寒冰铠甲
-
-神圣铠甲
-
-暗影盔甲
-
-地狱之衣
-
-萨满外套
-
-火花护甲
-
-冰川战甲
-
-狂野兽皮
-
-魔法护甲
-
-巨人铠甲
-
-黑暗外衣
-
-水晶盾甲
-
-奥术长袍
-
-银月战甲
-
-圣光铠甲
-
-风暴斗篷'''.split()
-index=0
-for a1 in range(len(q)):
-    out = {
-        "id": count,
-        "name": f"{q[index]}",
-        "materials": "",
-        "description": "",
-        "effect": "defense",
-        "amount": 1,
-        "multiple": 1.01
-    }
-    # print(out)
-    out = json.dumps(out, ensure_ascii=False)
-    out = out + ','
-    print(out)
-    count += 1
-    index+=1
+for i in res3:
+    if i['id'] % 8 == 0:
+        print('给出', end='')
+    print(f'{i["name"]}', end=',')
+    if (i['id'] + 1) % 8 == 0:
+        print('材料的描述')

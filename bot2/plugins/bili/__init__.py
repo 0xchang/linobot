@@ -246,10 +246,10 @@ async def while_live():
                     # 发送消息更新数据库
                     UpDB.update_send(up[0],1)
         elif startTime == 0 and up[4] == 1:
-            mess = live_bye(up[1], pnum, up[4])
+            mess = live_bye(up[2], pnum, up[3])
             for gid in gids:
                 time.sleep(0.1)
-                gid = gid[0]
+                gid = gid[1]
                 groupSet = GroupDB.sel_gid(gid)[0]
                 if groupSet[1] != 0:
                     await bot.send_msg(
@@ -257,6 +257,7 @@ async def while_live():
                         group_id=gid,
                         message=mess,
                     )
+                    UpDB.update_send(up[0], 0)
 
 
 @scheduler.scheduled_job("cron", second='*/20')

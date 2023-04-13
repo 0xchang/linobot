@@ -15,6 +15,5 @@ def live_bye(name: str, pnum: int, startime: int):
     second = spendtime % 60
     minute = int(spendtime / 60) % 60
     hour = int(spendtime / 3600)
-    mess = '【下播提醒】\n' + name + '下播了喵,谢谢观看\n' + '本次直播人气峰值: %d\n' % pnum + '本次直播时长为%s小时%s分钟%s秒\n' % (
-        hour, minute, second) + '希望大家多来看我哦!'
+    mess = f'【下播提醒】\n{name}下播了喵,谢谢观看\n本次直播人气峰值: {pnum}\n本次直播时长为{hour}小时{minute}分钟{second}秒\n希望大家多来看我哦!'
     return mess
