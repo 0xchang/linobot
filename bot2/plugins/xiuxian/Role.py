@@ -21,7 +21,7 @@ class Player(Model):
     name = CharField(max_length=18, default='无名氏')
     gender = CharField(max_length=1, default='男')
     # 状态
-    # 0 空闲,-1 死亡,1 打怪,2 打工,3 钓鱼
+    # 0 空闲,-1 死亡,1 打怪,2 打工,3 钓鱼,4 探险
     status = IntegerField(default=0)
     create_at = FloatField()
 
