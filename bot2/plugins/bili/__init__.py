@@ -30,7 +30,6 @@ import json
 
 from nonebot.plugin import PluginMetadata
 
-
 __plugin_meta__ = PluginMetadata(
     name="b站插件",
     description="这是一个b站vup帮助插件",
@@ -188,8 +187,8 @@ async def _(event: GroupMessageEvent):
         '全体动态': True if r[5] else False,
         '全体视频': True if r[6] else False,
     }
-    mess = json.dumps(rdict,ensure_ascii=False)
-    await follow_info.finish(f'该群关注设置为\n'+mess)
+    mess = json.dumps(rdict, ensure_ascii=False)
+    await follow_info.finish(f'该群关注设置为\n' + mess)
 
 
 @vcmd.handle()
@@ -244,7 +243,7 @@ async def while_live():
                         message=send,
                     )
                     # 发送消息更新数据库
-                    UpDB.update_send(up[0],1)
+                    UpDB.update_send(up[0], 1)
         elif startTime == 0 and up[4] == 1:
             mess = live_bye(up[2], pnum, up[3])
             for gid in gids:
@@ -275,6 +274,7 @@ async def while_dyn():
         for gid in gids:
             gid = gid[0]
             groupSet = GroupDB.sel_gid(gid)
+            groupSet = groupSet[0]
             if groupSet[2] == groupSet[3] == 0:
                 continue
             send = mess
@@ -290,7 +290,7 @@ async def while_dyn():
 
 @bilimenu.handle()
 async def _():
-    helpinfo='''
+    helpinfo = '''
     ***b站菜单***
 关注uid--关注主播
 取关uid--取关主播
