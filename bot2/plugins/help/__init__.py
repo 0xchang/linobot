@@ -14,7 +14,8 @@ allhelp = on_command('帮助', aliases={'菜单'}, priority=90)
 
 @allhelp.handle()
 async def _():
-    helpmenu = '''帮助
+    helpmenu = '''
+    ***帮助***
 b战帮助
 吃饭帮助
 群帮助

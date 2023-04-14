@@ -20,6 +20,7 @@ import time
 import urllib.parse
 import requests
 from .aior18 import getdata
+import random
 
 welcom = on_notice()
 speak_cmd = on_command('发话', priority=100)
@@ -33,6 +34,34 @@ r18 = on_fullmatch(('r18', 'R18'), priority=100, block=False)
 pr18 = on_fullmatch(('pr18', 'PR18', 'Pr18'), priority=100, block=False)
 seci = on_startswith(('涩词', 'seci', '塞词'), priority=100, block=False)
 grouphelp = on_fullmatch('群帮助', priority=100)
+coronakill = on_command('轮盘绝杀', priority=100, block=False)
+
+
+async def get_group_nickname(group_id: int, user_id: int) -> str:
+    bot = get_bot()
+    group_member_info = await bot.get_group_member_info(group_id=group_id, user_id=user_id)
+    return group_member_info['card'] or group_member_info['nickname']
+
+
+@coronakill.handle()
+async def _(event: GroupMessageEvent, argcom: Message = CommandArg()):
+    bot = get_bot()
+    uid1 = argcom[0].get('data').get('qq')
+    uid2 = event.get_user_id()
+    uname1 = await get_group_nickname(event.group_id, uid1)
+    uname2 = await get_group_nickname(event.group_id, uid2)
+    n = random.randint(1, 6)
+    mess = ''
+    for i in range(n - 1):
+        mess = mess + '{}对自己开了一枪，相安无事\n'.format(uname1 if i % 2 == 0 else uname2)
+    mess = mess + '{}对自己开了一枪[CQ:image,file=http://q.qlogo.cn/headimg_dl?dst_uin={}&spec=5&img_type=jpg]中招了'.format(
+        uname1 if n % 2 != 0 else uname2, uid1 if n % 2 != 0 else uid2)
+    await coronakill.send(Message(mess))
+    await bot.set_group_ban(
+        group_id=event.group_id,
+        user_id=uid1 if n % 2 != 0 else uid2,
+        duration=60,
+    )
 
 
 @grouphelp.handle()
