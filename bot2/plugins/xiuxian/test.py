@@ -47,4 +47,6 @@ for i in range(500, 530):
     if (i+1)%3==2:
         index += 1
 
-json.dump(a,open('evolve_init.json','w',encoding='utf-8'),ensure_ascii=False)
+#json.dump(a,open('evolve_init.json','w',encoding='utf-8'),ensure_ascii=False)
+for i in a:
+    print(i)
