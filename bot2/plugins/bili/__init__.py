@@ -27,6 +27,7 @@ from .uplive import uplive
 from .live2q import live_bye
 from .bilihelp import create_bilihelp_img
 import json
+import requests
 
 from nonebot.plugin import PluginMetadata
 
@@ -63,20 +64,18 @@ async def _(event: GroupMessageEvent, comargs: Message = CommandArg()):
     '''获取关注主播space数字并存入bili.db'''
     # 哔哩哔哩查看主播是否存在API,使用bilibili-api进行访问
     uid = comargs.extract_plain_text()
-    print('关注')
     if uid.isdigit():
-        print(uid)
-        uid = int(uid)
-        u = user.User(uid)
-        try:
-            info = await u.get_user_info()
-            print(info)
-            uid = info['mid']
-            name = info['name']
-            live_room = info['live_room']
-            rid = live_room['roomid']
-        except Exception:
-            await follow.finish('好像没有查到这个uid的用户哦')
+        # b站api有更新，频繁访问会导致json解析错误，改为其他api
+        url = f'https://api.bilibili.com/x/space/wbi/acc/info?mid={uid}&token=&platform=web'
+        info = requests.get(url, timeout=2, headers={
+            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36 Edg/112.0.1722.48'})
+        info = json.loads(info.text).get('data')
+        uid = info.get('mid')
+        name = info.get('name')
+        live_room = info.get('live_room')
+        if live_room is None:
+            await follow.finish('这个up没有自己的直播间，所以不关注了')
+        rid = live_room.get('roomid')
         gid = event.group_id
         UpDB.insert(uid, rid, name)
         GroupDB.insert(gid)
@@ -268,11 +267,11 @@ async def while_dyn():
     for up in ups:
         now = time.time()
         rtype, sendtime, mess = await dyn(up[0], up[2], False)
-        if now - sendtime > 19:
+        if now - sendtime > 20:
             continue
         gids = UpGroupDB.sel_uid(up[0])
         for gid in gids:
-            gid = gid[0]
+            gid = gid[1]
             groupSet = GroupDB.sel_gid(gid)
             groupSet = groupSet[0]
             if groupSet[2] == groupSet[3] == 0:
