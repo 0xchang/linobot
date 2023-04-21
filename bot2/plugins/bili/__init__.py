@@ -7,6 +7,7 @@
 @file: __init__.py
 @Github: https://github.com/0xchang
 """
+import asyncio
 import os, time
 from nonebot.adapters.onebot.v11.message import Message
 from nonebot.adapters.onebot.v11 import GroupMessageEvent
@@ -256,6 +257,8 @@ async def while_live():
                         message=mess,
                     )
                     UpDB.update_send(up[0], 0)
+                    # 设置间隔0.2秒
+                    await asyncio.sleep(0.2)
 
 
 @scheduler.scheduled_job("cron", second='*/20')
@@ -285,6 +288,8 @@ async def while_dyn():
                 group_id=gid,
                 message=send,
             )
+            #设置发消息间隔0.2秒
+            await asyncio.sleep(0.2)
 
 
 @bilimenu.handle()
