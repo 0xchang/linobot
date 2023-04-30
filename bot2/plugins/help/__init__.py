@@ -22,5 +22,6 @@ b战帮助
 老婆帮助
 言溪帮助
 修仙帮助
-插件帮助'''
+插件帮助
+狗哥帮助'''
     await allhelp.finish(helpmenu)
