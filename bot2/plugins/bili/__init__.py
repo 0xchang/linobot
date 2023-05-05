@@ -57,6 +57,7 @@ dyn_vi_li_open = on_regex('^(开启|关闭)(全体)?(动态|视频|直播)$', pr
                           block=True)
 vcmd = on_command('投稿', priority=83, block=True)
 topd = on_fullmatch('置顶', priority=83)
+last = on_fullmatch('最新', priority=83)
 bilimenu = on_command('b站帮助', aliases={'b站菜单'}, priority=84)
 
 
@@ -214,8 +215,21 @@ async def _(event: GroupMessageEvent):
         res = res[2]
         mess = res
         mess = mess.replace('发布了新', '的置顶')
-        await topd.send(Message(mess), at_sender=True)
+        await topd.send(Message(mess))
 
+
+@last.handle()
+async def _(event: GroupMessageEvent):
+    gid = event.group_id
+    uids = UpGroupDB.sel_gid(gid)
+    for uid in uids:
+        uid = uid[0]
+        infos = UpDB.sel_uid(uid)[0]
+        res = await dyn(uid, infos[2], False)
+        res = res[2]
+        mess = res
+        mess = mess.replace('发布了新', '的置顶')
+        await last.send(Message(mess))
 
 @scheduler.scheduled_job("cron", second='*/15')
 async def while_live():
@@ -270,7 +284,7 @@ async def while_dyn():
     for up in ups:
         now = time.time()
         rtype, sendtime, mess = await dyn(up[0], up[2], False)
-        if now - sendtime > 20:
+        if now - sendtime > 21:
             continue
         gids = UpGroupDB.sel_uid(up[0])
         for gid in gids:
@@ -302,6 +316,7 @@ async def _():
 关注设置--看群关注的设置
 (开启/关闭)(全体)(直播/动态/视频)--对群进行设置
 置顶--查看up动态置顶信息
+最新--查看最新动态
 投稿--查看up投稿视频，默认0
 查粉--看看粉丝有多少
 查舰--看看你有多少个亲爱的舰长'''
