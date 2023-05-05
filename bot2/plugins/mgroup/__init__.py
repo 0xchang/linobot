@@ -70,13 +70,13 @@ async def _(event: GroupMessageEvent, argcom: Message = CommandArg()):
     bot = get_bot()
     uid1 = argcom[0].get('data').get('qq')
     uid2 = event.get_user_id()
-    u2admin = await is_admin(uid2, event.group_id)
-    if u2admin:
-        await coronakill.finish('管理员不可主动发起该项，等着被打吧')
-    u1admin = await is_admin(uid1, event.group_id)
-    if u1admin:
-        await coronakill.send('被发起攻击的是管理员，不得不说你的胆子很大')
-        await asyncio.sleep(0.5)
+    # u2admin = await is_admin(uid2, event.group_id)
+    # if u2admin:
+        # await coronakill.finish('管理员不可主动发起该项，等着被打吧')
+    # u1admin = await is_admin(uid1, event.group_id)
+    # if u1admin:
+        # await coronakill.send('被发起攻击的是管理员，不得不说你的胆子很大')
+        # await asyncio.sleep(0.5)
     uname1 = await get_group_nickname(event.group_id, uid1)
     uname2 = await get_group_nickname(event.group_id, uid2)
     n = random.randint(1, 6)
