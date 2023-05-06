@@ -41,6 +41,7 @@ nonebot.load_plugin(Path("bot2/plugins/wife/"))
 nonebot.load_plugin(Path("bot2/plugins/yanxi/"))
 nonebot.load_plugin(Path("bot2/plugins/ggdog/"))
 nonebot.load_plugin(Path("bot2/plugins/fuckyou/"))
+nonebot.load_plugin(Path("bot2/plugins/mypets/"))
 # 修仙插件,后面补上
 # nonebot.load_plugin(Path("bot2/plugins/xiuxian/"))
 
