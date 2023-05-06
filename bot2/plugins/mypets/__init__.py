@@ -226,7 +226,7 @@ async def _(event: GroupMessageEvent):
     uid = event.get_user_id()
     pet: Pets = Pets.get_or_none(Pets.uid == uid)
     if pet:
-        pet.delete()
+        Pet.delete().where(Pet.uid == uid).execute()
         await petend.finish('你已放生了你的宠物，它再也不会回来了。')
     else:
         await petend.finish('你还没有宠物快去领养吧')

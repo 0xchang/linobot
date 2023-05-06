@@ -16,12 +16,12 @@ class Pets(Model):
     uid = IntegerField(unique=True)
     name = CharField(max_length=25)
     pet_type = CharField(max_length=20)
-    coins = IntegerField()
-    hunger = IntegerField()
-    thirst = IntegerField()
-    happiness = IntegerField()
-    exp = IntegerField()
-    level = IntegerField()
+    coins = IntegerField(default=100)
+    hunger = IntegerField(default=100)
+    thirst = IntegerField(default=100)
+    happiness = IntegerField(default=100)
+    exp = IntegerField(default=0)
+    level = IntegerField(default=1)
 
     class Meta:
         database = db
