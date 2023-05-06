@@ -15,6 +15,7 @@ from nonebot.adapters.onebot.v11.message import Message
 from nonebot.adapters.onebot.v11 import GroupMessageEvent
 from nonebot import require
 import time
+from datetime import date
 
 require("nonebot_plugin_apscheduler")
 from nonebot_plugin_apscheduler import scheduler
@@ -41,6 +42,7 @@ petplay = on_fullmatch('陪宠物玩耍', priority=105)
 petstudy = on_fullmatch('让宠物学习', priority=105)
 
 studystatus = dict()
+signstatus = dict()
 
 
 @peteat.handle()
@@ -184,8 +186,11 @@ async def _(event: GroupMessageEvent):
     uid = event.get_user_id()
     pet: Pets = Pets.get_or_none(Pets.uid == uid)
     if pet:
+        if not signstatus.get(uid):
+            if (date.today().day - signstatus.get(uid)) == 0:
+                await petsign.finish('你今天已经签到过了，不要再签到了')
         pet.coins += 60
-        petupexp(pet,5)
+        petupexp(pet, 5)
         pet.save()
         await petsign.finish('恭喜您签到获取60金币,宠物经验+5')
     else:
