@@ -9,7 +9,7 @@
 """
 from peewee import *
 
-db = SqliteDatabase('data/pets.db')
+petsdb = SqliteDatabase('data/pets.db')
 
 
 class Pets(Model):
@@ -24,7 +24,7 @@ class Pets(Model):
     level = IntegerField(default=1)
 
     class Meta:
-        database = db
+        database = petsdb
 
 
 def petlive(pet:Pets)->bool:
@@ -33,9 +33,3 @@ def petlive(pet:Pets)->bool:
     return False
 
 
-def petupexp(pet:Pets,exp:int):
-    pet.exp+=exp
-    if Pets.exp>=100:
-        Pets.exp-=100
-        Pets.level+=1
-    pet.save()
