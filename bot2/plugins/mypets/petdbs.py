@@ -38,3 +38,4 @@ def petupexp(pet:Pets,exp:int):
     if Pets.exp>=100:
         Pets.exp-=100
         Pets.level+=1
+    pet.save()
