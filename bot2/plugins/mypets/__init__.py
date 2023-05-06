@@ -186,9 +186,10 @@ async def _(event: GroupMessageEvent):
     uid = event.get_user_id()
     pet: Pets = Pets.get_or_none(Pets.uid == uid)
     if pet:
-        if not signstatus.get(uid):
+        if signstatus.get(uid):
             if (date.today().day - signstatus.get(uid)) == 0:
                 await petsign.finish('你今天已经签到过了，不要再签到了')
+        signstatus[uid]=date.today().day
         pet.coins += 60
         petupexp(pet, 5)
         pet.save()
