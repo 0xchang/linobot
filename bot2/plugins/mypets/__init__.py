@@ -62,9 +62,9 @@ async def _(event: GroupMessageEvent):
                     if pet.hunger > 100:
                         pet.hunger = 100
                     pet.exp += 3
-                    if Pets.exp >= 100:
-                        Pets.exp -= 100
-                        Pets.level += 1
+                    if pet.exp >= 100:
+                        pet.exp -= 100
+                        pet.level += 1
                     pet.save()
                     await peteat.send(f'你喂食了{pet.name}，经验+3，{pet.name}肚子大了一点点')
             else:
@@ -88,9 +88,9 @@ async def _(event: GroupMessageEvent):
                     if pet.thirst > 100:
                         pet.thirst = 100
                     pet.exp += 2
-                    if Pets.exp >= 100:
-                        Pets.exp -= 100
-                        Pets.level += 1
+                    if pet.exp >= 100:
+                        pet.exp -= 100
+                        pet.level += 1
                     pet.save()
                     await petdrink.send(f'你给{pet.name}喝水了，经验+2，{pet.name}肚子大了一点点')
             else:
@@ -111,9 +111,9 @@ async def _(event: GroupMessageEvent):
                 else:
                     pet.happiness += 5
                     pet.exp += 1
-                    if Pets.exp >= 100:
-                        Pets.exp -= 100
-                        Pets.level += 1
+                    if pet.exp >= 100:
+                        pet.exp -= 100
+                        pet.level += 1
                     pet.save()
                     await petplay.send(f'你陪{pet.name}玩耍了，经验+1，{pet.name}更开心了')
             else:
@@ -136,9 +136,9 @@ async def _(event: GroupMessageEvent):
                 else:
                     studystatus[uid] = time.time()
                     pet.exp += 6
-                    if Pets.exp >= 100:
-                        Pets.exp -= 100
-                        Pets.level += 1
+                    if pet.exp >= 100:
+                        pet.exp -= 100
+                        pet.level += 1
                     pet.save()
                     await petstudy.send(f'你教{pet.name}学了一些指令，经验+6，{pet.name}更聪明了')
             else:
@@ -216,9 +216,9 @@ async def _(event: GroupMessageEvent):
                 signstatus[uid] = date.today().day
                 pet.coins += 60
                 pet.exp += 5
-                if Pets.exp >= 100:
-                    Pets.exp -= 100
-                    Pets.level += 1
+                if pet.exp >= 100:
+                    pet.exp -= 100
+                    pet.level += 1
                 pet.save()
                 await petsign.send('恭喜您签到获取60金币,宠物经验+5')
         else:
