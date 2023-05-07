@@ -251,7 +251,7 @@ async def _(event: GroupMessageEvent):
     with petsdb:
         pet: Pets = Pets.get_or_none(Pets.uid == uid)
         if pet:
-            if 0 if signstatus.get(uid) == date.today().day else 1 == 0:
+            if True if signstatus.get(uid) == date.today().day else 0:
                 await petsign.send('你今天已经签到过了，不要再签到了')
             else:
                 signstatus[uid] = date.today().day
