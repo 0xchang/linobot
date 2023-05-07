@@ -99,15 +99,20 @@ async def _(event: GroupMessageEvent):
                     await peteat.send('你的金币不够，快去签到吧')
                 else:
                     pet.coins -= 5
-                    pet.hunger += 20
-                    if pet.hunger > 100:
-                        pet.hunger = 100
-                    pet.exp += 3
-                    if pet.exp >= 100:
-                        pet.exp -= 100
-                        pet.level += 1
-                    pet.save()
-                    await peteat.send(f'你喂食了{pet.name}，经验+3，{pet.name}肚子大了一点点')
+                    if pet.hunger == 100:
+                        pet.exp -= 5
+                        pet.save()
+                        await peteat.send(f'你喂食了{pet.name}，{pet.name}撑得不行了，经验-5')
+                    else:
+                        pet.hunger += 20
+                        if pet.hunger > 100:
+                            pet.hunger = 100
+                        pet.exp += 3
+                        if pet.exp >= 100:
+                            pet.exp -= 100
+                            pet.level += 1
+                        pet.save()
+                        await peteat.send(f'你喂食了{pet.name}，经验+3，{pet.name}肚子大了一点点')
             else:
                 await peteat.send('你的宠物好像不行了，快复活你的宠物吧')
         else:
@@ -125,15 +130,21 @@ async def _(event: GroupMessageEvent):
                     await petdrink.send('你的金币不够，快去签到吧')
                 else:
                     pet.coins -= 5
-                    pet.thirst += 20
-                    if pet.thirst > 100:
-                        pet.thirst = 100
-                    pet.exp += 2
-                    if pet.exp >= 100:
-                        pet.exp -= 100
-                        pet.level += 1
-                    pet.save()
-                    await petdrink.send(f'你给{pet.name}喝水了，经验+2，{pet.name}肚子大了一点点')
+                    if pet.thirst==100:
+                        pet.exp-=5
+                        pet.save()
+                        await petdrink.send(f'你给{pet.name}喝水了，{pet.name}撑得不行了，经验-5')
+                    else:
+                        pet.thirst += 20
+                        if pet.thirst > 100:
+                            pet.thirst = 100
+                            pet.exp -= 5
+                        pet.exp += 2
+                        if pet.exp >= 100:
+                            pet.exp -= 100
+                            pet.level += 1
+                        pet.save()
+                        await petdrink.send(f'你给{pet.name}喝水了，经验+2，{pet.name}肚子大了一点点')
             else:
                 await petdrink.send('你的宠物好像不行了，快复活你的宠物吧')
         else:
@@ -196,14 +207,16 @@ async def _(event: GroupMessageEvent):
         if pet:
             if pet.coins < 50:
                 await petrevive.send('你身上的金币不够,宠物无法复活,需要50金币')
-            if petlive(pet):
-                await petrevive.send('宠物还活着，不需要复活')
-            pet.coins -= 50
-            pet.hunger = 50
-            pet.thirst = 50
-            pet.happiness = 50
-            pet.save()
-            await petrevive.send('你的宠物已经复活')
+            else:
+                if petlive(pet):
+                    await petrevive.send('宠物还活着，不需要复活')
+                else:
+                    pet.coins -= 50
+                    pet.hunger = 50
+                    pet.thirst = 50
+                    pet.happiness = 50
+                    pet.save()
+                    await petrevive.send('你的宠物已经复活')
         else:
             await petrevive.send('你还没有宠物快去领养吧')
 
