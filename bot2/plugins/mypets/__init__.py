@@ -181,9 +181,11 @@ async def _(event: GroupMessageEvent):
         pet: Pets = Pets.get_or_none(Pets.uid == uid)
         if pet:
             if petlive(pet):
-                if studystatus.get(uid):
-                    if time.time() - studystatus.get(uid) < 1800:
-                        await petstudy.send(f'你刚教完{pet.name}学习完，等会再来吧')
+                if not studystatus.get(uid):
+                    studystatus[uid] = 0
+
+                if time.time() - studystatus.get(uid) < 1800:
+                    await petstudy.send(f'你刚教完{pet.name}学习完，等会再来吧')
 
                 else:
                     studystatus[uid] = time.time()
