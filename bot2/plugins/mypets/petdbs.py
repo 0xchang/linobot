@@ -9,11 +9,11 @@
 """
 from peewee import *
 
-petsdb = SqliteDatabase('data/pets.db',thread_safe=True)
+petsdb = SqliteDatabase('data/pets.db', thread_safe=True)
 
 
 class Pets(Model):
-    uid = IntegerField(unique=True)
+    uid = IntegerField(unique=True,primary_key=True)
     name = CharField(max_length=25)
     pet_type = CharField(max_length=20)
     coins = IntegerField(default=100)
@@ -27,9 +27,7 @@ class Pets(Model):
         database = petsdb
 
 
-def petlive(pet:Pets)->bool:
+def petlive(pet: Pets) -> bool:
     if pet.thirst > 0 and pet.hunger > 0 and pet.happiness > 0:
         return True
     return False
-
-
