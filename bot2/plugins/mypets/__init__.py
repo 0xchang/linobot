@@ -41,9 +41,51 @@ peteat = on_fullmatch('给宠物喂食', priority=105)
 petdrink = on_fullmatch('给宠物喝水', priority=105)
 petplay = on_fullmatch('陪宠物玩耍', priority=105)
 petstudy = on_fullmatch('让宠物学习', priority=105)
+petpk = on_command('宠物PK', priority=105)
 
 studystatus = dict()
 signstatus = dict()
+pkstatus = dict()
+
+
+@petpk.handle()
+async def _(event: GroupMessageEvent, argcom: Message = CommandArg()):
+    uid1 = event.get_user_id()
+    uid2 = argcom[0].get('data').get('qq')
+    if pkstatus.get(uid1):
+        if time.time() - pkstatus.get(uid1) < 60:
+            await petpk.finish(f'冷却时间一分钟，等会pk吧')
+    pkstatus[uid1] = time.time()
+    if uid2 and uid1:
+        with petsdb:
+            pet1: Pets = Pets.get_or_none(Pets.uid == uid1)
+            pet2: Pets = Pets.get_or_none(Pets.uid == uid2)
+            if pet1 and pet2:
+                if pet1.level > pet2.level:
+                    pet1.coins += 5
+                    pet1.save()
+                    await petpk.send(f'恭喜{pet1.name}赢了,金币+5')
+                elif pet1.level == pet2.level:
+                    diffexp = pet2.exp - pet1.exp
+                    if diffexp < -10:
+                        pet1.coins += 5
+                        pet1.save()
+                        await petpk.send(f'恭喜{pet1.name}赢了,金币+5')
+                    elif diffexp > 10:
+                        pet2.coins += 5
+                        pet2.save()
+                        await petpk.send(f'恭喜{pet2.name}赢了,金币+5')
+                    else:
+                        await petpk.send(f'{pet1.name}和{pet2.name}打成平手,各自休息去了')
+                else:
+                    pet2.coins += 5
+                    pet2.save()
+                    await petpk.send(f'恭喜{pet2.name}赢了,金币+5')
+            else:
+                await petpk.send('你没有宠物或者对面没有宠物')
+
+    else:
+        await petpk.finish('指令是宠物PK@xxx')
 
 
 @peteat.handle()
@@ -281,5 +323,6 @@ async def _():
 给宠物喂食--给宠物喂吃的
 给宠物喝水--给宠物喝水
 陪宠物玩耍--陪宠物玩耍
-让宠物学习--教宠物一些指令/间隔半小时'''
+让宠物学习--教宠物一些指令/间隔半小时
+宠物PK @xx--和别人的宠物PK，赢了有金币'''
     await pethelp.finish(peth)
