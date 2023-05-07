@@ -138,7 +138,6 @@ async def _(event: GroupMessageEvent):
                         pet.thirst += 20
                         if pet.thirst > 100:
                             pet.thirst = 100
-                            pet.exp -= 5
                         pet.exp += 2
                         if pet.exp >= 100:
                             pet.exp -= 100
