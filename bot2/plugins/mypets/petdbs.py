@@ -9,7 +9,7 @@
 """
 from peewee import *
 
-petsdb = SqliteDatabase('data/pets.db')
+petsdb = SqliteDatabase('data/pets.db',thread_safe=True)
 
 
 class Pets(Model):

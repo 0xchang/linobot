@@ -16,20 +16,18 @@ from nonebot.adapters.onebot.v11 import GroupMessageEvent
 from nonebot import require
 import time
 from datetime import date
-import asyncio
 
 require("nonebot_plugin_apscheduler")
 from nonebot_plugin_apscheduler import scheduler
 
 Pets.create_table()
-lock = asyncio.Lock()
 
 petstype = {'哈士奇', '柴犬', '阿拉斯加', '萨摩耶', '金毛', '英短', '美短', '中华田园猫', '波斯猫', '银狐仓鼠', '紫仓', '三线仓鼠', '普色蜜袋鼯',
             '白色蜜袋鼯', '铂金蜜袋鼯', '豹纹守宫', '睫角守宫', '鬃狮蜥', '刺猬', '玄凤鹦鹉', '虎皮鹦鹉', '牡丹鹦鹉', '米色', '丝绒黑龙猫',
             '金色龙猫', '标准灰龙猫', '苏利羊驼', '华卡约羊驼', '金鱼', '蝴蝶鱼', '孔雀鱼', '牦牛', '水牛', '黄牛', '西伯利亚虎',
             '华南虎', '印度支那虎', '马来亚虎', '垂耳兔', '侏儒兔', '荷兰兔', '海棠兔', '乌梢蛇', '马', '呼伦贝尔羊', '波尔山羊',
             '鬼狒狒', '杏花鸡', '火鸡', '家猪', '野猪', '喜鹊', '乌鸦', '孔雀', '橘猫', '企鹅', '海豹', '海豚', '狮子', '大象', '雪豹',
-            '太古虚龙','九彩吞天蟒','紫金神龙','噬金虫王','皇蝶'}
+            '太古虚龙', '九彩吞天蟒', '紫金神龙', '噬金虫王', '皇蝶', '跳蛛', '白额高脚蛛', '巨蟹蛛', '幽灵蛛', '黑条花皮蛛'}
 
 petstart = on_command('领养宠物', priority=105)
 pethelp = on_fullmatch('宠物帮助', priority=105)
@@ -51,7 +49,7 @@ signstatus = dict()
 @peteat.handle()
 async def _(event: GroupMessageEvent):
     uid = event.get_user_id()
-    async with lock:
+    with petsdb:
         pet: Pets = Pets.get_or_none(Pets.uid == uid)
         if pet:
             if petlive(pet):
@@ -77,7 +75,7 @@ async def _(event: GroupMessageEvent):
 @petdrink.handle()
 async def _(event: GroupMessageEvent):
     uid = event.get_user_id()
-    async with lock:
+    with petsdb:
         pet: Pets = Pets.get_or_none(Pets.uid == uid)
         if pet:
             if petlive(pet):
@@ -103,7 +101,7 @@ async def _(event: GroupMessageEvent):
 @petplay.handle()
 async def _(event: GroupMessageEvent):
     uid = event.get_user_id()
-    async with lock:
+    with petsdb:
         pet: Pets = Pets.get_or_none(Pets.uid == uid)
         if pet:
             if petlive(pet):
@@ -126,7 +124,7 @@ async def _(event: GroupMessageEvent):
 @petstudy.handle()
 async def _(event: GroupMessageEvent):
     uid = event.get_user_id()
-    async with lock:
+    with petsdb:
         pet: Pets = Pets.get_or_none(Pets.uid == uid)
         if pet:
             if petlive(pet):
@@ -151,7 +149,7 @@ async def _(event: GroupMessageEvent):
 @petrevive.handle()
 async def _(event: GroupMessageEvent):
     uid = event.get_user_id()
-    async with lock:
+    with petsdb:
         pet: Pets = Pets.get_or_none(Pets.uid == uid)
         if pet:
             if pet.coins < 50:
@@ -177,7 +175,7 @@ async def _():
 async def _(event: GroupMessageEvent, arg: Message = CommandArg()):
     uid = event.get_user_id()
     name = arg.extract_plain_text().strip()
-    async with lock:
+    with petsdb:
         pet: Pets = Pets.get_or_none(Pets.uid == uid)
         if pet:
             pet.name = name
@@ -190,7 +188,7 @@ async def _(event: GroupMessageEvent, arg: Message = CommandArg()):
 @petstatus.handle()
 async def _(event: GroupMessageEvent):
     uid = event.get_user_id()
-    async with lock:
+    with petsdb:
         pet: Pets = Pets.get_or_none(Pets.uid == uid)
         if pet:
             await petstatus.send("""宠物名字:{}
@@ -208,7 +206,7 @@ async def _(event: GroupMessageEvent):
 @petsign.handle()
 async def _(event: GroupMessageEvent):
     uid = event.get_user_id()
-    async with lock:
+    with petsdb:
         pet: Pets = Pets.get_or_none(Pets.uid == uid)
         if pet:
             if 0 if signstatus.get(uid) == date.today().day else 1 == 0:
@@ -232,7 +230,7 @@ async def _(event: GroupMessageEvent, arg: Message = CommandArg()):
     if not ptype in petstype:
         await petstart.finish('您要领养的宠物较为稀有，我们暂未收录')
     uid = event.get_user_id()
-    async with lock:
+    with petsdb:
         pet: Pets = Pets.get_or_none(Pets.uid == uid)
         if pet:
             await petstart.send(f'你已领养宠物{pet.pet_type}')
@@ -253,7 +251,7 @@ async def _(event: GroupMessageEvent, arg: Message = CommandArg()):
 @petend.handle()
 async def _(event: GroupMessageEvent):
     uid = event.get_user_id()
-    async with lock:
+    with petsdb:
         pet: Pets = Pets.get_or_none(Pets.uid == uid)
         if pet:
             Pets.delete().where(Pets.uid == uid).execute()
@@ -264,7 +262,7 @@ async def _(event: GroupMessageEvent):
 
 @scheduler.scheduled_job("cron", hour='*/1')
 async def while_pet2consume():
-    async with lock:
+    with petsdb:
         Pets.update(hunger=Pets.hunger - 3).where(Pets.hunger >= 0).execute()
         Pets.update(thirst=Pets.thirst - 3).where(Pets.thirst >= 0).execute()
         Pets.update(happiness=Pets.happiness - 1).where(Pets.happiness >= 0).execute()
