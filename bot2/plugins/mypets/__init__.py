@@ -61,26 +61,19 @@ async def _(event: GroupMessageEvent, argcom: Message = CommandArg()):
             pet1: Pets = Pets.get_or_none(Pets.uid == uid1)
             pet2: Pets = Pets.get_or_none(Pets.uid == uid2)
             if pet1 and pet2:
-                if pet1.level > pet2.level:
-                    pet1.coins += 5
-                    pet1.save()
-                    await petpk.send(f'恭喜{pet1.name}赢了,金币+5')
-                elif pet1.level == pet2.level:
-                    diffexp = pet2.exp - pet1.exp
-                    if diffexp < -10:
-                        pet1.coins += 5
-                        pet1.save()
-                        await petpk.send(f'恭喜{pet1.name}赢了,金币+5')
-                    elif diffexp > 10:
-                        pet2.coins += 5
-                        pet2.save()
-                        await petpk.send(f'恭喜{pet2.name}赢了,金币+5')
-                    else:
-                        await petpk.send(f'{pet1.name}和{pet2.name}打成平手,各自休息去了')
-                else:
+                petexp1=pet1.level*100+pet1.exp
+                petexp2=pet2.level*100+pet2.exp
+                if abs(petexp2-petexp1)<=10:
+                    #平局
+                    await petpk.send(f'{pet1.name}和{pet2.name}打成平手,各自休息去了')
+                elif petexp2>petexp1:
                     pet2.coins += 5
                     pet2.save()
                     await petpk.send(f'恭喜{pet2.name}赢了,金币+5')
+                else:
+                    pet1.coins += 5
+                    pet1.save()
+                    await petpk.send(f'恭喜{pet1.name}赢了,金币+5')
             else:
                 await petpk.send('你没有宠物或者对面没有宠物')
 
