@@ -27,11 +27,11 @@ speak_cmd = on_command('发话', priority=100)
 fancmd = on_command('看番', priority=100)
 remind1 = on_keyword({'提醒'}, priority=100, block=False)
 col_n = on_command('黑色', aliases={'红色', '粉色', '紫色', '黄色', '初春', '冬梅', '高级灰', '黄昏', '科技感',
-                                  '马卡龙', '霓虹闪烁', '日出', '盛夏', '糖果缤纷', '晚秋', '夜空', '粉黛', '朝夕', '潮流'}, priority=282)
+                                    '马卡龙', '霓虹闪烁', '日出', '盛夏', '糖果缤纷', '晚秋', '夜空', '粉黛', '朝夕',
+                                    '潮流'}, priority=282)
 color_name = on_fullmatch('昵称颜色', priority=100)
 group_name = on_command('群昵称', priority=100)
 r18 = on_fullmatch(('r18', 'R18'), priority=100, block=False)
-pr18 = on_fullmatch(('pr18', 'PR18', 'Pr18'), priority=100, block=False)
 seci = on_startswith(('涩词', 'seci', '塞词'), priority=100, block=False)
 grouphelp = on_fullmatch('群帮助', priority=100)
 coronakill = on_command('轮盘绝杀', priority=100, block=False)
@@ -72,11 +72,11 @@ async def _(event: GroupMessageEvent, argcom: Message = CommandArg()):
     uid2 = event.get_user_id()
     # u2admin = await is_admin(uid2, event.group_id)
     # if u2admin:
-        # await coronakill.finish('管理员不可主动发起该项，等着被打吧')
+    # await coronakill.finish('管理员不可主动发起该项，等着被打吧')
     # u1admin = await is_admin(uid1, event.group_id)
     # if u1admin:
-        # await coronakill.send('被发起攻击的是管理员，不得不说你的胆子很大')
-        # await asyncio.sleep(0.5)
+    # await coronakill.send('被发起攻击的是管理员，不得不说你的胆子很大')
+    # await asyncio.sleep(0.5)
     uname1 = await get_group_nickname(event.group_id, uid1)
     uname2 = await get_group_nickname(event.group_id, uid2)
     n = random.randint(1, 6)
@@ -199,26 +199,8 @@ async def _(bot: Bot):
     imgurl = requests.get(url='https://moe.anosu.top/r18/', headers=headers, allow_redirects=False).headers[
         'Location']
     time.sleep(0.5)
-    mid = (await pr18.send(Message(f'图片太se发不出来，给你网址自己看吧\n{imgurl}')))['message_id']
+    mid = (await r18.send(Message(f'图片太se发不出来，给你网址自己看吧\n{imgurl}')))['message_id']
     await asyncio.sleep(30)
-    await bot.delete_msg(message_id=mid)
-
-
-@pr18.handle()
-async def _(bot: Bot):
-    flag = False
-    data = await getdata('https://moe.anosu.top/img/?sort=r18&type=json')
-    imgurl = data['pics'][0]
-    time.sleep(0.5)
-    try:
-        mid = (await pr18.send(Message(f'[CQ:image,file={imgurl}]')))['message_id']
-        nmid = (await pr18.send(Message(f'图片原网址,不清晰可转移\n{imgurl}')))['message_id']
-        flag = True
-    except:
-        mid = (await pr18.send(Message(f'图片太se发不出来，给你网址自己看吧\n{imgurl}')))['message_id']
-    await asyncio.sleep(30)
-    if flag:
-        await bot.delete_msg(message_id=nmid)
     await bot.delete_msg(message_id=mid)
 
 
@@ -230,11 +212,11 @@ async def _(bot: Bot, event: GroupMessageEvent):
     resp = await getdata(f'https://image.anosu.top/pixiv/json?{arg}')
     imgurl = resp[0]['url']
     try:
-        mid = (await pr18.send(Message(f'[CQ:image,file={imgurl}]')))['message_id']
-        nmid = (await pr18.send(Message(f'图片原网址,不清晰可转移\n{imgurl}')))['message_id']
+        mid = (await seci.send(Message(f'[CQ:image,file={imgurl}]')))['message_id']
+        nmid = (await seci.send(Message(f'图片原网址,不清晰可转移\n{imgurl}')))['message_id']
         flag = True
     except:
-        mid = (await pr18.send(Message(f'图片太se发不出来，给你网址自己看吧\n{imgurl}')))['message_id']
+        mid = (await seci.send(Message(f'图片太se发不出来，给你网址自己看吧\n{imgurl}')))['message_id']
     await asyncio.sleep(30)
     if flag:
         await bot.delete_msg(message_id=nmid)
